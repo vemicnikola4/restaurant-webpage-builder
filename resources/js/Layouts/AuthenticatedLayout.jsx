@@ -1,18 +1,24 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function AuthenticatedLayout({ header, children }) {
+export default function AuthenticatedLayout({ header, children,locale,setLocale,translate}) {
+    
     const user = usePage().props.auth.user;
-
+    
+    
+    const setLanguage=(value)=>{
+        setLocale(value);
+        localStorage.setItem('locale',value);
+    }
+    
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-gray-100 pb-8">
             <nav className="border-b border-gray-100 bg-white">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
@@ -24,13 +30,19 @@ export default function AuthenticatedLayout({ header, children }) {
                 />
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex ">
                                 <NavLink
                                     href={route('dashboard')}
                                     active={route().current('dashboard')}
                                 >
-                                    Dashboard
+                                    {locale == 'en' ? 'Dashboard' : translate['Dashboard']}
                                 </NavLink>
+                                <div className="flex gap-2 justify-end items-center">
+                                    <div className={"w-8 h-8 hover:cursor-pointer p-5 rounded-md shadow-md flex justify-center items-center  hover:bg-gray-100 hover:text-blue-500 hover:underline " + (locale == 'en' ? "bg-gray-300 text-white  " : null)} onClick={e=>setLanguage('en')}>en</div>
+                                    <div className={"w-8 h-8 hover:cursor-pointer p-5 rounded-md shadow-md flex justify-center items-center  hover:bg-gray-100 hover:text-blue-500 hover:underline " + (locale == 'sr' ? "bg-gray-300 text-white " : null)} onClick={e=>setLanguage('sr')}>sr</div>
+                                </div>
+
+                               
                             </div>
                         </div>
 
@@ -65,14 +77,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                         <Dropdown.Link
                                             href={route('profile.edit')}
                                         >
-                                            Profile
+                                            {locale == 'en' ? 'Profile' : translate['Profile']}
                                         </Dropdown.Link>
                                         <Dropdown.Link
                                             href={route('logout')}
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                            {locale == 'en' ? 'Logout' : translate['Logout']}
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
@@ -172,7 +184,10 @@ export default function AuthenticatedLayout({ header, children }) {
                 </header>
             )}
 
-            <main>{children}</main>
+            <main >
+                
+                {children}    
+            </main>
         </div>
     );
 }
