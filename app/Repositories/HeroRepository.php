@@ -27,6 +27,23 @@ class HeroRepository
         } 
 
     }
+    public function update( array $data) : Hero
+    {
+        try {
+           Hero::where('id',  $data['id'])->update(
+                [ 
+                'title'=>$data['title'],
+                'subtitle'=>$data['subTitle'],
+                'text_box_position'=>$data['textBoxPosition']]);
+      
+                return Hero::where('id', $data['id'])->first();
+            
+        } catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
     public function heroExists( int $pageId) : ?Hero
     {
         try {

@@ -27,9 +27,9 @@ const Index = ({ page }) => {
     
   
     const translate ={
-        'Profile':'Profil',
-        'Logout':'Izlogujte se',
-        'Dashboard' : 'Komandna tabla',
+        "Profile":"Profil",
+        "Logout":"Izlogujte se",
+        "Dashboard" : "Komandna tabla",
         "Copy Img Url" : "Kopirajte Url Slike",
         "Set background" : "Podesite Pozadinu",
         "Enter Title" : "Unesite Naslov",
@@ -456,7 +456,6 @@ const Index = ({ page }) => {
     const handleSubmitHero = (e)=>{
         e.preventDefault();
         router.post('/hero', hero);
-        window.location.reload();
         
     }
     

@@ -14,7 +14,6 @@ class MediaService
     public function create( $request) : Media
     {
        
-            
         if ($request->hasFile('media')) {
             // Get the uploaded file
             $image = $request->file('media');
@@ -34,6 +33,10 @@ class MediaService
     public function getOne(int $id) : Media
     {
         return $this->mediaRepository->getOne($id);
+    }
+    public function getOneWithPath(string $path) : ?Media
+    {
+        return $this->mediaRepository->getOneWithPath($path);
     }
     public function deleteOne(int $id) : void
     {

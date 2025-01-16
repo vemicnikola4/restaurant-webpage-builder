@@ -27,18 +27,27 @@ class PageController extends Controller
     {
         $user =Auth::user();
         $page = $this->pageService->getUsersPage($user->id);
-        dd($page);
     }
     public function dashboard()
     {
         $user =Auth::user();
         $page = $this->pageService->getUsersPage($user->id);
         if ($page ){
-            $hero = $this->heroService->getHeroForPage($page->id);
-            $page['hero'] =$hero;
-            return Inertia::render('WebPage/Index',[
-                  'page'=>$page,
-              ]);
+            $heroExists = $this->heroService->heroExists($page->id);
+
+            if ( $heroExists ){
+                $hero = $this->heroService->getHeroForPage($page->id);
+
+                $page['hero'] =$hero;
+                return Inertia::render('WebPage/Index',[
+                    'page'=>$page,
+                ]);
+            }else{
+                return Inertia::render('WebPage/Index',[
+                    'page'=>$page,
+                ]);
+            }
+            
         }else{
             return Inertia::render('Dashboard');  
         }
@@ -59,7 +68,7 @@ class PageController extends Controller
         $validated = $request->validated();
         $this->pageService->create($validated);
 
-        return Redirect::route('page.index');
+        return Redirect::route('dashboard');
     }
 
     /**

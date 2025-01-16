@@ -35,7 +35,7 @@ export default function AuthenticatedLayout({ header, children,locale,setLocale,
                                     href={route('dashboard')}
                                     active={route().current('dashboard')}
                                 >
-                                    {locale == 'en' ? 'Dashboard' : translate['Dashboard']}
+                                    {locale == 'en' ? 'Dashboard' : translate["Dashboard"]}
                                 </NavLink>
                                 <div className="flex gap-2 justify-end items-center">
                                     <div className={"w-8 h-8 hover:cursor-pointer p-5 rounded-md shadow-md flex justify-center items-center  hover:bg-gray-100 hover:text-blue-500 hover:underline " + (locale == 'en' ? "bg-gray-300 text-white  " : null)} onClick={e=>setLanguage('en')}>en</div>

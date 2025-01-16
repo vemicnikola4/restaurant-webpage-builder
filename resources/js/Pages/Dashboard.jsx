@@ -10,13 +10,16 @@ export default function Dashboard() {
 
     const[locale,setLocale]=useState('sr');
     const translate = {
-        'Create Your Web Page':'Kreirajte Vašu Stranicu',
-        'You logged in!':'Ulogovani ste!',
-        'CREATE':'ZAPOČNI',
-        'Dashboard':'Komandna Tabla',
-        'Type Restaurant Title':'Unesite naziv svog Restorana',
-        'Choose city':'Odaberite opštinu',
-        'Restaurant title':'Naziv restorana'
+        "Profile":"Profil",
+        "Logout":"Izlogujte se",
+        "Dashboard" : "Komandna tabla",
+        "Create Your Web Page":"Kreirajte Vašu Stranicu",
+        "You logged in!":"Ulogovani ste!",
+        "CREATE":"ZAPOČNI",
+        "Dashboard":"Komandna Tabla",
+        "Type Restaurant Title":"Unesite naziv svog Restorana",
+        "Choose city":"Odaberite opštinu",
+        "Restaurant title":"Naziv restorana"
     }
     const cities= ["Ada", "Aleksandrovac", "Aleksinac", "Alibunar", "Apatin", "Aranđelovac", "Arilje", "Babušnica", "Bajina Bašta", "Barajevo", 
 "Batočina", "Bač", "Bačka Palanka", "Bačka Topola", "Bački Petrovac", "Bela Palanka", "Bela Crkva", "Beočin", "Bečej", 
@@ -113,6 +116,7 @@ export default function Dashboard() {
 
             }
             locale={locale}
+            translate={translate}
             setLocale={setLocale}
         >
             
@@ -145,8 +149,8 @@ export default function Dashboard() {
                         <div className=" w-full flex flex-col gap-4">
                             <label className='text-md md:text-xl' htmlFor="vity">{locale == 'en' ? 'Choose city' : translate['Choose city']}</label>
                             <select className="rounded-md w-full" name="city" id="" onChange={e=>setValues({...values,city:e.target.value})}>
-                                {cities.map((city)=>(
-                                    <option value={city}>{city}</option>
+                                {cities.map((city,ind)=>(
+                                    <option key={ind} value={city}>{city}</option>
                                 ))}
                             </select>
                         </div>
@@ -154,9 +158,9 @@ export default function Dashboard() {
                         
                         <div className="py-4 grid grid-cols-3 md:grid-cols-6 gap-1 md:gap-2 w-full">
                         {locale == 'en' ? 
-                          tagsEn.map((restaurant)=>(<Tag title={restaurant} onTagClicked={onTagClicked}/>))
+                          tagsEn.map((restaurant,ind)=>(<Tag key={ind} title={restaurant} onTagClicked={onTagClicked}/>))
                         : 
-                         tagsSr.map((restaurant)=>(<Tag title={restaurant} onTagClicked={onTagClicked}/>))
+                         tagsSr.map((restaurant,ind)=>(<Tag key={ind} title={restaurant} onTagClicked={onTagClicked}/>))
                         }
                        
                         </div>
