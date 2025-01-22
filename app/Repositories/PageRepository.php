@@ -25,6 +25,25 @@ class PageRepository{
         } 
 
     }
+    public function update( array $data) : void
+    {
+        try {
+           Page::where('user_id',  $data['user_id'])->update(
+            [
+                'title'=>$data['title'],
+                'city'=>$data['city'],
+                'theme'=>$data['theme'],
+                'font_family'=>$data['font_family'],
+                'tags'=>$data['tags'],
+            ]);
+      
+            
+        } catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
     public function getOneWithUserId(int $userId) : ?Page
     {
         try {

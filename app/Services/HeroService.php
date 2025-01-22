@@ -33,13 +33,13 @@ class HeroService
         }
         $this->heroRepository->create($data);
     }
-    public function update(array $data) : Hero
+    public function update(array $data) 
     {
         $heroExists = $this->heroRepository->heroExists($data['page_id']);
         if ( $heroExists ){
             $data['id'] = $heroExists->id;
 
-            return $this->heroRepository->update($data);
+             $this->heroRepository->update($data);
 
         }
     }
@@ -66,7 +66,7 @@ class HeroService
             $path = substr($request['media'],$ind);
             if (!Storage::disk('public')->exists($path)){
                 $mediaValidated = $request->validate([
-                    'media' => 'required|image|mimes:jpg,jpeg,png,gif',
+                    'media' => 'required|image|mimes:jpg,jpeg,png,gif,webp',
                 ],[
                     'media.required' => 'The media field is required.',
                     'media.image'=> 'The title field must be an image.',
@@ -98,7 +98,6 @@ class HeroService
     
                
             ]);
-            $heroValidated['media_id'] = $media->id;
     
             $this->update($heroValidated);
     
@@ -107,7 +106,7 @@ class HeroService
             }
         }else{
             $mediaValidated = $request->validate([
-                'media' => 'required|image|mimes:jpg,jpeg,png,gif',
+                'media' => 'required|image|mimes:jpg,jpeg,png,gif,webp',
             ],[
                 'media.required' => 'The media field is required.',
                 'media.image'=> 'The title field must be an image.',
@@ -139,7 +138,6 @@ class HeroService
                
             ]);
             $heroValidated['media_id'] = $media->id;
-    
             $this->create($heroValidated);
     
            

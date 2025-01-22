@@ -10,6 +10,7 @@ class HeroRepository
     ){}
     public function create( array $data) : Hero
     {
+        
         try {
         return Hero::create([
             'title'=>$data['title'],
@@ -27,7 +28,7 @@ class HeroRepository
         } 
 
     }
-    public function update( array $data) : Hero
+    public function update( array $data) 
     {
         try {
            Hero::where('id',  $data['id'])->update(

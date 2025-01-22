@@ -11,7 +11,7 @@ class Hero extends Model
         'subtitle',
         'text_box_position',
         'media_id',
-        'page_id',
+        'page_id'
         
     ];
 }

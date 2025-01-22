@@ -19,7 +19,23 @@ export default function Dashboard() {
         "Dashboard":"Komandna Tabla",
         "Type Restaurant Title":"Unesite naziv svog Restorana",
         "Choose city":"Odaberite opštinu",
-        "Restaurant title":"Naziv restorana"
+        "Restaurant title":"Naziv restorana",
+        'Food truck':"Kombi restoran",
+        'Pub': "Pab",
+        'Bakery':"Pekara",
+        'Pizza':"Pica",
+        'Deli':"Deli",
+        'Fine Dining':"Luksizni",
+        'Buffet':"Švecki sto",
+        'Bar':"Bar",
+        'Bar and Brewery':"Bar i proizvodjna",
+        'Fast food':"Brza hrana",
+        'Cafeteria':"Kafeterija",
+        'BBQ':"Roštilj",
+        'Giros':"Giros",
+        'BreakFast':"Doručak",
+        'Lunch':"Ručak",'Dinner':"Večera", 'Dine in':"Sedenje", 
+        'Drive through':"Auto-restoran",'Drinks':"Piće",'Kebab':"Kebab",'Indian':"Indijski",'Fish':"Riba",'Pasta':"Pasta",'Italian':"Intalijanski",'International':"Internacionalni",'Mexican':"Meksički",'Tai':"Tajlandski",'Chinese':"Kineski",'Japanese':"Japanski",'French':"Francuski",'French Fries':"Pomfrit",'Burgers':"Burgeri",'Chicken':"Piletina",'Traditional cousine':"Tradicionalna",'Snack Bar':"Snek bar"
     }
     const cities= ["Ada", "Aleksandrovac", "Aleksinac", "Alibunar", "Apatin", "Aranđelovac", "Arilje", "Babušnica", "Bajina Bašta", "Barajevo", 
 "Batočina", "Bač", "Bačka Palanka", "Bačka Topola", "Bački Petrovac", "Bela Palanka", "Bela Crkva", "Beočin", "Bečej", 
@@ -95,8 +111,9 @@ export default function Dashboard() {
         }
     }
     useEffect(()=>{
-        setValues({...values,tags:selectedTags });
+        setValues({...values,tags:selectedTags});
     },[selectedTags]);
+
     useEffect(()=>{
         console.log(values);
     },[values]);
@@ -158,9 +175,9 @@ export default function Dashboard() {
                         
                         <div className="py-4 grid grid-cols-3 md:grid-cols-6 gap-1 md:gap-2 w-full">
                         {locale == 'en' ? 
-                          tagsEn.map((restaurant,ind)=>(<Tag key={ind} title={restaurant} onTagClicked={onTagClicked}/>))
+                          tagsEn.map((restaurant,ind)=>(<Tag key={ind} value={restaurant} title={restaurant} onTagClicked={onTagClicked}/>))
                         : 
-                         tagsSr.map((restaurant,ind)=>(<Tag key={ind} title={restaurant} onTagClicked={onTagClicked}/>))
+                         tagsEn.map((restaurant,ind)=>(<Tag key={ind} value={restaurant} title={translate[restaurant]} onTagClicked={onTagClicked}/>))
                         }
                        
                         </div>

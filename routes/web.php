@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\HeroController;
+use App\Http\Controllers\AboutUsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -42,6 +43,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/page',[PageController::class,'store'])->name('page.store');
     Route::post('/hero',[HeroController::class,'store'])->name('hero.store');
+    Route::post('/contactInfo',[ContactInfoController::class,'store'])->name('contactInfo.store');
+    Route::post('/aboutUs',[AboutUsController::class,'store'])->name('aboutUs.store');
 });
 
 require __DIR__.'/auth.php';

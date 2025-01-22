@@ -4,79 +4,15 @@ import theme from "tailwindcss/defaultTheme";
 
 const Hero = ({ textAligment, textBoxPosition, themes, hero, setHero, setHeroTitle, pageValues, setPageValues, translate, locale,handleSubmitHero,bgErrors }) => {
     const [themeInUse, setThemeInUse] = useState(themes.heroSection[pageValues.theme]);
-    const setTheme = (value) => {
-        if (value) {
-            setThemeInUse(themes.heroSection[value]);
-            setPageValues({ ...pageValues, theme: value });
-        }
-
-
-    }
+    useEffect(()=>{
+        setThemeInUse(themes.heroSection[pageValues.theme]);
+    },[pageValues]);
     return (
-        <div className={" flex flex-col relative w-full justify-center " + textBoxPosition.heroSection[hero.textBoxPosition].parent} >
-            <img src={hero.media}alt="" className="w-full h-full object-cover bg-center absolute bottom-0 opacity-90" />
+        <div className={" flex flex-col h-screen relative w-full justify-center " + textBoxPosition.heroSection[hero.textBoxPosition].parent} >
+            <img src={hero.media} alt="" className="w-full h-full object-cover bg-center absolute bottom-0 opacity-90" />
 
             <div className="absolute top-16 mt-6 right-5 flex gap-2 ">
-                {
-                    locale == 'en' ?
-                        <select id="selectThemeInput" className={"w-full p-2 rounded-md " + themeInUse.selectThemeInput}
-                            name="chooseTheme" onChange={e => setTheme(e.target.value)}>
-
-
-                            <option value="">choose theme</option>
-                            <option value="light">light</option>
-                            <option value="dark">dark</option>
-                            <option value="blue">blue</option>
-                            <option value="red">red</option>
-                            <option value="purple">purple</option>
-                            <option value="yellow">yellow</option>
-                            <option value="green">green</option>
-                        </select>
-
-                        :
-                        <select id="selectThemeInput" className={"w-full p-2 rounded-md " + themeInUse.selectThemeInput}
-                            name="chooseTheme" onChange={e => setTheme(e.target.value)}>
-
-                            <option value="">izaberite temu</option>
-                            <option value="light">svetla</option>
-                            <option value="dark">tamna</option>
-                            <option value="blue">plava</option>
-                            <option value="red">crvena</option>
-                            <option value="purple">ljubičasta</option>
-                            <option value="yellow">žuta</option>
-                            <option value="green">zelena</option>
-
-                        </select>
-
-                }
-
-                {
-                    locale == 'en' ?
-                        <select id="selectFontInput" className={'w-full p-2 rounded-md ' + themeInUse.selectThemeInput}
-                            name="chooseTheme" onChange={e => setPageValues({ ...pageValues, font_family: e.target.value })} >
-
-
-                            <option value="">choose font</option>
-                            <option value="font-sans">sans</option>
-                            <option value="font-serif">serif</option>
-                            <option value="font-mono">mono</option>
-                        </select>
-
-                        :
-                        <select id="selectFontInput" className={'w-full p-2 rounded-md ' + themeInUse.selectThemeInput}
-                            name="chooseTheme" onChange={e => setPageValues({ ...pageValues, font_family: e.target.value })} >
-
-
-                            <option value="">izaberite font</option>
-                            <option value="font-sans">sans</option>
-                            <option value="font-serif">serif</option>
-                            <option value="font-mono">mono</option>
-                        </select>
-
-
-                }
-
-
+               
             </div>
             
             <div id="setBgDiv" className={"z-10 shadow-sm hover:shadow-lg flex flex-col gap-4 py-6 p-4 mb-4 rounded-lg  " + themeInUse.setBgDiv.main + " " + textBoxPosition.heroSection[hero.textBoxPosition].setBgDiv.main} >
