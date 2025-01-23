@@ -41,44 +41,46 @@ class PageController extends Controller
         if ( $page ){
 
             $heroExists = $this->heroService->heroExists($page->id);
-            $contatExists = $this->contactService->contactExists($page->id);
-            $aboutUsExists = $this->aboutUsService->aboutUsExists($page->id);
-            if ( $heroExists ){
+            if ( $heroExists){
                 $hero = $this->heroService->getHeroForPage($page->id);
                 $page['hero'] =$hero;
-                if($contatExists){
-                    $page['contactInfo'] = $contatExists;
-                    $page['contactInfo']['menuPosition'] = $page['contactInfo']['menu_position'];
-                    unset($page['contactInfo']['menu_position']);
-                    $page['contactInfo']['onlineOrders'] = $page['contactInfo']['online_orders'];
-                    unset($page['contactInfo']['online_orders']);
-                    
-                    
-                }else{
-                    $page['contactInfo'] = null;
-
-                }
-                if($aboutUsExists){
-                    $aboutUs = $this->aboutUsService->getAboutUsForPage($page->id);
-                    
-                    $page['aboutUs'] = $aboutUs;
-                    $page['aboutUs']['textAligment'] = $page['aboutUs']['text_aligment'];
-                    unset($page['aboutUs']['text_aligment']);
-                    
-                    
-                    
-                }else{
-                    $page['aboutUs'] = null;
-
-                }
-                return Inertia::render('WebPage/Index',[
-                    'page'=>$page,
-                ]);
             }else{
+                $page['hero']=null;
+            }
+
+            $contatExists = $this->contactService->contactExists($page->id);
+            if ($contatExists){
+                $page['contactInfo'] = $contatExists;
+                $page['contactInfo']['menuPosition'] = $page['contactInfo']['menu_position'];
+                unset($page['contactInfo']['menu_position']);
+                $page['contactInfo']['onlineOrders'] = $page['contactInfo']['online_orders'];
+                unset($page['contactInfo']['online_orders']);
+                
+            }else{
+                $page['contactInfo'] = null;
+
+            }
+
+            $aboutUsExists = $this->aboutUsService->aboutUsExists($page->id);
+            if($aboutUsExists){
+                $aboutUs = $this->aboutUsService->getAboutUsForPage($page->id);
+                
+                $page['aboutUs'] = $aboutUs;
+                $page['aboutUs']['textAligment'] = $page['aboutUs']['text_aligment'];
+                unset($page['aboutUs']['text_aligment']);
+                
+                
+                
+            }else{
+                $page['aboutUs'] = null;
+
+            }
+                
+                
+                
                 return Inertia::render('WebPage/Index',[
                     'page'=>$page,
                 ]);
-            }
             
         }else{
             return Inertia::render('Dashboard');  

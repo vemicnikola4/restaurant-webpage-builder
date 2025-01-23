@@ -10,8 +10,11 @@ class Hero extends Model
         'title',
         'subtitle',
         'text_box_position',
-        'media_id',
         'page_id'
         
     ];
+    public function media()
+    {
+        return $this->hasOne(HeroMedia::class);
+    }
 }

@@ -484,7 +484,7 @@ const Index = ({ page }) => {
             subTitle: page.hero.subtitle,
             textBoxPosition: page.hero.text_box_position,
             media: page.hero.image,
-            page_id: Number(page.hero.page_id),
+            pageId: Number(page.hero.page_id),
         };
     } else {
         heroInitial = {
@@ -492,7 +492,7 @@ const Index = ({ page }) => {
             subTitle: '',
             textBoxPosition: 'center',
             media: '',
-            page_id: Number(page.id)
+            pageId: Number(page.id)
         };
     }
     const [hero, setHero] = useState(heroInitial);
