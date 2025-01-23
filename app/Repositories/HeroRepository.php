@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 use App\Models\Hero;
+use App\Models\HeroMedia;
 
 class HeroRepository
 {
@@ -8,18 +9,22 @@ class HeroRepository
     public function __construct(
         protected Hero $model
     ){}
-    public function create( array $data) : Hero
+    public function create( array $data) : void
     {
         
         try {
-        return Hero::create([
+            $hero = Hero::create([
             'title'=>$data['title'],
             'subtitle'=>$data['subTitle'],
             'text_box_position'=>$data['textBoxPosition'],
-            'media_id'=>$data['media_id'],
-            'page_id'=>$data['page_id'],
-        ]);
-       
+            'page_id'=>$data['pageId'],
+            ]);
+            $hero->media()->create([
+                'path'=>$data['media']['image_path'],
+                'extention'=>$data['media']['extention'],
+                'alt'=>$data['media']['alt'],
+            ]);
+            
             
             
         } catch (\Exception $e) {
@@ -28,16 +33,47 @@ class HeroRepository
         } 
 
     }
-    public function update( array $data) 
+    public function update( object $model,array $newHero) : void
     {
         try {
-           Hero::where('id',  $data['id'])->update(
-                [ 
-                'title'=>$data['title'],
-                'subtitle'=>$data['subTitle'],
-                'text_box_position'=>$data['textBoxPosition']]);
-      
-                return Hero::where('id', $data['id'])->first();
+            $hero = Hero::find($model->id);
+                $hero->update(
+                [
+                    'title'=>$newHero['title'],
+                    'subtitle'=>$newHero['subTitle'],
+                    'text_box_position'=>$newHero['textBoxPosition'],
+                    'page_id'=>$newHero['pageId'],
+                ]);
+                // HeroMedia::create([
+                //     'path'=>$newHero['media']['image_path'],
+                //     'extention'=>$newHero['media']['extention'],
+                //     'alt'=>$newHero['media']['alt'],
+                //     'hero_id'=>$model->id,
+                // ]);
+                $hero->media()->create([
+                'path'=>$newHero['media']['image_path'],
+                'extention'=>$newHero['media']['extention'],
+                'alt'=>$newHero['media']['alt'],
+                ]);
+            
+        } catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
+    public function updateWithoutMedia( object $model,array $newHero) : void
+    {
+        try {
+
+            $model->update(
+                [
+                    'title'=>$newHero['title'],
+                    'subtitle'=>$newHero['subTitle'],
+                    'text_box_position'=>$newHero['textBoxPosition'],
+                    'page_id'=>$newHero['pageId'],
+                ]);
+                
             
         } catch (\Exception $e) {
             // Handle any other exceptions
@@ -61,8 +97,10 @@ class HeroRepository
     public function getHeroForPage( int $pageId) : ?Hero
     {
         try {
-        return Hero::where('page_id',$pageId)->first();
-       
+            
+            $hero = Hero::where('page_id',$pageId)->first();
+            $hero['media'] = $hero->media;
+            return $hero;
             
             
         } catch (\Exception $e) {
@@ -70,6 +108,33 @@ class HeroRepository
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
         } 
 
+    }
+    public function get( int $id) : Hero
+    {
+        try {
+            $hero = Hero::find($id);
+            $hero['media']= $hero->media;
+            return $hero;
+           
+                
+                
+            } catch (\Exception $e) {
+                // Handle any other exceptions
+                throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+            } 
+
+    }
+    public function deleteImage(object $model) : void
+    {
+        try {
+            $model->media->delete();
+           
+                
+                
+            } catch (\Exception $e) {
+                // Handle any other exceptions
+                throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+            } 
     }
 
 }

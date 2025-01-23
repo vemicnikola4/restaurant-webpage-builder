@@ -43,9 +43,9 @@ class HeroController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,)
+    public function store(Request $request,StoreHeroRequest $heroRequest)
     {
-        $this->heroService->validateHero($request);
+        $this->heroService->validateHero($request,$heroRequest);
         return Redirect::route('dashboard');
         
         

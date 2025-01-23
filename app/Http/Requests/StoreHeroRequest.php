@@ -22,9 +22,28 @@ class StoreHeroRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>'string|required',
-            'subtitle'=>'string|required',
-            'text_box_position'=>'string|required|in:center,left,right',
+            'title'=>'string|required|min:2',
+            'subTitle'=>'string|required|min:2',
+            'textBoxPosition'=>'string|required|in:center,left,right',
+            'pageId'=>'required|exists:pages,id',
+        ];
+      
+    }
+    public function messages(){
+        return   [
+            'title.required' => 'The title field is required.',
+            'title.string'=> 'The title field must be a string.',
+            'title.min'=> 'The title field must be at least 2 characters.',
+            'subTitle.required' => 'The subtitle field is required.',
+            'subTitle.string'=> 'The subtitle field must be a string.',
+            'subTitle.min'=> 'The subtitle field must be at least 2 characters.',
+            'textBoxPosition.string'=>'Field required. Values allowed:center,left,right.',
+            'textBoxPosition.required'=>'Field required. Values allowed:center,left,right.',
+            'textBoxPosition.in'=>'Field required. Values allowed:center,left,right.',
+            'page_id|required'=>'Ups something went wrong. Try again.',
+            'page_id|exists'=>'Ups something went wrong. Try again.',
+
+           
         ];
     }
 }
