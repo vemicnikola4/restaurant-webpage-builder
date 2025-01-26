@@ -5,6 +5,8 @@ import { Children, createContext, useEffect, useState } from "react";
 import { router, usePage } from '@inertiajs/react';
 import PageSetings from "@/Components/PageSetings";
 import AboutUs from "@/Components/AboutUs";
+import { v4 as uuidv4 } from "uuid";
+import Menu from "@/Components/Menu";
 
 
 const Index = ({ page }) => {
@@ -67,12 +69,20 @@ const Index = ({ page }) => {
         'The contact facebook link field format is invalid.':"Facebook link nije u validnom formatu",
         'The contact online order link field format is invalid.':"Link za online poručivanje nije u validnom formatu",
         'The contact website link field format is invalid': "Website link nije u validnom formatu" ,
+        'The description field is required.':"Polje opis je obavezno!",
+        'The description feald must be a string.':"Polje opis mora biti sastavljen od slova!",
+        'The description feald must be at least 2 characters.':"Polje opis mora imati najmanje 2 karaktera",
+        'The price feald is required.':'Polje cena je obavezno',
+        'The price feald must be a number.':"Polje cena mora biti broj",
+        'The price feald must be a number minimum 1.':'Vrednost polja cena mora biti najmanje 1',
+        'Section must have at least one item.':'Sekcija mora imati bar jedan proizvod'
+
     }
     const textBoxPosition = {
         headerMenu: {
             center: 'justify-center',
             left: 'justify-start ps-10',
-            right: 'justify-end pe-10 ',
+            right: 'justify-end md:pe-10 ',
         },
         heroSection: {
             center: {
@@ -87,9 +97,9 @@ const Index = ({ page }) => {
             },
             left: {
                 parent: "items-start",
-                titleSubTitleDiv: 'items-start ms-12 ',
+                titleSubTitleDiv: 'items-start md:ms-12 ',
                 setBgDiv: {
-                    main: 'items-start ms-12 ',
+                    main: 'items-start md:ms-12 ',
                     subDiv: 'items-start ',
                 },
                 titleInput: 'text-start ps-4 ',
@@ -97,9 +107,9 @@ const Index = ({ page }) => {
             },
             right: {
                 parent: "items-end",
-                titleSubTitleDiv: 'items-end me-12 ',
+                titleSubTitleDiv: 'items-end md:me-12 ',
                 setBgDiv: {
-                    main: 'items-end me-12 ',
+                    main: 'items-end md:me-12 ',
                     subDiv: 'items-end ',
                 },
                 titleInput: 'text-end pe-4 ',
@@ -548,6 +558,37 @@ const Index = ({ page }) => {
         }
     }
     const [aboutUs,setAboutUs]= useState(aboutUsInitial);
+
+    let menuSectionsInitial = [];
+    if ( page.menuSections ){
+        page.menuSections.map((section)=>(
+            menuSectionsInitial.push({
+                id:section.id,
+                title:section.title,
+                items:section.items,
+                pageId:pageValues.id,
+
+            })
+        ))
+    }else{
+        menuSectionsInitial.push({
+            id: uuidv4(),
+            title: '',
+            items: [
+                {
+                    id: uuidv4(),
+                    media: '',
+                    itemTitle: '',
+                    itemDescription: '',
+                    itemPrice: 0
+                }
+            ],
+            pageId:pageValues.id,
+        
+        });
+    }
+    const [menuSections, setMenuSections] = useState(menuSectionsInitial);
+
     const setHeroTitle = (value) => {
         // setPageValues({ ...pageValues, title: value });
         setHero({ ...hero, title: value });
@@ -578,6 +619,11 @@ const Index = ({ page }) => {
         
 
     }
+    const handleMenuSubmit = (e)=>{
+        e.preventDefault();
+        router.post('/menu', {menu:menuSections});
+
+    }
     const [pageSetingsShow, setPageSetingsShow] = useState('hidden');
 
     const togglePageSetingsShow = () => {
@@ -598,11 +644,10 @@ const Index = ({ page }) => {
     useEffect(()=>{
         setPageValues({...pageValues,contactInfo:contactInfo});
     },[contactInfo]);
+   useEffect(()=>{
+    console.log(menuSections);
+   },[menuSections]);
    
-   
-    useEffect(()=>{
-        console.log(aboutUs);
-    },[aboutUs]);
     
     return (
         <AuthenticatedLayout
@@ -621,7 +666,7 @@ const Index = ({ page }) => {
             setLocale={setLocale}
             translate={translate}
         >
-            <div className={"flex  justify-center h-fit relative " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
+            <div className={"flex justify-center h-fit relative " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
 
                 <div className="z-30 absolute top-0 left-1 md:hidden pt-2 ">
                     {
@@ -649,7 +694,7 @@ const Index = ({ page }) => {
                 <HeaderMenu themes={themes} textBoxPosition={textBoxPosition} contactInfo={contactInfo} setContactInfo={setContactInfo} pageValues={pageValues} setPageValues={setPageValues} />
                 <Hero textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
                 <AboutUs themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit}/>
-
+                <Menu themes={themes} menuSections={menuSections} setMenuSections={setMenuSections} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale}/>
                 </div>
                
             </div>

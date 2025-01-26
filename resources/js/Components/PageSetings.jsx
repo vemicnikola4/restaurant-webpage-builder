@@ -94,7 +94,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
     
     return (
-        <div className={"flex w-full  h-fit relative" + themes.main[pageValues.theme]}>
+        <div className={"flex w-full  h-full relative" + themes.main[pageValues.theme]}>
             <div className="md:hidden py-2 px-3 flex justify-center items-center absolute left-4 top-2 text-2xl bg-gray-200 rounded-md hover:bg-red-600 hover:cursor-pointer font-extrabold text-black" onClick={e => togglePageSetingsShow()}>
                 x
             </div>
