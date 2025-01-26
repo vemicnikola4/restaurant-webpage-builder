@@ -9,6 +9,7 @@ use App\Services\PageService;
 use App\Services\HeroService;
 use App\Services\ContactService;
 use App\Services\AboutUsService;
+use App\Services\MenuSectionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -20,12 +21,13 @@ class PageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function __construct(PageService $pageService, HeroService $heroService, ContactService $contactService,AboutUsService $aboutUsService)
+    public function __construct(PageService $pageService, HeroService $heroService, ContactService $contactService,AboutUsService $aboutUsService,MenuSectionService $menuSectionService)
     {
         $this->pageService = $pageService;
         $this->heroService = $heroService;
         $this->contactService = $contactService;
         $this->aboutUsService = $aboutUsService;
+        $this->menuSectionService = $menuSectionService;
        
     }
     public function index()
@@ -76,8 +78,14 @@ class PageController extends Controller
 
             }
                 
-                
-                
+            $menusectionsExists = $this->menuSectionService->menuSectionsExists($page->id);    
+            if ( $menusectionsExists ){
+                $menuSections = $this->menuSectionService->getMenuSectionsForPage($page->id);
+                $page['menuSections']=$menuSections;
+            }else{
+                $page['menuSections'] = null;
+
+            } 
                 return Inertia::render('WebPage/Index',[
                     'page'=>$page,
                 ]);
