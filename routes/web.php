@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\HeroController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\MenuSectionController;
 use Illuminate\Foundation\Application;
@@ -47,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/contactInfo',[ContactInfoController::class,'store'])->name('contactInfo.store');
     Route::post('/aboutUs',[AboutUsController::class,'store'])->name('aboutUs.store');
     Route::post('/menu',[MenuSectionController::class,'store'])->name('menu.store');
+    Route::post('/location',[LocationController::class,'store'])->name('location.store');
 });
 
 require __DIR__.'/auth.php';
