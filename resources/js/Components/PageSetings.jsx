@@ -73,26 +73,26 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
         instagram: false,
         website: false,
     })
-    useEffect(()=>{
-        if ( fealdDisabled.onlineOrder == true ){
-            setContactInfo({...contactInfo,onlineOrder:null});
+    useEffect(() => {
+        if (fealdDisabled.onlineOrder == true) {
+            setContactInfo({ ...contactInfo, onlineOrder: null });
         }
-        if ( fealdDisabled.website == true ){
-            setContactInfo({...contactInfo,website:null});
+        if (fealdDisabled.website == true) {
+            setContactInfo({ ...contactInfo, website: null });
         }
-        if ( fealdDisabled.instagram == true ){
-            setContactInfo({...contactInfo,instagram:null});
+        if (fealdDisabled.instagram == true) {
+            setContactInfo({ ...contactInfo, instagram: null });
         }
-        if ( fealdDisabled.facebook == true ){
-            setContactInfo({...contactInfo,facebook:null});
+        if (fealdDisabled.facebook == true) {
+            setContactInfo({ ...contactInfo, facebook: null });
         }
-        if ( fealdDisabled.phone == true ){
-            setContactInfo({...contactInfo,phone:null});
+        if (fealdDisabled.phone == true) {
+            setContactInfo({ ...contactInfo, phone: null });
         }
-    },[fealdDisabled]);
-   
+    }, [fealdDisabled]);
 
-    
+
+
     return (
         <div className={"flex w-full  h-full relative" + themes.main[pageValues.theme]}>
             <div className="md:hidden py-2 px-3 flex justify-center items-center absolute left-4 top-2 text-2xl bg-gray-200 rounded-md hover:bg-red-600 hover:cursor-pointer font-extrabold text-black" onClick={e => togglePageSetingsShow()}>
@@ -100,8 +100,9 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
             </div>
             <div className="w-full flex flex-col gap-4 px-2 pt-3">
                 <div className="pt-4 text-md md:text-2xl">
-                    <h1>{locale == 'en' ? 'Page Setings' : translate['Page Setings']}s</h1>
+                    <h1>{locale == 'en' ? 'Page Settings' : translate['Page Settings']}</h1>
                 </div>
+
                 <div className="w-full flex flex-col gap-4">
                     <label className="w-full" htmlFor="">{locale == 'en' ? 'Page Title' : translate['Page Title']}</label>
                     <input type="text" value={pageValues.title} onChange={e => setPageValues({ ...pageValues, title: e.target.value })} className={"w-full px-2  rounded-md " + themeInUse.input} />
@@ -183,7 +184,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                             <img className="flex  rounded-md" src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612&w=0&k=20&c=W_b90qFRpj_FyLyI19xWqB6EoNSuJYwMSN9nnKkE9Hk=" alt="" />
                         </div>
 
-                        <input type="text"  onChange={e => setContactInfo({ ...contactInfo, onlineOrder: e.target.value })} className={"w-full   rounded-md " + themeInUse.input} placeholder={locale == 'en' ? "Paste online order link" : translate["Paste online order link"]} disabled={fealdDisabled.onlineOrder} />
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, onlineOrder: e.target.value })} className={"w-full   rounded-md " + themeInUse.input} placeholder={locale == 'en' ? "Paste online order link" : translate["Paste online order link"]} disabled={fealdDisabled.onlineOrder} />
                         {
                             fealdDisabled.onlineOrder ?
                                 <div onClick={e => setFealdDisabled({ ...fealdDisabled, onlineOrder: !fealdDisabled.onlineOrder })} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
@@ -203,12 +204,37 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                             locale == 'en' ? bgErrors['contactInfo.onlineOrder'] : translate[bgErrors['contactInfo.onlineOrder']]
                         }</div>
                     }
+                    <div className={"flex w-full h-10 px-2 " + (fealdDisabled.location ? " opacity-20 " : "")}>
+                        <div className="flex basis-1/4 ">
+                            <img className="flex  rounded-md" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Google_Maps_icon_%282015-2020%29.svg/2048px-Google_Maps_icon_%282015-2020%29.svg.png" alt="" />
+                        </div>
+
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, location: e.target.value })} className={"w-full   rounded-md " + themeInUse.input} placeholder={locale == 'en' ? "Paste maps location link" : translate["Paste maps location link"]} disabled={fealdDisabled.location} />
+                        {
+                            fealdDisabled.location ?
+                                <div onClick={e => setFealdDisabled({ ...fealdDisabled, location: !fealdDisabled.location })} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
+                                    +
+                                </div>
+                                :
+                                <div onClick={e => setFealdDisabled({ ...fealdDisabled, location: !fealdDisabled.location })} className="px-2 bg-red-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-red-600">
+                                    x
+                                </div>
+                        }
+
+                    </div>
+                    {
+                        bgErrors['contactInfo.onlineOrder'] &&
+                        bgErrors['contactInfo.onlineOrder'] &&
+                        <div className="text-red-500 ps-2">{
+                            locale == 'en' ? bgErrors['contactInfo.onlineOrder'] : translate[bgErrors['contactInfo.onlineOrder']]
+                        }</div>
+                    }
                     <div className={"flex w-full h-10 px-2 " + (fealdDisabled.website ? " opacity-20 " : "")}>
                         <div className="flex basis-1/4 ">
                             <img className="flex  rounded-md" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWDSis8YTAJOlHswnE8KHbEoW5Q3lwZSSMrA&s" alt="" />
                         </div>
 
-                        <input type="text"  onChange={e => setContactInfo({ ...contactInfo, website: e.target.value })} className={"w-full  rounded-md relative " + themeInUse.input} placeholder={locale == 'en' ? "Paste website link" : translate["Paste website link"]} disabled={fealdDisabled.website} />
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, website: e.target.value })} className={"w-full  rounded-md relative " + themeInUse.input} placeholder={locale == 'en' ? "Paste website link" : translate["Paste website link"]} disabled={fealdDisabled.website} />
                         {
                             fealdDisabled.website ?
                                 <div onClick={e => setFealdDisabled({ ...fealdDisabled, website: !fealdDisabled.website })} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
@@ -234,7 +260,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                         </div>
 
                         <input type="text" value={contactInfo.phone} onChange={e => setContactInfo({ ...contactInfo, phone: e.target.value })} className={"w-full   rounded-md " + themeInUse.input} placeholder={locale == 'en' ? "Paste phone number" : translate["Paste phone number"]} />
-                        <div onClick={e => setFealdDisabled({ ...fealdDisabled, facebook: !fealdDisabled.facebook })} className="px-2 bg-gray-400 flex justify-center items-center rounded-md ms-1 ">
+                        <div className="px-2 bg-gray-400 flex justify-center items-center rounded-md ms-1 ">
                             x
                         </div>
 
@@ -252,7 +278,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                             <img className="flex  rounded-md" src="https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-instagram-icon-png-image_6315974.png" alt="" />
                         </div>
 
-                        <input type="text"  onChange={e => setContactInfo({ ...contactInfo, instagram: e.target.value })} className={"w-full  rounded-md " + themeInUse.input} placeholder={locale == 'en' ? "Paste instagram link" : translate["Paste instagram link"]} disabled={fealdDisabled.instagram} />
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, instagram: e.target.value })} className={"w-full  rounded-md " + themeInUse.input} placeholder={locale == 'en' ? "Paste instagram link" : translate["Paste instagram link"]} disabled={fealdDisabled.instagram} />
                         {
                             fealdDisabled.instagram ?
                                 <div onClick={e => setFealdDisabled({ ...fealdDisabled, instagram: !fealdDisabled.instagram })} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
@@ -306,9 +332,9 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                     }
 
                 </div>
-                <div className="w-full px-2">
-                    <div className="w-full py-4">
-                        <p className="p-4 bg-blue-500 rounded-md hover:cursor-pointer" onClick={e => toggleSeeTags()}>{locale == 'en' ? "See restaurant tags" : translate["See restaurant tags"]}</p>
+                <div className="w-full p-2">
+                    <div className="py-4 px-4 w-full bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => toggleSeeTags()}>
+                       {locale == 'en' ? "See restaurant tags" : translate["See restaurant tags"]}
                     </div>
                     <div className={"w-full " + (seeTags ? "flex flex-col gap-4 " : "hidden")}>
                         <label className="w-full" htmlFor="">Chosen tags:</label>
@@ -334,9 +360,20 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
 
                 </div>
-                <div className="py-4 px-4 w-2/3 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => handlePageSetingsSubmit(e)}>
+                <div className="md:flex gap-2">
+                    <div className="py-4 md:basis-1/2 px-4 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => handlePageSetingsSubmit(e)}>
 
-                    {locale == 'en' ? 'UPDATE SETINGS' : translate['UPDATE SETINGS']}
+                        {locale == 'en' ? 'UPDATE SETINGS' : translate['UPDATE SETINGS']}
+                    </div>
+                    <div className="py-4 px-4 md:basis-1/2 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100">
+
+                        {locale == 'en' ? 'SEE PAGE' : translate['SEE PAGE']}
+                    </div>
+                </div>
+
+                <div className="py-4 px-4 w-2/3 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" >
+
+                    {locale == 'en' ? 'POST PAGE ONLINE' : translate['POST PAGE ONLINE']}
                 </div>
             </div>
 

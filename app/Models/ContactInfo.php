@@ -13,6 +13,7 @@ class ContactInfo extends Model
         'facebook',
         'phone',
         'menu_position',
+        'location',
         'page_id',
         
     ];

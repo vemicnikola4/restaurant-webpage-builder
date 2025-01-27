@@ -1,12 +1,13 @@
 import HeaderMenu from "@/Components/HeaderMenu";
 import Hero from "@/Components/Hero";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Children, createContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { router, usePage } from '@inertiajs/react';
 import PageSetings from "@/Components/PageSetings";
 import AboutUs from "@/Components/AboutUs";
 import { v4 as uuidv4 } from "uuid";
 import Menu from "@/Components/Menu";
+import Footer from "@/Components/Footer";
 
 
 const Index = ({ page }) => {
@@ -16,7 +17,7 @@ const Index = ({ page }) => {
 
 
     const translate = {
-        "Page Setings": "Podešavanje stranice",
+        "Page Settings": "Podešavanje stranice",
         "Page Title": "Naslov stranice",
         "Contact Info": "Kontakt podatci",
         "UPDATE SETINGS": "IZMENITE",
@@ -27,11 +28,11 @@ const Index = ({ page }) => {
         "Set background": "Podesite Pozadinu",
         "Enter Title": "Unesite Naslov",
         "Enter Subtitle": "Unesite Podaslov",
-        "Paste online order link":"Nalepite link za online kupovinu",
-        "Paste phone number":"Nalepite broj telefona",
-        "Paste facebook link":"Nalepite facebook link",
-        "Paste instagram link":"Nalepite instagram link",
-        "Paste website link":"Nalepite link ka vasem sajtu",
+        "Paste online order link": "Nalepite link za online kupovinu",
+        "Paste phone number": "Nalepite broj telefona",
+        "Paste facebook link": "Nalepite facebook link",
+        "Paste instagram link": "Nalepite instagram link",
+        "Paste website link": "Nalepite link ka vasem sajtu",
         "SAVE": "SAČUVAJ",
         "Upload background image": "Učitajte pozadinsku sliku",
         "The title field is required.": "Naslov je obavezan!",
@@ -63,19 +64,28 @@ const Index = ({ page }) => {
         'BreakFast': "Doručak",
         'Lunch': "Ručak", 'Dinner': "Večera", 'Dine in': "Sedenje",
         'Drive through': "Auto-restoran", 'Drinks': "Piće", 'Kebab': "Kebab", 'Indian': "Indijski", 'Fish': "Riba", 'Pasta': "Pasta", 'Italian': "Intalijanski", 'International': "Internacionalni", 'Mexican': "Meksički", 'Tai': "Tajlandski", 'Chinese': "Kineski", 'Japanese': "Japanski", 'French': "Francuski", 'French Fries': "Pomfrit", 'Burgers': "Burgeri", 'Chicken': "Piletina", 'Traditional cousine': "Tradicionalna", 'Snack Bar': "Snek bar",
-        'The contact phone field format is invalid.':"Kontakt telefon nije u validnom formatu",
-        'The contact phone field format is required.':"Kontakt telefon polje je obavezno.",
-        'The contact instagram link field format is invalid.':"Instagram link nije u validnom formatu",
-        'The contact facebook link field format is invalid.':"Facebook link nije u validnom formatu",
-        'The contact online order link field format is invalid.':"Link za online poručivanje nije u validnom formatu",
-        'The contact website link field format is invalid': "Website link nije u validnom formatu" ,
-        'The description field is required.':"Polje opis je obavezno!",
-        'The description feald must be a string.':"Polje opis mora biti sastavljen od slova!",
-        'The description feald must be at least 2 characters.':"Polje opis mora imati najmanje 2 karaktera",
-        'The price feald is required.':'Polje cena je obavezno',
-        'The price feald must be a number.':"Polje cena mora biti broj",
-        'The price feald must be a number minimum 1.':'Vrednost polja cena mora biti najmanje 1',
-        'Section must have at least one item.':'Sekcija mora imati bar jedan proizvod'
+        'The contact phone field format is invalid.': "Kontakt telefon nije u validnom formatu",
+        'The contact phone field format is required.': "Kontakt telefon polje je obavezno.",
+        'The contact instagram link field format is invalid.': "Instagram link nije u validnom formatu",
+        'The contact facebook link field format is invalid.': "Facebook link nije u validnom formatu",
+        'The contact online order link field format is invalid.': "Link za online poručivanje nije u validnom formatu",
+        'The contact website link field format is invalid': "Website link nije u validnom formatu",
+        'The description field is required.': "Polje opis je obavezno!",
+        'The description feald must be a string.': "Polje opis mora biti sastavljen od slova!",
+        'The description feald must be at least 2 characters.': "Polje opis mora imati najmanje 2 karaktera",
+        'The price feald is required.': 'Polje cena je obavezno',
+        'The price feald must be a number.': "Polje cena mora biti broj",
+        'The price feald must be a number minimum 1.': 'Vrednost polja cena mora biti najmanje 1',
+        'Section must have at least one item.': 'Sekcija mora imati bar jedan proizvod',
+        'set map link instruction': "Na google maps pronadjte svoju lokaciju. Kliknite na share dugme. Izaberite opciju embed a map. Onda kliknite na copy html opciju. I kopirajte u polje.",
+        'Something went wrong page not found': 'Nepostojeća stranica',
+        "Paste maps location link":'Nalepite link ka va google mapama',
+        'All copyrights reserved':'Sva prava rezervisana',
+        'POST PAGE ONLINE':'POSTAVITE STRANICU ONLINE',
+        'SEE PAGE' :'VIDITE STRANICU',
+        'Add menu section':'Dodajte sekciju',
+        'Add section button':"Klikom na ovo dugme dodaćete sekciju vašem meniju. Na primer: predjela, glavno jelo itd.",
+        'Add item button':"Klikom na ovo dugme dodaćete proizvod vašoj sekciji."
 
     }
     const textBoxPosition = {
@@ -258,7 +268,7 @@ const Index = ({ page }) => {
             dark: {
                 main: 'bg-gray-700 text-white',
                 textBox: 'bg-gray-700 text-white ',
-                 input: 'bg-gray-700  border-b-1 text-white',
+                input: 'bg-gray-700  border-b-1 text-white',
 
 
 
@@ -512,65 +522,66 @@ const Index = ({ page }) => {
     if (page.contactInfo) {
         contactInitial = {
             phone: page.contactInfo.phone,
-                instagram: page.contactInfo.instagram,
-                facebook: page.contactInfo.facebook,
-                onlineOrders: page.contactInfo.onlineOrders,
-                website: page.contactInfo.website,
-                menuPosition:page.contactInfo.menuPosition,
-                pageId:pageValues.id,
-            
+            instagram: page.contactInfo.instagram,
+            facebook: page.contactInfo.facebook,
+            onlineOrders: page.contactInfo.onlineOrders,
+            website: page.contactInfo.website,
+            menuPosition: page.contactInfo.menuPosition,
+            location: page.contactInfo.location,
+            pageId: pageValues.id,
+
         };
     } else {
         contactInitial = {
-            
-                phone: null,
-                instagram: null,
-                facebook: null,
-                onlineOrders: null,
-                website: null,
-                menuPosition:'center',
-                pageId:pageValues.id,
 
-            
+            phone: null,
+            instagram: null,
+            facebook: null,
+            onlineOrders: null,
+            website: null,
+            menuPosition: 'center',
+            pageId: pageValues.id,
+
+
         };
     }
     const [contactInfo, setContactInfo] = useState(contactInitial);
 
     //aboutUs
     let aboutUsInitial;
-    if ( page.aboutUs ){
+    if (page.aboutUs) {
         aboutUsInitial = {
             title: page.aboutUs.title,
             description: page.aboutUs.description,
             textAligment: page.aboutUs.textAligment,
             media: page.aboutUs.imagePath,
-            hasImage:page.aboutUs.hasImage,
+            hasImage: page.aboutUs.hasImage,
             pageId: pageValues.id,
         }
-    }else{
+    } else {
         aboutUsInitial = {
             title: "Set About Us Title",
             description: "Set sectionn desription",
             textAligment: 'center',
             media: null,
-            hasImage:page.aboutUs.hasImage,
-            pageId:pageValues.id,
+            hasImage: page.aboutUs.hasImage,
+            pageId: pageValues.id,
         }
     }
-    const [aboutUs,setAboutUs]= useState(aboutUsInitial);
+    const [aboutUs, setAboutUs] = useState(aboutUsInitial);
 
     let menuSectionsInitial = [];
-    if ( page.menuSections ){
-        page.menuSections.map((section)=>(
+    if (page.menuSections) {
+        page.menuSections.map((section) => (
             menuSectionsInitial.push({
-                id:section.id,
-                title:section.title,
-                items:section.items,
-                pageId:pageValues.id,
+                id: section.id,
+                title: section.title,
+                items: section.items,
+                pageId: pageValues.id,
 
             })
         ))
-    }else{
+    } else {
         menuSectionsInitial.push({
             id: uuidv4(),
             title: '',
@@ -583,11 +594,14 @@ const Index = ({ page }) => {
                     itemPrice: 0
                 }
             ],
-            pageId:pageValues.id,
-        
+            pageId: pageValues.id,
+
         });
     }
     const [menuSections, setMenuSections] = useState(menuSectionsInitial);
+    const [location, setLocation] = useState(pageValues.mapData);
+
+    console.log(location);
 
     const setHeroTitle = (value) => {
         // setPageValues({ ...pageValues, title: value });
@@ -602,7 +616,6 @@ const Index = ({ page }) => {
     }
     const handlePageSetingsSubmit = (e) => {
         if (pageValues.title && pageValues.city && pageValues.tags) {
-            console.log(pageValues);
             router.post('/page', pageValues);
 
         } else {
@@ -612,16 +625,17 @@ const Index = ({ page }) => {
 
     }
     const handleAboutUsSubmit = (e) => {
-        
-        console.log(aboutUs);
-            router.post('/aboutUs', aboutUs);
 
-        
+        console.log(aboutUs);
+        router.post('/aboutUs', aboutUs);
+
+
 
     }
-    const handleMenuSubmit = (e)=>{
+    const handleMenuSubmit = (e) => {
         e.preventDefault();
-        router.post('/menu', {menu:menuSections});
+        router.post('/menu', { menu: menuSections });
+        window.location.reload();
 
     }
     const [pageSetingsShow, setPageSetingsShow] = useState('hidden');
@@ -633,6 +647,7 @@ const Index = ({ page }) => {
             setPageSetingsShow('hidden');
         }
     }
+   
     useEffect(() => {
         if (localStorage.getItem('locale')) {
             setLocale(localStorage.getItem('locale'));
@@ -640,15 +655,14 @@ const Index = ({ page }) => {
             setLocale('sr');
 
         }
+
     }, []);
-    useEffect(()=>{
-        setPageValues({...pageValues,contactInfo:contactInfo});
-    },[contactInfo]);
-   useEffect(()=>{
-    console.log(menuSections);
-   },[menuSections]);
-   
-    
+    useEffect(() => {
+        setPageValues({ ...pageValues, contactInfo: contactInfo });
+    }, [contactInfo]);
+    console.log(pageValues);
+
+
     return (
         <AuthenticatedLayout
             header={
@@ -688,15 +702,17 @@ const Index = ({ page }) => {
                 </div>
 
                 <div className={"z-10 h-fit pb-5 absolute top-0 bottom-0 left-0 right-5 md:flex  basis-1/4 md:relative z-40 pt-10  " + themes.main[pageValues.theme] + " " + pageSetingsShow}>
-                    <PageSetings pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors}/>
+                    <PageSetings pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
                 </div>
                 <div className="md:flex md:flex-col md:basis-3/4 relative ">
-                <HeaderMenu themes={themes} textBoxPosition={textBoxPosition} contactInfo={contactInfo} setContactInfo={setContactInfo} pageValues={pageValues} setPageValues={setPageValues} />
-                <Hero textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
-                <AboutUs themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit}/>
-                <Menu themes={themes} menuSections={menuSections} setMenuSections={setMenuSections} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale}/>
+                    <HeaderMenu themes={themes} textBoxPosition={textBoxPosition} contactInfo={contactInfo} setContactInfo={setContactInfo} pageValues={pageValues} setPageValues={setPageValues} translate={translate} locale={locale}/>
+                    <Hero textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
+                    <AboutUs themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit} />
+                    <Menu themes={themes} menuSections={menuSections} setMenuSections={setMenuSections} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
+                    <Footer themes={themes} contactInfo={contactInfo} pageValues={pageValues} translate={translate} locale={locale} />
+
                 </div>
-               
+
             </div>
         </AuthenticatedLayout>
 

@@ -19,6 +19,7 @@ class ContactRepository
             'online_orders'=>$data['onlineOrders'],
             'phone'=>$data['phone'],
             'menu_position'=>$data['menuPosition'],
+            'location'=>$data['location'],
             'page_id'=>$data['pageId'],
         ]);
        
@@ -41,6 +42,7 @@ class ContactRepository
             'online_orders'=>$data['onlineOrders'],
             'phone'=>$data['phone'],
             'menu_position'=>$data['menuPosition'],
+            'location'=>$data['location'],
             'page_id'=>$data['pageId'],
             ]);
       

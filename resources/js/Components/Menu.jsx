@@ -85,9 +85,10 @@ const Menu = ({themes,menuSections,setMenuSections,pageValues,handleMenuSubmit,b
             </div>
             <div className="md:ps-6 py-4 relative flex justify-center md:block">
                 <div className="w-64 py-2 px-4  rounded-sm bg-blue-500 hover:cursor-pointer flex justify-center items-centertext-center group " onClick={addMenuSection} >
-                    Add menu section
-                    <div className=" absolute left-0 ms-12 mt-2 opacity-0 scale-95 md:group-hover:opacity-100 group-hover:scale-100 transition-opacity transition-transform duration-300 bg-gray-200 p-4 rounded-md">
-                        By clicking this button you'll add a section to your menu. Main course, appetizers, dessert etc.
+                    {locale == 'en' ? 'Add menu section' : translate['Add menu section']}
+                    <div className=" absolute left-0 ms-12 mt-2 opacity-0 scale-95 md:group-hover:opacity-100 group-hover:scale-100 transition-opacity transition-transform duration-300 bg-gray-200 p-4 rounded-md text-black z-10 ">
+                    {locale == 'en' ? 'By clicking this button you will add a section to your menu. Main course, appetizers, dessert etc.' : translate['Add section button']}
+                        
                     </div>
                 </div>
 
