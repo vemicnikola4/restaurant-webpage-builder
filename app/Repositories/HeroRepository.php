@@ -15,7 +15,7 @@ class HeroRepository
         try {
             $hero = Hero::create([
             'title'=>$data['title'],
-            'subtitle'=>$data['subTitle'],
+            'subtitle'=>$data['subtitle'],
             'text_box_position'=>$data['textBoxPosition'],
             'page_id'=>$data['pageId'],
             ]);
@@ -40,7 +40,7 @@ class HeroRepository
                 $hero->update(
                 [
                     'title'=>$newHero['title'],
-                    'subtitle'=>$newHero['subTitle'],
+                    'subtitle'=>$newHero['subtitle'],
                     'text_box_position'=>$newHero['textBoxPosition'],
                     'page_id'=>$newHero['pageId'],
                 ]);
@@ -69,7 +69,7 @@ class HeroRepository
             $model->update(
                 [
                     'title'=>$newHero['title'],
-                    'subtitle'=>$newHero['subTitle'],
+                    'subtitle'=>$newHero['subtitle'],
                     'text_box_position'=>$newHero['textBoxPosition'],
                     'page_id'=>$newHero['pageId'],
                 ]);

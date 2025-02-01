@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import HeaderMenu from "./HeaderMenu";
 import theme from "tailwindcss/defaultTheme";
 
-const Hero = ({ textAligment, textBoxPosition, themes, hero, setHero, setHeroTitle, pageValues, setPageValues, translate, locale,handleSubmitHero,bgErrors }) => {
+const Hero = ({  textBoxPosition, themes, hero, setHero, setHeroTitle, pageValues, setPageValues, translate, locale,handleSubmitHero,bgErrors }) => {
     const [themeInUse, setThemeInUse] = useState(themes.heroSection[pageValues.theme]);
     useEffect(()=>{
         setThemeInUse(themes.heroSection[pageValues.theme]);
@@ -47,7 +47,7 @@ const Hero = ({ textAligment, textBoxPosition, themes, hero, setHero, setHeroTit
                         }
                     </p>
                 <p className={" w-full " + textBoxPosition.heroSection[hero.textBoxPosition].titleInput}  >
-                    <textarea className={"text-lg md:text-2xl font-light rounded-lg p-2  " + themeInUse.titleSubTitleDiv.textArea + " " + textBoxPosition.heroSection[hero.textBoxPosition].textArea} type="text" placeholder={locale == 'en' ? "Enter Subtitle" : "Unesite Podaslov"} onChange={e => setHero({ ...hero, subTitle: e.target.value })} value={hero.subTitle}/>
+                    <textarea className={"text-lg md:text-2xl font-light rounded-lg p-2  " + themeInUse.titleSubTitleDiv.textArea + " " + textBoxPosition.heroSection[hero.textBoxPosition].textArea} type="text" placeholder={locale == 'en' ? "Enter Subtitle" : "Unesite Podaslov"} onChange={e => setHero({ ...hero, subtitle: e.target.value })} value={hero.subtitle}/>
                 </p>
                 <p className="text-red-500">
                 {

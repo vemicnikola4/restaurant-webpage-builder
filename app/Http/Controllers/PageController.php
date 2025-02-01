@@ -8,7 +8,6 @@ use App\Http\Requests\StoreContactInfoRequest;
 use App\Services\PageService;
 use App\Services\HeroService;
 use App\Services\ContactService;
-use App\Services\LocationService;
 use App\Services\AboutUsService;
 use App\Services\MenuSectionService;
 use Illuminate\Http\Request;
@@ -22,14 +21,13 @@ class PageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function __construct(PageService $pageService, HeroService $heroService, ContactService $contactService,AboutUsService $aboutUsService,MenuSectionService $menuSectionService,LocationService $locationService)
+    public function __construct(PageService $pageService, HeroService $heroService, ContactService $contactService,AboutUsService $aboutUsService,MenuSectionService $menuSectionService)
     {
         $this->pageService = $pageService;
         $this->heroService = $heroService;
         $this->contactService = $contactService;
         $this->aboutUsService = $aboutUsService;
         $this->menuSectionService = $menuSectionService;
-        $this->locationService = $locationService;
        
     }
     public function index()
@@ -54,11 +52,13 @@ class PageController extends Controller
 
             $contatExists = $this->contactService->contactExists($page->id);
             if ($contatExists){
-                $page['contactInfo'] = $contatExists;
-                $page['contactInfo']['menuPosition'] = $page['contactInfo']['menu_position'];
-                unset($page['contactInfo']['menu_position']);
-                $page['contactInfo']['onlineOrders'] = $page['contactInfo']['online_orders'];
-                unset($page['contactInfo']['online_orders']);
+
+                $contactInfo = $this->contactService->getContactForPage($page->id);
+                $page['contactInfo'] = $contactInfo;
+                // $page['contactInfo']['menuPosition'] = $page['contactInfo']['menu_position'];
+                // unset($page['contactInfo']['menu_position']);
+                // $page['contactInfo']['onlineOrders'] = $page['contactInfo']['online_orders'];
+                // unset($page['contactInfo']['online_orders']);
                 
             }else{
                 $page['contactInfo'] = null;
@@ -68,10 +68,9 @@ class PageController extends Controller
             $aboutUsExists = $this->aboutUsService->aboutUsExists($page->id);
             if($aboutUsExists){
                 $aboutUs = $this->aboutUsService->getAboutUsForPage($page->id);
-                
                 $page['aboutUs'] = $aboutUs;
-                $page['aboutUs']['textAligment'] = $page['aboutUs']['text_aligment'];
-                unset($page['aboutUs']['text_aligment']);
+                // $page['aboutUs']['textAligment'] = $page['aboutUs']['text_aligment'];
+                // unset($page['aboutUs']['text_aligment']);
                 
                 
                 
@@ -88,14 +87,7 @@ class PageController extends Controller
                 $page['menuSections'] = null;
 
             } 
-            $locationExists = $this->locationService->locationExists($page->id);
-            if ( $locationExists ){
-                $location = $this->locationService->getLocationForPage($page->id);
-                $page['mapData']=$location;
-            }else{
-                $page['mapData']=null;
-
-            }
+            
                 return Inertia::render('WebPage/Index',[
                     'page'=>$page,
                 ]);
