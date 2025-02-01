@@ -5,6 +5,7 @@
 namespace App\Services;
 use App\Repositories\HeroRepository;
 use App\Models\Hero;
+use App\Http\Resources\HeroResource;
 use App\Services\MediaService;
 use Illuminate\Support\Facades\Storage;
 
@@ -43,12 +44,12 @@ class HeroService
 
         }
     }
-    public function getHeroForPage(int $pageId) : Hero
+    public function getHeroForPage(int $pageId) : HeroResource
     {
         $hero =  $this->heroRepository->getHeroForPage($pageId);
-        $media = $hero['media'];
-        $hero['image'] = asset('storage/'.$media->path);
-        return $hero;
+        // $media = $hero['media'];
+        // $hero['image'] = asset('storage/'.$media->path);
+        return new HeroResource($hero);
     }
     public function heroExists(int $pageId) : ?Hero
     {

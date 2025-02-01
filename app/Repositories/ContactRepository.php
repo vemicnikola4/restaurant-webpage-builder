@@ -67,17 +67,17 @@ class ContactRepository
         } 
 
     }
-    // public function getOne(int $id) : Media 
-    // {
+    public function getContactForPage(int $pageId) : ContactInfo 
+    {
         
-    //     try {
-    //         return Media::find($id);
+        try {
+            return ContactInfo::where('page_id',$pageId)->first();
+
             
-    //     } catch (\Exception $e) {
-    //         // Handle any other exceptions
-    //         throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
-    //     } 
-    // }
+        } catch (\Exception $e) {
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+    }
     // public function deleteOne(int $id) : void 
     // {
         

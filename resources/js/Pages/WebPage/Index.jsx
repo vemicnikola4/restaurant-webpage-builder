@@ -38,7 +38,7 @@ const Index = ({ page }) => {
         "The title field is required.": "Naslov je obavezan!",
         "The title field must be a string.": "Naslov mora biti sastavljen od slova!",
         "The title field must be at least 2 characters.": "Naslov mora imati najmanje 2 slova!",
-        "The subtitle field is required.": "Pod Naslov je obavezan!",
+        "The subtitle field is required.": "Podnaslov je obavezan!",
         "The subtitle field must be a string.": "Podnaslov mora biti sastavljen od slova!",
         "The subtitle field must be at least 2 characters.": "Podnaslov mora imati najmanje 2 slova!",
         "The media field is required.": "Molim učitajte sliku!",
@@ -499,13 +499,14 @@ const Index = ({ page }) => {
 
     let heroInitial;
     if (page.hero) {
-        heroInitial = {
-            title: page.hero.title,
-            subTitle: page.hero.subtitle,
-            textBoxPosition: page.hero.text_box_position,
-            media: page.hero.image,
-            pageId: Number(page.hero.page_id),
-        };
+        // heroInitial = {
+        //     title: page.hero.title,
+        //     subTitle: page.hero.subtitle,
+        //     textBoxPosition: page.hero.text_box_position,
+        //     media: page.hero.image,
+        //     pageId: Number(page.hero.page_id),
+        // };
+        heroInitial = page.hero.data;
     } else {
         heroInitial = {
             title: pageValues.title,
@@ -516,21 +517,21 @@ const Index = ({ page }) => {
         };
     }
     const [hero, setHero] = useState(heroInitial);
-
     //contactInfo
     let contactInitial;
     if (page.contactInfo) {
-        contactInitial = {
-            phone: page.contactInfo.phone,
-            instagram: page.contactInfo.instagram,
-            facebook: page.contactInfo.facebook,
-            onlineOrders: page.contactInfo.onlineOrders,
-            website: page.contactInfo.website,
-            menuPosition: page.contactInfo.menuPosition,
-            location: page.contactInfo.location,
-            pageId: pageValues.id,
+        // contactInitial = {
+        //     phone: page.contactInfo.phone,
+        //     instagram: page.contactInfo.instagram,
+        //     facebook: page.contactInfo.facebook,
+        //     onlineOrders: page.contactInfo.onlineOrders,
+        //     website: page.contactInfo.website,
+        //     menuPosition: page.contactInfo.menuPosition,
+        //     location: page.contactInfo.location,
+        //     pageId: pageValues.id,
 
-        };
+        // };
+        contactInitial = page.contactInfo.data;
     } else {
         contactInitial = {
 
@@ -550,14 +551,14 @@ const Index = ({ page }) => {
     //aboutUs
     let aboutUsInitial;
     if (page.aboutUs) {
-        aboutUsInitial = {
-            title: page.aboutUs.title,
-            description: page.aboutUs.description,
-            textAligment: page.aboutUs.textAligment,
-            media: page.aboutUs.imagePath,
-            hasImage: page.aboutUs.hasImage,
-            pageId: pageValues.id,
-        }
+       aboutUsInitial = {
+           title: page.aboutUs.data.title,
+           description: page.aboutUs.data.description,
+           textAligment: page.aboutUs.data.textAligment,
+           media: page.aboutUs.data.imagePath,
+           hasImage: page.aboutUs.data.hasImage,
+           pageId: page.aboutUs.data.pageId,
+       }
     } else {
         aboutUsInitial = {
             title: "Set About Us Title",
@@ -569,6 +570,8 @@ const Index = ({ page }) => {
         }
     }
     const [aboutUs, setAboutUs] = useState(aboutUsInitial);
+    console.log(page.aboutUs.data.imagePath);
+    console.log(pageValues);
 
     let menuSectionsInitial = [];
     if (page.menuSections) {
@@ -635,7 +638,6 @@ const Index = ({ page }) => {
     const handleMenuSubmit = (e) => {
         e.preventDefault();
         router.post('/menu', { menu: menuSections });
-        window.location.reload();
 
     }
     const [pageSetingsShow, setPageSetingsShow] = useState('hidden');
@@ -660,8 +662,8 @@ const Index = ({ page }) => {
     useEffect(() => {
         setPageValues({ ...pageValues, contactInfo: contactInfo });
     }, [contactInfo]);
-    console.log(pageValues);
 
+   
 
     return (
         <AuthenticatedLayout

@@ -4,6 +4,7 @@ use App\Repositories\AboutUsRepository;
 use App\Models\AboutUs;
 use App\Services\MediaService;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\AboutUsResource;
 
 
 
@@ -120,21 +121,25 @@ class AboutUsService
       }
     }
         
-    public function getAboutUsForPage(int $pageId) : AboutUs
+    public function getAboutUsForPage(int $pageId) : AboutUsResource
     {
         $aboutUs =  $this->aboutUsRepository->getAboutUsForPage($pageId);
         if ( $aboutUs->media ){
-            $image = $aboutUs->media->path;
-            $aboutUs['imagePath'] = asset('storage/'.$image);
-            $aboutUs['hasImage']=true;
+            return new AboutUsResource($aboutUs);
+            // $image = $aboutUs->media->path;
+            // $resource['imagePath'] = asset('storage/'.$image);
+            // $resource['hasImage']=true;
+            //  $resource;
 
-            return $aboutUs;
 
         }else{
-            $aboutUs['imagePath']=null;
-            $aboutUs['hasImage']=false;
+            return new AboutUsResource($aboutUs);
+
+
+            // $resource['imagePath']=null;
+            // $resource['hasImage']=false;
             
-            return $aboutUs;
+            // return $resource;
         }
 
     }

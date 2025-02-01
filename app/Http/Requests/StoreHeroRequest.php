@@ -23,7 +23,7 @@ class StoreHeroRequest extends FormRequest
     {
         return [
             'title'=>'string|required|min:2',
-            'subTitle'=>'string|required|min:2',
+            'subtitle'=>'string|required|min:2',
             'textBoxPosition'=>'string|required|in:center,left,right',
             'pageId'=>'required|exists:pages,id',
         ];

@@ -23,7 +23,7 @@ const AboutUs = ({aboutUs,setAboutUs,pageValues,themes,textAligment,handleAboutU
         if ( hasImage == false){
             setAboutUs({...aboutUs,media:null,hasImage:hasImage});
         }else{
-            setAboutUs({...aboutUs,media:pageValues.aboutUs.imagePath,hasImage:hasImage});
+            setAboutUs({...aboutUs,media:pageValues.aboutUs.data.imagePath,hasImage:hasImage});
 
         }
     },[hasImage]);
