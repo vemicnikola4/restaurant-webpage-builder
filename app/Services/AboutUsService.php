@@ -2,7 +2,6 @@
 namespace App\Services;
 use App\Repositories\AboutUsRepository;
 use App\Models\AboutUs;
-use App\Services\MediaService;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\AboutUsResource;
 
@@ -10,10 +9,9 @@ use App\Http\Resources\AboutUsResource;
 
 class AboutUsService
 {
-    public function __construct(AboutUsRepository $aboutUsRepository,MediaService $mediaService)
+    public function __construct(AboutUsRepository $aboutUsRepository, )
     {
         $this->aboutUsRepository = $aboutUsRepository;
-        $this->mediaService = $mediaService;
 
     }
 
