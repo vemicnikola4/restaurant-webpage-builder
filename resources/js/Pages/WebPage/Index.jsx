@@ -8,6 +8,7 @@ import AboutUs from "@/Components/AboutUs";
 import { v4 as uuidv4 } from "uuid";
 import Menu from "@/Components/Menu";
 import Footer from "@/Components/Footer";
+import MapProvider from "@/Components/MapProvider";
 
 
 const Index = ({ page }) => {
@@ -546,9 +547,15 @@ const Index = ({ page }) => {
 
         };
     }
+    let location;
     const [contactInfo, setContactInfo] = useState(contactInitial);
-
-    //aboutUs
+    if (  contactInitial.location !== null ){
+        location=  contactInitial.location;
+    }else{
+        location = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+    }
+    
+    console.log(contactInfo);
     let aboutUsInitial;
     if (page.aboutUs) {
        aboutUsInitial = {
@@ -602,7 +609,6 @@ const Index = ({ page }) => {
         });
     }
     const [menuSections, setMenuSections] = useState(menuSectionsInitial);
-    const [location, setLocation] = useState(pageValues.mapData);
 
     console.log(location);
 
@@ -711,7 +717,8 @@ const Index = ({ page }) => {
                     <Hero textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
                     <AboutUs themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit} />
                     <Menu themes={themes} menuSections={menuSections} setMenuSections={setMenuSections} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
-                    <Footer themes={themes} contactInfo={contactInfo} pageValues={pageValues} translate={translate} locale={locale} />
+                    <MapProvider pageValues={pageValues} themes={themes} translate={translate} locale={locale} location={location}/>
+                    <Footer themes={themes} contactInfo={contactInfo} pageValues={pageValues} translate={translate} locale={locale} location={location} />
 
                 </div>
 

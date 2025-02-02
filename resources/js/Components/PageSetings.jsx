@@ -204,7 +204,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                             locale == 'en' ? bgErrors['contactInfo.onlineOrder'] : translate[bgErrors['contactInfo.onlineOrder']]
                         }</div>
                     }
-                    <div className={"flex w-full h-10 px-2 " + (fealdDisabled.location ? " opacity-20 " : "")}>
+                    <div className={"flex w-full h-10 px-2 relative group " + (fealdDisabled.location ? " opacity-20 " : "")}>
                         <div className="flex basis-1/4 ">
                             <img className="flex  rounded-md" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Google_Maps_icon_%282015-2020%29.svg/2048px-Google_Maps_icon_%282015-2020%29.svg.png" alt="" />
                         </div>
@@ -221,6 +221,16 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                                 </div>
                         }
 
+                    {
+                        locale == 'en' ?
+                            <div className="z-10 absolute top-10 left-0 ms-12 mt-2 opacity-0 scale-95 md:group-hover:opacity-100 group-hover:scale-100 transition-opacity transition-transform duration-300 bg-gray-200 p-4 rounded-md text-black">
+
+                                Go to google maps. Find your location. Click on share button, then choose option embed a map. Click copy html and paste it in the feald. Easy peasy !</div>
+                            :
+                            <div className="z-10 absolute top-10 left-0 ms-12 mt-2 opacity-0 scale-95 md:group-hover:opacity-100 group-hover:scale-100 transition-opacity transition-transform duration-300 bg-gray-200 p-4 rounded-md text-black">
+                                {translate['set map link instruction']}
+                            </div>
+                    }
                     </div>
                     {
                         bgErrors['contactInfo.onlineOrder'] &&
@@ -337,7 +347,6 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                        {locale == 'en' ? "See restaurant tags" : translate["See restaurant tags"]}
                     </div>
                     <div className={"w-full " + (seeTags ? "flex flex-col gap-4 " : "hidden")}>
-                        <label className="w-full" htmlFor="">Chosen tags:</label>
                         <div className="py-4 grid grid-cols-3  gap-1 md:gap-4 w-full">
                             {locale == 'en' ?
 

@@ -6,16 +6,14 @@ namespace App\Services;
 use App\Repositories\HeroRepository;
 use App\Models\Hero;
 use App\Http\Resources\HeroResource;
-use App\Services\MediaService;
 use Illuminate\Support\Facades\Storage;
 
 
 class HeroService
 {
-    public function __construct(HeroRepository $heroRepository,MediaService $mediaService)
+    public function __construct(HeroRepository $heroRepository,)
         {
             $this->heroRepository = $heroRepository;
-            $this->mediaService = $mediaService;
         }
 
     public function create(array $data) : void

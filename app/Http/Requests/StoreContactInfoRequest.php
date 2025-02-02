@@ -26,7 +26,7 @@ class StoreContactInfoRequest extends FormRequest
             'contactInfo.onlineOrders'=>'nullable|url',
             'contactInfo.instagram'=>'nullable|url',
             'contactInfo.facebook'=>'nullable|url',
-            'contactInfo.location'=>'nullable|url',
+            'contactInfo.location'=>'nullable|string',
             'contactInfo.phone'=>['required', 'regex:/^\+?[0-9]{1,4}?[-. ]?(\([0-9]{1,3}\))?[-. ]?[0-9]{1,4}[-. ]?[0-9]{1,4}[-. ]?[0-9]{1,9}$/'],
             'contactInfo.menuPosition'=>'required|string|in:center,left,right',
             'contactInfo.pageId'=>'required|exists:pages,id',
