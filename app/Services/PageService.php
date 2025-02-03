@@ -46,8 +46,15 @@ class PageService
         $page->tags = $tags;
         return $page;
     }
-    public function hasHero(int $pageId){
-        
+    public function postPage(int $pageId) :void
+    {
+        $page = $this->pageRepository->getOne($pageId);
+        if( $page->publish == 1 ){
+            $this->pageRepository->updatePublished($pageId,0);
+        }else{
+            $this->pageRepository->updatePublished($pageId,1);
+
+        }
     }
     
 }

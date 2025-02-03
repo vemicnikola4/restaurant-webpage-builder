@@ -54,5 +54,26 @@ class PageRepository{
         } 
 
     }
+    public function getOne(int $pageId) : Page
+    {
+        try {
+            return Page::find($pageId);
+        }catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
+    public function updatePublished(int $pageId,$value) : void
+    {
+        try {
+            $page = Page::find($pageId);
+            $page->update(['publish' => $value]);
+        }catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
 
 }
