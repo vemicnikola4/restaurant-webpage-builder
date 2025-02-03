@@ -121,7 +121,65 @@ class PageController extends Controller
      */
     public function show(Page $page)
     {
-        //
+        $user =Auth::user();
+        if ( $user ){
+            $page = $this->pageService->getUsersPage($user->id);
+
+            if ( $page ){
+    
+                $heroExists = $this->heroService->heroExists($page->id);
+                if ( $heroExists){
+                    $hero = $this->heroService->getHeroForPage($page->id);
+                    $page['hero'] =$hero;
+                }else{
+                    $page['hero']=null;
+                }
+    
+                $contatExists = $this->contactService->contactExists($page->id);
+                if ($contatExists){
+    
+                    $contactInfo = $this->contactService->getContactForPage($page->id);
+                    $page['contactInfo'] = $contactInfo;
+                    // $page['contactInfo']['menuPosition'] = $page['contactInfo']['menu_position'];
+                    // unset($page['contactInfo']['menu_position']);
+                    // $page['contactInfo']['onlineOrders'] = $page['contactInfo']['online_orders'];
+                    // unset($page['contactInfo']['online_orders']);
+                    
+                }else{
+                    $page['contactInfo'] = null;
+    
+                }
+    
+                $aboutUsExists = $this->aboutUsService->aboutUsExists($page->id);
+                if($aboutUsExists){
+                    $aboutUs = $this->aboutUsService->getAboutUsForPage($page->id);
+                    $page['aboutUs'] = $aboutUs;
+                    // $page['aboutUs']['textAligment'] = $page['aboutUs']['text_aligment'];
+                    // unset($page['aboutUs']['text_aligment']);
+                    
+                    
+                    
+                }else{
+                    $page['aboutUs'] = null;
+    
+                }
+                    
+                $menusectionsExists = $this->menuSectionService->menuSectionsExists($page->id);    
+                if ( $menusectionsExists ){
+                    $menuSections = $this->menuSectionService->getMenuSectionsForPage($page->id);
+                    $page['menuSections']=$menuSections;
+                }else{
+                    $page['menuSections'] = null;
+    
+                } 
+                
+                    return Inertia::render('PublicUserWebPage/Index',[
+                        'page'=>$page,
+                    ]);
+                
+            }
+        }
+
     }
 
     /**
@@ -137,7 +195,6 @@ class PageController extends Controller
      */
     public function update(Request $request, Page $page)
     {
-        //
     }
 
     /**
@@ -146,5 +203,11 @@ class PageController extends Controller
     public function destroy(Page $page)
     {
         //
+    }
+    public function postPage(Request $request)
+    {
+        $this->pageService->postPage($request['id']);
+
+        
     }
 }

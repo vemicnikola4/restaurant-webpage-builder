@@ -44,11 +44,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/page',[PageController::class,'index'])->name('page.index');
 
     Route::post('/page',[PageController::class,'store'])->name('page.store');
+    Route::get('/page/show/{id}',[PageController::class,'show'])->name('page.show');
+    Route::post('/postPage',[PageController::class,'postPage'])->name('post.page');
+
     Route::post('/hero',[HeroController::class,'store'])->name('hero.store');
     Route::post('/contactInfo',[ContactInfoController::class,'store'])->name('contactInfo.store');
     Route::post('/aboutUs',[AboutUsController::class,'store'])->name('aboutUs.store');
     Route::post('/menu',[MenuSectionController::class,'store'])->name('menu.store');
-    Route::post('/location',[LocationController::class,'store'])->name('location.store');
 });
 
 require __DIR__.'/auth.php';

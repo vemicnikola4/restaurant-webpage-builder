@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import Tag from "./Tag";
-const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, handlePageSetingsSubmit, togglePageSetingsShow, contactInfo, setContactInfo, bgErrors }) => {
+const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, handlePageSetingsSubmit, togglePageSetingsShow, contactInfo, setContactInfo, bgErrors, onPostPageClicked }) => {
     const [themeInUse, setThemeInUse] = useState(themes.pageSetings[pageValues.theme]);
     const tagsEn = [
         'Food truck', 'Pub', 'Bakery', 'Pizza', 'Deli', 'Fine Dining', 'Buffet', 'Bar', 'Bar and Brewery', 'Fast food', 'Cafeteria', 'BBQ', 'Giros', 'BreakFast', 'Lunch', 'Dinner', 'Dine in', 'Drive through', 'Drinks', 'Kebab', 'Indian', 'Fish', 'Pasta', 'Italian', 'International', 'Mexican', 'Tai', 'Chinese', 'Japanese', 'French', 'French Fries', 'Burgers', 'Chicken', 'Traditional cousine', 'Snack Bar'
@@ -59,6 +59,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
             addTag(value);
         }
     }
+
     const setTheme = (value) => {
         if (value) {
             setThemeInUse(themes.pageSetings[value]);
@@ -177,7 +178,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                         ))}
                     </select>
                 </div>
-                <div className="w-full flex flex-col gap-4">
+                <div className="w-full flex flex-col gap-4 group">
                     <label className="w-full" htmlFor="">{locale == 'en' ? 'Contact Info' : translate['Contact Info']}</label>
                     <div className={"flex w-full h-10 px-2 " + (fealdDisabled.onlineOrder ? " opacity-20 " : "")}>
                         <div className="flex basis-1/4 ">
@@ -198,18 +199,29 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
                     </div>
                     {
+                        locale == 'en' ?
+                            <div className="hidden group-hover:flex w-full bg-gray-200 p-4 rounded-md text-black">
+
+                                Go to google maps. Find your location. Click on share button, then choose option embed a map. Click copy html and paste it in the feald. Easy peasy !</div>
+                            :
+                            <div className="hidden group-hover:flex w-full bg-gray-200 p-4 rounded-md text-black">
+                                {translate['set map link instruction']}
+                            </div>
+                    }
+                    {
                         bgErrors['contactInfo.onlineOrder'] &&
                         bgErrors['contactInfo.onlineOrder'] &&
                         <div className="text-red-500 ps-2">{
                             locale == 'en' ? bgErrors['contactInfo.onlineOrder'] : translate[bgErrors['contactInfo.onlineOrder']]
                         }</div>
                     }
-                    <div className={"flex w-full h-10 px-2 relative group " + (fealdDisabled.location ? " opacity-20 " : "")}>
-                        <div className="flex basis-1/4 ">
+                    <div className={"flex w-full h-10 px-2   " + (fealdDisabled.location ? " opacity-20 " : "")}>
+                        <div className="flex basis-1/4  relative group ">
                             <img className="flex  rounded-md" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Google_Maps_icon_%282015-2020%29.svg/2048px-Google_Maps_icon_%282015-2020%29.svg.png" alt="" />
+
                         </div>
 
-                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, location: e.target.value })} className={"w-full   rounded-md " + themeInUse.input} placeholder={locale == 'en' ? "Paste maps location link" : translate["Paste maps location link"]} disabled={fealdDisabled.location} />
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, location: e.target.value })} className={"w-full   rounded-md block  " + themeInUse.input} placeholder={locale == 'en' ? "Paste embeded map" : translate["Paste embeded map"]} disabled={fealdDisabled.location} />
                         {
                             fealdDisabled.location ?
                                 <div onClick={e => setFealdDisabled({ ...fealdDisabled, location: !fealdDisabled.location })} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
@@ -221,16 +233,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                                 </div>
                         }
 
-                    {
-                        locale == 'en' ?
-                            <div className="z-10 absolute top-10 left-0 ms-12 mt-2 opacity-0 scale-95 md:group-hover:opacity-100 group-hover:scale-100 transition-opacity transition-transform duration-300 bg-gray-200 p-4 rounded-md text-black">
 
-                                Go to google maps. Find your location. Click on share button, then choose option embed a map. Click copy html and paste it in the feald. Easy peasy !</div>
-                            :
-                            <div className="z-10 absolute top-10 left-0 ms-12 mt-2 opacity-0 scale-95 md:group-hover:opacity-100 group-hover:scale-100 transition-opacity transition-transform duration-300 bg-gray-200 p-4 rounded-md text-black">
-                                {translate['set map link instruction']}
-                            </div>
-                    }
                     </div>
                     {
                         bgErrors['contactInfo.onlineOrder'] &&
@@ -344,7 +347,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                 </div>
                 <div className="w-full p-2">
                     <div className="py-4 px-4 w-full bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => toggleSeeTags()}>
-                       {locale == 'en' ? "See restaurant tags" : translate["See restaurant tags"]}
+                        {locale == 'en' ? "See restaurant tags" : translate["See restaurant tags"]}
                     </div>
                     <div className={"w-full " + (seeTags ? "flex flex-col gap-4 " : "hidden")}>
                         <div className="py-4 grid grid-cols-3  gap-1 md:gap-4 w-full">
@@ -374,16 +377,28 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
                         {locale == 'en' ? 'UPDATE SETINGS' : translate['UPDATE SETINGS']}
                     </div>
+                    <a href={`page/show/${pageValues.id}`}>
                     <div className="py-4 px-4 md:basis-1/2 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100">
-
+                            
                         {locale == 'en' ? 'SEE PAGE' : translate['SEE PAGE']}
                     </div>
+                    </a>
+                    
                 </div>
+                {
+                    pageValues.publish == 0 ?
 
-                <div className="py-4 px-4 w-2/3 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" >
+                        <div className="py-4 px-4 w-2/3 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => onPostPageClicked(e)}>
 
-                    {locale == 'en' ? 'POST PAGE ONLINE' : translate['POST PAGE ONLINE']}
-                </div>
+                            {locale == 'en' ? 'POST PAGE ONLINE' : translate['POST PAGE ONLINE']}
+                        </div>
+
+                        :
+                        <div className="py-4 px-4 w-2/3 bg-yellow-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => onPostPageClicked(e)}>
+
+                            {locale == 'en' ? 'SET PAGE OFFLINE' : translate['SET PAGE OFFLINE']}
+                        </div>
+                }
             </div>
 
         </div>

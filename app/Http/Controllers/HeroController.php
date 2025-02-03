@@ -7,7 +7,6 @@ use App\Http\Requests\StoreHeroRequest;
 use App\Http\Requests\StoreMediaRequest;
 use App\Http\Requests\UpdateHeroRequest;
 use Illuminate\Http\Request;
-use App\Services\MediaService;
 use App\Services\HeroService;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -18,9 +17,8 @@ use Illuminate\Support\Facades\Storage;
 class HeroController extends Controller
 {
     
-    public function __construct(MediaService $mediaService,HeroService $heroService)
+    public function __construct(HeroService $heroService)
     {
-        $this->mediaService = $mediaService;
         $this->heroService = $heroService;
        
     }
