@@ -15,4 +15,8 @@ class Page extends Model
         'user_id',
         'publish',
     ];
+    public function hero()
+    {
+        return $this->hasOne(Hero::class);
+    }
 }

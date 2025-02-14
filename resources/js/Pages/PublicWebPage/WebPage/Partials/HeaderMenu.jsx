@@ -23,9 +23,13 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
 
     return (
         <div id="menuDiv" className={"z-10 w-full absolute top-0 right-0 left-0    flex  " + textBoxPosition.headerMenu[contactInfo.menuPosition] + " " + themeInUse.menuDiv}>
+            
+            
             <div className={"flex md:flex-col z-10  "}>
+
                 <div className="hidden md:flex text-md md:text-lg gap-3 items-center font-bold">
                     <div className="flex gap-3 justify-center items-center py-2">
+                        
                         <div onClick={e => scrollToTarget(e, 'aboutUsSection')} className="hover:cursor-pointer hover:underline hover:text-blue-500 "><a href="">{locale == 'en' ? 'About us' : 'O nama'}</a></div>
                         <div onClick={e => scrollToTarget(e, 'menuSection')} className="hover:cursor-pointer hover:underline hover:text-blue-500 "><a href="">{locale == 'en' ? 'Menu' : 'Meni'}</a></div>
                         <div onClick={e => scrollToTarget(e, 'locationSection')} className="hover:cursor-pointer hover:underline hover:text-blue-500 "><a href="">{locale == 'en' ? 'Location' : 'Lokacija'}</a></div>
@@ -154,8 +158,9 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
                 }
 
                 <div className={dropDownMenu + " absolute top-10 left-18 font-bold rounded-md z-40 opacity-100 bg-opacity-100 " + themeInUse.dropDownMenu}>
-                    <div className=" px-6 py-4"><a href="#aboutUsSection">{locale == 'en' ? 'About us' : 'O nama'}</a></div>
-                    <div className="    px-6 py-4"><a href="#menuSection">{locale == 'en' ? 'Menu' : 'Meni'}</a></div>
+                    <div onClick={e => scrollToTarget(e, 'aboutUsSection')} className=" px-6 py-4"><a href="#aboutUsSection">{locale == 'en' ? 'About us' : 'O nama'}</a></div>
+                    <div onClick={e => scrollToTarget(e, 'menuSection')} className="    px-6 py-4"><a href="#menuSection">{locale == 'en' ? 'Menu' : 'Meni'}</a></div>
+                    <div onClick={e => scrollToTarget(e, 'locationSection')} className="    px-6 py-4"><a href="#locationSection">{locale == 'en' ? 'Location' : 'Lokacija'}</a></div>
                 </div>
             </div>
 

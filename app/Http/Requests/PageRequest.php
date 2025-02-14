@@ -45,7 +45,7 @@ Sremska Mitrovica,Sremski Karlovci,Stara Pazova,Stari grad,Stragari,Subotica,Suv
 Surčin,Temerin,Titel,Topola,Trgovište,Trstenik,Tutin,Ćićevac,Ćuprija,Ub,
 Užice,Uroševac,Crveni krst,Crna Trava,Čajetina,Čačak,Čoka,Čukarica,Šabac,
 Šid,Štimlje,Štrpce',
-            'tags'=>'required|array|in:Food truck,Pub,Bakery,Pizza,Deli,Fine Dining,Buffet,Bar,Bar and Brewery,Fast food,Cafeteria,BBQ,Giros,BreakFast,Lunch,Dinner,Dine in,Drive through,Drinks,Kebab,Indian,Fish,Pasta,Italian,International,Mexican,Tai,Chinese,Japanese,French,French Fries,Burgers,Chicken,Traditional cousine,Snack Bar,Kombi restoran,Pab,Pekara,Pica,Fine Dining,Švedski sto,Bar,Bar  i proizvodnja pića,Brza hrana,Kafeterija,Roštilj,Giros,Doručak,Ručak,Večera,Sedenje,Auto-restoran,Piće,Kebab,Indijski,Riba,Pasta,Italijanski,Internacionalni,Meksički,Tajlandski,Kineski,Japanski,Francuski,Pomfrit,Burgeri,Piletina,Tradicionalna kuhinja',
+            'tags'=>'required|array|in:Food truck,Pub,Bakery,Pizza,Deli,Fine Dining,Buffet,Bar,Bar and Brewery,Fast food,Cafeteria,BBQ,Giros,Breakfast,Lunch,Dinner,Dine in,Drive through,Drinks,Kebab,Indian,Fish,Pasta,Italian,International,Mexican,Tai,Chinese,Japanese,French,French Fries,Burgers,Chicken,Traditional cousine,Snack Bar,Crepes,Mediteranian,Deserts,Salads,Vegan,Vegetarian',
             'theme'=>'required|string|in:dark,light,blue,yellow,red,purple,green',
             'font_family'=>'required|string|in:font-sans,font-serif,font-mono',
             'publish'=>'nullable|boolean',

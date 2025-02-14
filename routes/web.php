@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MenuSectionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -13,25 +14,25 @@ use Illuminate\Http\Request;
 
 
 
-Route::get('/', function () {
-    return redirect()->route('login'); 
-    // return Inertia::render('Welcome', [
-    //     'canLogin' => Route::has('login'),
-    //     'canRegister' => Route::has('register'),
-    //     'laravelVersion' => Application::VERSION,
-    //     'phpVersion' => PHP_VERSION,
-    // ]);
-});
+// Route::get('/', function () {
+//     // return redirect()->route('login'); 
+//     return Inertia::render('PublicWebPage/Index');
+//     //  [
+//     //     'canLogin' => Route::has('login'),
+//     //     'canRegister' => Route::has('register'),
+//     //     'laravelVersion' => Application::VERSION,
+//     //     'phpVersion' => PHP_VERSION,
+//     // ]);
+// });
+Route::get('/',[LandingPageController::class,'index']);
+Route::get('/restaurants', [LandingPageController::class, 'getRestaurants'])->name('getRestaurants');
+Route::get('/page/{id}',[PageController::class,'show'])->name('page');
 
 Route::post('/setLocale',function(Request $request){
     App::setlocale($request['locale']);
     
 });
-// function () {
-//         return Inertia::render('Dashboard',[
-//         'locale'=>App::getLocale(),
-//     ]);   
-// }
+
 Route::get('/dashboard', [PageController::class,'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -43,8 +44,9 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('/page',[PageController::class,'index'])->name('page.index');
 
+    Route::post('/pageInitial',[PageController::class,'initialStore'])->name('page.initialStore');
     Route::post('/page',[PageController::class,'store'])->name('page.store');
-    Route::get('/page/show/{id}',[PageController::class,'show'])->name('page.show');
+    Route::get('/page/show/{id}',[PageController::class,'userShow'])->name('page.show');
     Route::post('/postPage',[PageController::class,'postPage'])->name('post.page');
 
     Route::post('/hero',[HeroController::class,'store'])->name('hero.store');

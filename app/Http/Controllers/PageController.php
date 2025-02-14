@@ -38,9 +38,11 @@ class PageController extends Controller
     public function dashboard()
     {
         $user =Auth::user();
-        $page = $this->pageService->getUsersPage($user->id);
+        $pageExists = $this->pageService->pageExists($user->id);
 
-        if ( $page ){
+        if ( $pageExists ){
+
+            $page = $this->pageService->getUsersPage($user->id);
 
             $heroExists = $this->heroService->heroExists($page->id);
             if ( $heroExists){
@@ -115,11 +117,19 @@ class PageController extends Controller
 
         return Redirect::route('dashboard');
     }
+    public function initialStore(PageRequest $request)
+    {
+        $validated = $request->validated();
+        
+        $this->pageService->initialCreate($validated);
+
+        return Redirect::route('dashboard');
+    }
 
     /**
      * Display the specified resource.
      */
-    public function show(Page $page)
+    public function userShow(Page $page)
     {
         $user =Auth::user();
         if ( $user ){
@@ -179,6 +189,68 @@ class PageController extends Controller
                 
             }
         }
+
+    }
+    public function show($id)
+    {       
+       
+            $page = $this->pageService->pageExistsWithId($id);
+
+            if ( $page ){
+    
+                $heroExists = $this->heroService->heroExists($page->id);
+                if ( $heroExists){
+                    $hero = $this->heroService->getHeroForPage($page->id);
+                    $page['hero'] =$hero;
+                }else{
+                    $page['hero']=null;
+                }
+    
+                $contatExists = $this->contactService->contactExists($page->id);
+                if ($contatExists){
+    
+                    $contactInfo = $this->contactService->getContactForPage($page->id);
+                    $page['contactInfo'] = $contactInfo;
+                    // $page['contactInfo']['menuPosition'] = $page['contactInfo']['menu_position'];
+                    // unset($page['contactInfo']['menu_position']);
+                    // $page['contactInfo']['onlineOrders'] = $page['contactInfo']['online_orders'];
+                    // unset($page['contactInfo']['online_orders']);
+                    
+                }else{
+                    $page['contactInfo'] = null;
+    
+                }
+    
+                $aboutUsExists = $this->aboutUsService->aboutUsExists($page->id);
+                if($aboutUsExists){
+                    $aboutUs = $this->aboutUsService->getAboutUsForPage($page->id);
+                    $page['aboutUs'] = $aboutUs;
+                    // $page['aboutUs']['textAligment'] = $page['aboutUs']['text_aligment'];
+                    // unset($page['aboutUs']['text_aligment']);
+                    
+                    
+                    
+                }else{
+                    $page['aboutUs'] = null;
+    
+                }
+                    
+                $menusectionsExists = $this->menuSectionService->menuSectionsExists($page->id);    
+                if ( $menusectionsExists ){
+                    $menuSections = $this->menuSectionService->getMenuSectionsForPage($page->id);
+                    $page['menuSections']=$menuSections;
+                }else{
+                    $page['menuSections'] = null;
+    
+                } 
+                
+                    return Inertia::render('PublicWebPage/WebPage/Index',[
+                        'page'=>$page,
+                    ]);
+                
+            }else{
+                return redirect()->route('/')->with('message', 'Restaurant dont exists.');
+            }
 
     }
 

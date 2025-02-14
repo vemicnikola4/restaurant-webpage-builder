@@ -33,9 +33,9 @@ export default function Dashboard() {
         'Cafeteria':"Kafeterija",
         'BBQ':"Roštilj",
         'Giros':"Giros",
-        'BreakFast':"Doručak",
+        'Breakfast':"Doručak",
         'Lunch':"Ručak",'Dinner':"Večera", 'Dine in':"Sedenje", 
-        'Drive through':"Auto-restoran",'Drinks':"Piće",'Kebab':"Kebab",'Indian':"Indijski",'Fish':"Riba",'Pasta':"Pasta",'Italian':"Intalijanski",'International':"Internacionalni",'Mexican':"Meksički",'Tai':"Tajlandski",'Chinese':"Kineski",'Japanese':"Japanski",'French':"Francuski",'French Fries':"Pomfrit",'Burgers':"Burgeri",'Chicken':"Piletina",'Traditional cousine':"Tradicionalna",'Snack Bar':"Snek bar"
+        'Drive through':"Auto-restoran",'Drinks':"Piće",'Kebab':"Kebab",'Indian':"Indijski",'Fish':"Riba",'Pasta':"Pasta",'Italian':"Intalijanski",'International':"Internacionalni",'Mexican':"Meksički",'Tai':"Tajlandski",'Chinese':"Kineski",'Japanese':"Japanski",'French':"Francuski",'French Fries':"Pomfrit",'Burgers':"Burgeri",'Chicken':"Piletina",'Traditional cousine':"Tradicionalni",'Snack Bar':"Snek bar","Burek":'Burek','Crepes':'Palačinke','Deserts':'Dezerti','Mediteranian':'Mediteranska','Salads':'Salate','Seafood':'Morski plodovi','Vegan':'Veganski','Vegetarian':'Vegetarijanski',
     }
     const cities= ["Ada", "Aleksandrovac", "Aleksinac", "Alibunar", "Apatin", "Aranđelovac", "Arilje", "Babušnica", "Bajina Bašta", "Barajevo", 
 "Batočina", "Bač", "Bačka Palanka", "Bačka Topola", "Bački Petrovac", "Bela Palanka", "Bela Crkva", "Beočin", "Bečej", 
@@ -61,10 +61,10 @@ export default function Dashboard() {
 "Šid", "Štimlje", "Štrpce"
     ];
     const tagsEn = [
-        'Food truck','Pub','Bakery','Pizza','Deli','Fine Dining','Buffet','Bar','Bar and Brewery','Fast food','Cafeteria','BBQ','Giros','BreakFast','Lunch','Dinner', 'Dine in', 'Drive through','Drinks','Kebab','Indian','Fish','Pasta','Italian','International','Mexican','Tai','Chinese','Japanese','French','French Fries','Burgers','Chicken','Traditional cousine','Snack Bar'
+        'Food truck', 'Pub', 'Bakery', 'Pizza', 'Deli', 'Fine Dining', 'Buffet', 'Bar', 'Bar and Brewery', 'Fast food', 'Cafeteria', 'BBQ', 'Giros', 'Breakfast', 'Lunch', 'Dinner', 'Dine in', 'Drive through', 'Drinks', 'Kebab', 'Indian', 'Fish', 'Pasta', 'Italian', 'International', 'Mexican', 'Tai', 'Chinese', 'Japanese', 'French', 'French Fries', 'Burgers', 'Chicken', 'Traditional cousine', 'Snack Bar', 'Burek', 'Mediteranian', 'Seafood', 'Crepes', 'Salads', 'Deserts', 'Vegan', 'Vegetarian'
     ];
     const tagsSr = [
-        'Kombi restoran','Pab','Pekara','Pica','Fine Dining','Švedski sto','Bar','Bar  i proizvodnja pića','Brza hrana','Kafeterija','Roštilj','Giros','Doručak','Ručak','Večera', 'Sedenje', 'Auto-restoran','Piće','Kebab','Indijski','Riba','Pasta','Italijanski','Internacionalni','Meksički','Tajlandski','Kineski','Japanski','Francuski','Pomfrit','Burgeri','Piletina','Tradicionalna kuhinja'
+        'Kombi restoran', 'Pab', 'Pekara', 'Pica', 'Fine Dining', 'Švedski sto', 'Bar', 'Bar  i proizvodnja pića', 'Brza hrana', 'Kafeterija', 'Roštilj', 'Giros', 'Doručak', 'Ručak', 'Večera', 'Sedenje', 'Auto-restoran', 'Piće', 'Kebab', 'Indijski', 'Riba', 'Pasta', 'Italijanski', 'Internacionalni', 'Meksički', 'Tajlandski', 'Kineski', 'Japanski', 'Francuski', 'Pomfrit', 'Burgeri', 'Piletina', 'Tradicionalna kuhinja', 'Burek', 'Mediteranska', 'Morski plodovi', 'Palačinke', 'Salate', 'Deserti', 'Veganska', 'Vegetarijanska',
     ];
     const [values,setValues]=useState({
         title:'',
@@ -103,10 +103,10 @@ export default function Dashboard() {
     const handleSubmit = (e)=>{
         e.preventDefault();
         if ( values.title && values.city && values.tags.selectedTags ){
-            router.post('/page', values);
+            router.post('/pageInitial', values);
 
         }else{
-            router.post('/page', values);
+            router.post('/pageInitial', values);
 
         }
     }
@@ -148,8 +148,8 @@ export default function Dashboard() {
                 </div>
             </div>
             
-            <div className="flex w-screen text-gray-700 justify-center items-center h-fit ">
-                <div className=" py-8 w-full md:w-2/3 shadow-lg bg-white rounded-md w-2/4  flex flex-col justify-center items-center  px-1 md:px-4">
+            <div className="flex text-gray-700 justify-center items-center h-fit px-6">
+                <div className=" py-8 w-full md:w-2/3 shadow-lg bg-white rounded-md w-2/4  flex flex-col justify-center items-center  px-2 md:px-4">
                     <div className="py-4">
                         <h1 className="text-xl md:text-4xl  text-center">
                         {locale == 'en' ? 'Create Your Web Page' : translate['Create Your Web Page']}

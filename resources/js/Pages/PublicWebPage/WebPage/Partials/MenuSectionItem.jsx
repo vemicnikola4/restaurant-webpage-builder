@@ -34,8 +34,8 @@ const MenuSectionItem = ({ item }) => {
 
                 <div className="flex justify-center">
                     <div>
-                        <p className=" text-center border-b-2 " >
-                            {modal.itemPrice}RSD
+                        <p className=" text-center border-b-2 font-bold " >
+                            {modal.itemPrice} RSD
                         </p>
                     </div>
 

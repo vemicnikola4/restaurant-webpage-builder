@@ -81,7 +81,7 @@ const Menu = ({themes,menuSections,setMenuSections,pageValues,handleMenuSubmit,b
     return (
         <div id="menuSection" className={"flex flex-col items-center md:items-start md:ps-5 w-full h-fit py-6 " + themeInUse.main }>
             <div id="createMenuTitleDiv" className="md:p-8">
-                <h1 className={"text-md sm:text-md md:text-4xl text-center md:text-start " + themeInUse.title}>Create Your Menu items</h1>
+                <h1 className={"text-md sm:text-md md:text-4xl text-center md:text-start " + themeInUse.title}>{locale == 'en' ? 'Create Your Menu items' : 'Kreirajte svoj meni'}</h1>
             </div>
             <div className="md:ps-6 py-4 relative flex justify-center md:block">
                 <div className="w-64 py-2 px-4  rounded-sm bg-blue-500 hover:cursor-pointer flex justify-center items-centertext-center group " onClick={addMenuSection} >

@@ -17,4 +17,8 @@ class Hero extends Model
     {
         return $this->hasOne(HeroMedia::class);
     }
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
 }
