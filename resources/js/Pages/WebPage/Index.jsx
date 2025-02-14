@@ -15,7 +15,7 @@ const Index = ({ page }) => {
     const [locale, setLocale] = useState();
 
     const bgErrors = usePage().props.errors;
-
+    
 
     const translate = {
         "Page Settings": "Podešavanje stranice",
@@ -78,7 +78,7 @@ const Index = ({ page }) => {
         'The price feald must be a number.': "Polje cena mora biti broj",
         'The price feald must be a number minimum 1.': 'Vrednost polja cena mora biti najmanje 1',
         'Section must have at least one item.': 'Sekcija mora imati bar jedan proizvod',
-        'set map link instruction': "Na google maps pronadjte svoju lokaciju. Kliknite na share dugme. Izaberite opciju embed a map. Onda kliknite na copy html opciju. I kopirajte u polje.",
+        'set map link instruction': "Na google maps pronadjte svoju lokaciju. Kliknite na share dugme. Izaberite opciju embed a map. Onda kliknite na copy html opciju. I kopirajte u polje. Dostupno samo na desktop varijanti.",
         'Something went wrong page not found': 'Nepostojeća stranica',
         "Paste maps location link":'Nalepite link ka va google mapama',
         'All copyrights reserved':'Sva prava rezervisana',
@@ -138,7 +138,7 @@ const Index = ({ page }) => {
             dark: 'bg-gray-900 text-white ',
             blue: 'bg-blue-200 text-black',
             red: 'bg-red-200 text-black ',
-            purple: 'bg-purple-200 text-black ',
+            purple: 'bg-purple-300 text-black ',
             yellow: 'bg-yellow-200  text-black ',
             green: 'bg-green-200 text-black ',
 
@@ -289,7 +289,7 @@ const Index = ({ page }) => {
 
             },
             purple: {
-                main: 'bg-purple-200   text-black ',
+                main: 'bg-purple-200  text-black ',
                 textBox: 'bg-purple-200 text-black ',
 
             },
@@ -332,7 +332,7 @@ const Index = ({ page }) => {
 
             },
             purple: {
-                main: 'bg-purple-200   text-black ',
+                main: 'bg-purple-300   text-black ',
                 title: 'text-black',
                 input: 'bg-purple-100 bg-opacity-50 border-b-1 text-black ',
 
@@ -545,17 +545,17 @@ const Index = ({ page }) => {
             website: null,
             menuPosition: 'center',
             pageId: pageValues.id,
-
+            location : `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
 
         };
     }
-    let location;
+    let location = contactInitial.location;
     const [contactInfo, setContactInfo] = useState(contactInitial);
-    if (  contactInitial.location !== null ){
-        location=  contactInitial.location;
-    }else{
-        location = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
-    }
+    // if (  contactInitial.location !== null ){
+    //     location=  contactInitial.location;
+    // }else{
+    //     location = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+    // }
     
     let aboutUsInitial;
     if (page.aboutUs) {
@@ -572,13 +572,12 @@ const Index = ({ page }) => {
             title: "Set About Us Title",
             description: "Set sectionn desription",
             textAligment: 'center',
-            media: null,
-            hasImage: page.aboutUs.hasImage,
+            media: 'https://cdn.pixabay.com/photo/2021/11/01/15/52/spring-roll-6760871_1280.jpg',
+            hasImage: true,
             pageId: pageValues.id,
         }
     }
     const [aboutUs, setAboutUs] = useState(aboutUsInitial);
-    console.log(page.aboutUs.data.imagePath);
 
     let menuSectionsInitial = [];
     if (page.menuSections) {
@@ -623,13 +622,9 @@ const Index = ({ page }) => {
 
     }
     const handlePageSetingsSubmit = (e) => {
-        if (pageValues.title && pageValues.city && pageValues.tags) {
-            router.post('/page', pageValues);
+        router.post('/page', pageValues);
 
-        } else {
-            router.post('/page', pageValues);
-
-        }
+        
 
     }
     const handleAboutUsSubmit = (e) => {
@@ -669,10 +664,7 @@ const Index = ({ page }) => {
         }
 
     }, []);
-    useEffect(() => {
-        setPageValues({ ...pageValues, contactInfo: contactInfo });
-    }, [contactInfo]);
-
+    
    
 
     return (
@@ -692,9 +684,9 @@ const Index = ({ page }) => {
             setLocale={setLocale}
             translate={translate}
         >
-            <div className={"flex justify-center h-fit relative " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
+            <div className={"flex justify-center w-full h-fit relative " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
 
-                <div className="z-30 absolute top-0 left-1 md:hidden pt-2 ">
+                <div className="z-30 absolute top-0 left-4 md:hidden pt-2 ">
                     {
                         pageValues.theme === 'dark' ?
                             <div className="bg-gray-900">
@@ -714,9 +706,9 @@ const Index = ({ page }) => {
                 </div>
 
                 <div className={"z-10 h-fit pb-5 absolute top-0 bottom-0 left-0 right-5 md:flex  basis-1/4 md:relative z-40 pt-10  " + themes.main[pageValues.theme] + " " + pageSetingsShow}>
-                    <PageSetings onPostPageClicked={onPostPageClicked} pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
+                    <PageSetings contactInitial={contactInitial} onPostPageClicked={onPostPageClicked} pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
                 </div>
-                <div className="md:flex md:flex-col md:basis-3/4 relative ">
+                <div className="md:flex md:flex-col w-full md:basis-3/4 relative ">
                     <HeaderMenu themes={themes} textBoxPosition={textBoxPosition} contactInfo={contactInfo} setContactInfo={setContactInfo} pageValues={pageValues} setPageValues={setPageValues} translate={translate} locale={locale}/>
                     <Hero textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
                     <AboutUs themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit} />

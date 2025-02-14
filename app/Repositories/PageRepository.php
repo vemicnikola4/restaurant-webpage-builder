@@ -1,6 +1,10 @@
 <?php
 namespace App\Repositories;
 use App\Models\Page;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
+
+
 
 class PageRepository{
     public function __construct(
@@ -44,6 +48,32 @@ class PageRepository{
         } 
 
     }
+    public function pageExists( int $userId) : ?Page
+    {
+        try {
+        return Page::where('user_id',$userId)->first();
+       
+            
+            
+        } catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
+    public function pageExistsWithId( int $pageId) : ?Page
+    {
+        try {
+        return Page::find($pageId);
+       
+            
+            
+        } catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
     public function getOneWithUserId(int $userId) : ?Page
     {
         try {
@@ -69,6 +99,35 @@ class PageRepository{
         try {
             $page = Page::find($pageId);
             $page->update(['publish' => $value]);
+        }catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
+    public function getAll() : Collection
+    {
+        try {
+            return Page::all();
+        }catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
+    public function pageQuery($query) : ?LengthAwarePaginator
+ 
+    {
+        try{
+            return $pages = $query->paginate(3);
+        }catch(\Exception $e){
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        }
+    }
+    public function getPages() : LengthAwarePaginator
+    {
+        try {
+            return Page::paginate(3);
         }catch (\Exception $e) {
             // Handle any other exceptions
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());

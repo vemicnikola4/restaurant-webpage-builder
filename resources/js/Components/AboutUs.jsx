@@ -23,10 +23,29 @@ const AboutUs = ({aboutUs,setAboutUs,pageValues,themes,textAligment,handleAboutU
         if ( hasImage == false){
             setAboutUs({...aboutUs,media:null,hasImage:hasImage});
         }else{
-            setAboutUs({...aboutUs,media:pageValues.aboutUs.data.imagePath,hasImage:hasImage});
+            if ( pageValues.aboutUs ){
+                setAboutUs({...aboutUs,media:pageValues.aboutUs.data.imagePath,hasImage:hasImage});
+
+            }else{
+                setAboutUs({...aboutUs,media:'https://cdn.pixabay.com/photo/2021/11/01/15/52/spring-roll-6760871_1280.jpg',hasImage:hasImage});
+
+            }
 
         }
     },[hasImage]);
+    useEffect(()=>{
+        if ( pageValues.aboutUs == null ){
+                setAboutUs({...aboutUs,media:'https://cdn.pixabay.com/photo/2021/11/01/15/52/spring-roll-6760871_1280.jpg',hasImage:true});
+        }else{
+            if ( hasImage == false){
+                setAboutUs({...aboutUs,media:null,hasImage:hasImage});
+            }else{
+                setAboutUs({...aboutUs,media:pageValues.aboutUs.data.imagePath,hasImage:hasImage});
+    
+            }
+        }
+        
+    },[]);
 
 
     return (

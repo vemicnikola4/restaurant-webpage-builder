@@ -1,8 +1,15 @@
 
 import { useEffect, useState } from "react";
 import Tag from "./Tag";
-const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, handlePageSetingsSubmit, togglePageSetingsShow, contactInfo, setContactInfo, bgErrors, onPostPageClicked }) => {
+const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, handlePageSetingsSubmit, togglePageSetingsShow, contactInfo, setContactInfo, bgErrors, onPostPageClicked , contactInitial}) => {
+    console.log(contactInfo);
     const [themeInUse, setThemeInUse] = useState(themes.pageSetings[pageValues.theme]);
+    const [frontErrors, setFrontErrors] = useState({
+        facebook: '',
+        instagram: '',
+        onlineOrders: '',
+        website: '',
+    });
     const tagsEn = [
         'Food truck', 'Pub', 'Bakery', 'Pizza', 'Deli', 'Fine Dining', 'Buffet', 'Bar', 'Bar and Brewery', 'Fast food', 'Cafeteria', 'BBQ', 'Giros', 'BreakFast', 'Lunch', 'Dinner', 'Dine in', 'Drive through', 'Drinks', 'Kebab', 'Indian', 'Fish', 'Pasta', 'Italian', 'International', 'Mexican', 'Tai', 'Chinese', 'Japanese', 'French', 'French Fries', 'Burgers', 'Chicken', 'Traditional cousine', 'Snack Bar'
     ];
@@ -68,31 +75,168 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
 
     }
+
     const [fealdDisabled, setFealdDisabled] = useState({
-        onlineOrder: false,
-        facebook: false,
-        instagram: false,
-        website: false,
+        onlineOrders: (localStorage.getItem('onlineOrders') && localStorage.getItem('onlineOrders') == '2' ? true : false),
+        facebook: (localStorage.getItem('facebook') && localStorage.getItem('facebook') == '2' ? true : false),
+        instagram: (localStorage.getItem('instagram') && localStorage.getItem('instagram') == '2' ? true : false),
+        website: (localStorage.getItem('website') && localStorage.getItem('website') == '2' ? true : false),
     })
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        let fError = '';
+        let wError = '';
+        let iError = '';
+        let orError = '';
+        if (!fealdDisabled.onlineOrders) {
+            if (!isUrl(contactInfo.onlineOrders)) {
+                console.log(isUrl(contactInfo.onlineOrders));
+                orError = 'The contact online order link field format is invalid.';
+                setFrontErrors({ ...frontErrors, onlineOrders: 'The contact online order link field format is invalid.' });
+            } else {
+                setFrontErrors({ ...frontErrors, onlineOrders: '' });
+
+            }
+        }
+        if (!fealdDisabled.website) {
+            if (!isUrl(contactInfo.website)) {
+                console.log(isUrl(contactInfo.website));
+                wError = 'The contact website link field format is invalid';
+
+
+            } else {
+                setFrontErrors({ ...frontErrors, website: '' });
+
+            }
+        }
+        if (!fealdDisabled.instagram) {
+            if (!isUrl(contactInfo.instagram)) {
+                console.log(isUrl(contactInfo.instagram));
+                iError = 'The contact instagram link field format is invalid.';
+
+            } else {
+                setFrontErrors({ ...frontErrors, instagram: '' });
+
+            }
+        }
+        if (!fealdDisabled.facebook) {
+            if (!isUrl(contactInfo.facebook)) {
+                console.log(isUrl(contactInfo.facebook));
+                fError = 'The contact facebook link field format is invalid.';
+
+            } else {
+                setFrontErrors({ ...frontErrors, facebook: '' });
+
+            }
+        }
+        setFrontErrors({
+            instagram: iError,
+            facebook: fError,
+            website: wError,
+            onlineOrders: orError,
+        })
+        if (iError == '' && orError == '' && wError == '' && fError == '') {
+
+            handlePageSetingsSubmit(e);
+        } else {
+            console.log(frontErrors);
+        }
+    }
+    function isUrl(string) {
+        try {
+            new URL(string); // Attempt to create a URL object
+            return true;      // If no error, it's a valid URL
+        } catch (e) {
+            return false;     // If an error occurs, it's not a valid URL
+        }
+    }
+    // disable feaalds
+    const onOnlineOrdersDisabled= ()=>{
+        setFealdDisabled({ ...fealdDisabled, onlineOrders: true });
+        setContactInfo({...contactInfo, onlineOrders: null});
+    }
+    const onFacebookDisabled= ()=>{
+        setFealdDisabled({ ...fealdDisabled, facebook: true });
+        setContactInfo({...contactInfo, facebook: null});
+    }
+    const onInstagramDisabled= ()=>{
+        setFealdDisabled({ ...fealdDisabled, instagram: true });
+        setContactInfo({...contactInfo, instagram: null});
+    }   
+    const onWebsiteDisabled= ()=>{
+        setFealdDisabled({ ...fealdDisabled, website: true });
+        setContactInfo({...contactInfo, website: null});
+    }
+    // //enable fealds
+    const onOnlineOrdersEnabled= ()=>{
+        setFealdDisabled({ ...fealdDisabled, onlineOrders: false });
+        setContactInfo({...contactInfo, onlineOrders: contactInitial.onlineOrders});
+    }
+    const onFacebookEnabled= ()=>{
+        setFealdDisabled({ ...fealdDisabled, facebook: false });
+        setContactInfo({...contactInfo, facebook: contactInitial.facebook});
+    }
+    const onInstagramEnabled= ()=>{
+        setFealdDisabled({ ...fealdDisabled, instagram: false });
+        setContactInfo({...contactInfo, instagram: contactInitial.instagram});
+    }   
+    const onWebsiteEnabled= ()=>{
+        setFealdDisabled({ ...fealdDisabled, website: false });
+        setContactInfo({...contactInfo, website: contactInitial.website});
+    }  
+
+
     useEffect(() => {
-        if (fealdDisabled.onlineOrder == true) {
-            setContactInfo({ ...contactInfo, onlineOrder: null });
+        if (fealdDisabled.onlineOrders == true) {
+            localStorage.setItem('onlineOrders', '2');
+
+            setContactInfo({ ...contactInfo, onlineOrders: null });
+            // setPageValues(prevState => ({
+            //     ...prevState, 
+            //     contactInfo: {
+            //         ...prevState.contactInfo, 
+            //         onlineOrders: null, 
+            //     }
+            // }));
+        } else {
+            localStorage.setItem('onlineOrders', '1');
+
         }
         if (fealdDisabled.website == true) {
+            localStorage.setItem('website', '2');
+
             setContactInfo({ ...contactInfo, website: null });
+        } else {
+            localStorage.setItem('website', '1');
+
         }
         if (fealdDisabled.instagram == true) {
+            localStorage.setItem('instagram', '2');
+
             setContactInfo({ ...contactInfo, instagram: null });
+        } else {
+            localStorage.setItem('instagram', '1');
+
         }
         if (fealdDisabled.facebook == true) {
+            localStorage.setItem('facebook', '2');
+
             setContactInfo({ ...contactInfo, facebook: null });
+        } else {
+            localStorage.setItem('facebook', '1');
+
         }
         if (fealdDisabled.phone == true) {
             setContactInfo({ ...contactInfo, phone: null });
         }
+
     }, [fealdDisabled]);
 
-
+    useEffect(() => {
+            setPageValues({ ...pageValues, contactInfo: contactInfo });
+    
+        }, [contactInfo]);
 
     return (
         <div className={"flex w-full  h-full relative" + themes.main[pageValues.theme]}>
@@ -180,19 +324,19 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                 </div>
                 <div className="w-full flex flex-col gap-4 group">
                     <label className="w-full" htmlFor="">{locale == 'en' ? 'Contact Info' : translate['Contact Info']}</label>
-                    <div className={"flex w-full h-10 px-2 " + (fealdDisabled.onlineOrder ? " opacity-20 " : "")}>
+                    <div className={"flex w-full h-10 px-2 " + (fealdDisabled.onlineOrders ? " opacity-20 " : "")}>
                         <div className="flex basis-1/4 ">
                             <img className="flex  rounded-md" src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612&w=0&k=20&c=W_b90qFRpj_FyLyI19xWqB6EoNSuJYwMSN9nnKkE9Hk=" alt="" />
                         </div>
 
-                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, onlineOrder: e.target.value })} className={"w-full   rounded-md " + themeInUse.input} placeholder={locale == 'en' ? "Paste online order link" : translate["Paste online order link"]} disabled={fealdDisabled.onlineOrder} />
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, onlineOrders: e.target.value })} className={"w-full   rounded-md " + themeInUse.input} placeholder={locale == 'en' ? "Paste online order link" : translate["Paste online order link"]}  disabled={fealdDisabled.onlineOrders} value={contactInfo.onlineOrders} onInvalid={e => setContactInfo({ ...contactInfo, onlineOrders: null })}/>
                         {
-                            fealdDisabled.onlineOrder ?
-                                <div onClick={e => setFealdDisabled({ ...fealdDisabled, onlineOrder: !fealdDisabled.onlineOrder })} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
+                            fealdDisabled.onlineOrders ?
+                                <div onClick={e => onOnlineOrdersEnabled()} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
                                     +
                                 </div>
                                 :
-                                <div onClick={e => setFealdDisabled({ ...fealdDisabled, onlineOrder: !fealdDisabled.onlineOrder })} className="px-2 bg-red-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-red-600">
+                                <div onClick={e=>onOnlineOrdersDisabled()} className="px-2 bg-red-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-red-600">
                                     x
                                 </div>
                         }
@@ -200,61 +344,58 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                     </div>
                     {
                         locale == 'en' ?
-                            <div className="hidden group-hover:flex w-full bg-gray-200 p-4 rounded-md text-black">
+                            <div className="hidden md:group-hover:flex w-full bg-gray-200 p-4 rounded-md text-black">
 
-                                Go to google maps. Find your location. Click on share button, then choose option embed a map. Click copy html and paste it in the feald. Easy peasy !</div>
+                                Go to google maps. Find your location. Click on share button, then choose option embed a map. Click copy html and paste it in the feald. Available only on desktop. Easy peasy !</div>
                             :
-                            <div className="hidden group-hover:flex w-full bg-gray-200 p-4 rounded-md text-black">
+                            <div className="hidden md:group-hover:flex w-full bg-gray-200 p-4 rounded-md text-black">
                                 {translate['set map link instruction']}
                             </div>
                     }
                     {
-                        bgErrors['contactInfo.onlineOrder'] &&
-                        bgErrors['contactInfo.onlineOrder'] &&
+                        bgErrors['contactInfo.onlineOrders'] &&
                         <div className="text-red-500 ps-2">{
-                            locale == 'en' ? bgErrors['contactInfo.onlineOrder'] : translate[bgErrors['contactInfo.onlineOrder']]
+                            locale == 'en' ? bgErrors['contactInfo.onlineOrders'] : translate[bgErrors['contactInfo.onlineOrders']]
                         }</div>
                     }
-                    <div className={"flex w-full h-10 px-2   " + (fealdDisabled.location ? " opacity-20 " : "")}>
+                    {
+                        frontErrors.onlineOrders &&
+                        <div className="text-red-500 ps-2">{
+                            locale == 'en' ? frontErrors.onlineOrders : translate[frontErrors.onlineOrders]
+                        }</div>
+
+                    }
+
+
+                    <div className={"hidden md:flex w-full h-10 px-2   " + (fealdDisabled.location ? " opacity-20 " : "")}>
                         <div className="flex basis-1/4  relative group ">
                             <img className="flex  rounded-md" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Google_Maps_icon_%282015-2020%29.svg/2048px-Google_Maps_icon_%282015-2020%29.svg.png" alt="" />
 
                         </div>
 
-                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, location: e.target.value })} className={"w-full   rounded-md block  " + themeInUse.input} placeholder={locale == 'en' ? "Paste embeded map" : translate["Paste embeded map"]} disabled={fealdDisabled.location} />
-                        {
-                            fealdDisabled.location ?
-                                <div onClick={e => setFealdDisabled({ ...fealdDisabled, location: !fealdDisabled.location })} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
-                                    +
-                                </div>
-                                :
-                                <div onClick={e => setFealdDisabled({ ...fealdDisabled, location: !fealdDisabled.location })} className="px-2 bg-red-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-red-600">
-                                    x
-                                </div>
-                        }
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, location: e.target.value })} className={"w-full   rounded-md block  " + themeInUse.input} placeholder={locale == 'en' ? "Paste embeded map" : translate["Paste embeded map"]} disabled={fealdDisabled.location} value={contactInfo.location} />
+
+
+                        <div className="px-2 bg-gray-400 flex justify-center items-center rounded-md ms-1  ">
+                            x
+                        </div>
 
 
                     </div>
-                    {
-                        bgErrors['contactInfo.onlineOrder'] &&
-                        bgErrors['contactInfo.onlineOrder'] &&
-                        <div className="text-red-500 ps-2">{
-                            locale == 'en' ? bgErrors['contactInfo.onlineOrder'] : translate[bgErrors['contactInfo.onlineOrder']]
-                        }</div>
-                    }
+
                     <div className={"flex w-full h-10 px-2 " + (fealdDisabled.website ? " opacity-20 " : "")}>
                         <div className="flex basis-1/4 ">
                             <img className="flex  rounded-md" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWDSis8YTAJOlHswnE8KHbEoW5Q3lwZSSMrA&s" alt="" />
                         </div>
 
-                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, website: e.target.value })} className={"w-full  rounded-md relative " + themeInUse.input} placeholder={locale == 'en' ? "Paste website link" : translate["Paste website link"]} disabled={fealdDisabled.website} />
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, website: e.target.value })} className={"w-full  rounded-md relative " + themeInUse.input} placeholder={locale == 'en' ? "Paste website link" : translate["Paste website link"]} disabled={fealdDisabled.website}  />
                         {
                             fealdDisabled.website ?
-                                <div onClick={e => setFealdDisabled({ ...fealdDisabled, website: !fealdDisabled.website })} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
+                                <div onClick={e => onWebsiteEnabled()} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
                                     +
                                 </div>
                                 :
-                                <div onClick={e => setFealdDisabled({ ...fealdDisabled, website: !fealdDisabled.website })} className="px-2 bg-red-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-red-600">
+                                <div onClick={e=>onWebsiteDisabled()}  className="px-2 bg-red-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-red-600">
                                     x
                                 </div>
                         }
@@ -262,9 +403,15 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                     </div>
                     {
                         bgErrors['contactInfo.website'] &&
-                        bgErrors['contactInfo.website'] &&
                         <div className="text-red-500 ps-2">{
                             locale == 'en' ? bgErrors['contactInfo.website'] : translate[bgErrors['contactInfo.website']]
+                        }</div>
+                    }
+                    {
+
+                        frontErrors.website &&
+                        <div className="text-red-500 ps-2">{
+                            locale == 'en' ? frontErrors.website : translate[frontErrors.website]
                         }</div>
                     }
                     <div className="flex w-full  h-10 px-2 ">
@@ -281,7 +428,6 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                     </div>
                     {
                         bgErrors['contactInfo.phone'] &&
-                        bgErrors['contactInfo.phone'] &&
                         <div className="text-red-500 ps-2">{
                             locale == 'en' ? bgErrors['contactInfo.phone'] : translate[bgErrors['contactInfo.phone']]
                         }</div>
@@ -294,11 +440,11 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                         <input type="text" onChange={e => setContactInfo({ ...contactInfo, instagram: e.target.value })} className={"w-full  rounded-md " + themeInUse.input} placeholder={locale == 'en' ? "Paste instagram link" : translate["Paste instagram link"]} disabled={fealdDisabled.instagram} />
                         {
                             fealdDisabled.instagram ?
-                                <div onClick={e => setFealdDisabled({ ...fealdDisabled, instagram: !fealdDisabled.instagram })} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
+                                <div onClick={e => onInstagramEnabled()} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
                                     +
                                 </div>
                                 :
-                                <div onClick={e => setFealdDisabled({ ...fealdDisabled, instagram: !fealdDisabled.instagram })} className="px-2 bg-red-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-red-600">
+                                <div onClick={e=>onInstagramDisabled()} className="px-2 bg-red-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-red-600">
                                     x
                                 </div>
                         }
@@ -306,9 +452,14 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                     </div>
                     {
                         bgErrors['contactInfo.instagram'] &&
-                        bgErrors['contactInfo.instagram'] &&
                         <div className="text-red-500 ps-2">{
                             locale == 'en' ? bgErrors['contactInfo.instagram'] : translate[bgErrors['contactInfo.instagram']]
+                        }</div>
+                    }
+                    {
+                        frontErrors.instagram &&
+                        <div className="text-red-500 ps-2">{
+                            locale == 'en' ? frontErrors.instagram : translate[frontErrors.instagram]
                         }</div>
                     }
                     <div className={"flex w-full h-10 px-2 " + (fealdDisabled.facebook ? " opacity-20 " : "")}>
@@ -319,28 +470,26 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                         <input type="text" value={pageValues.facebook} onChange={e => setContactInfo({ ...contactInfo, facebook: e.target.value })} className={"w-full   rounded-md " + themeInUse.input} placeholder={locale == 'en' ? "Paste facebook link" : translate["Paste facebook link"]} disabled={fealdDisabled.facebook} />
                         {
                             fealdDisabled.facebook ?
-                                <div onClick={e => setFealdDisabled({ ...fealdDisabled, facebook: !fealdDisabled.facebook })} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
+                                <div onClick={e => onFacebookEnabled()} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
                                     +
                                 </div>
                                 :
-                                <div onClick={e => setFealdDisabled({ ...fealdDisabled, facebook: !fealdDisabled.facebook })} className="px-2 bg-red-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-red-600">
+                                <div onClick={e=>onFacebookDisabled()} className="px-2 bg-red-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-red-600">
                                     x
                                 </div>
                         }
-                        {/* {
-                            
 
-                            bgErrors.contactInfo.facebook &&
-                            <div className="text-red-500">
-                                {bgErrors.contactInfo.facebook}
-                            </div>
-                        } */}
                     </div>
                     {
                         bgErrors['contactInfo.facebook'] &&
-                        bgErrors['contactInfo.facebook'] &&
                         <div className="text-red-500 ps-2">{
                             locale == 'en' ? bgErrors['contactInfo.facebook'] : translate[bgErrors['contactInfo.facebook']]
+                        }</div>
+                    }
+                    {
+                        frontErrors.facebook &&
+                        <div className="text-red-500 ps-2">{
+                            locale == 'en' ? frontErrors.facebook : translate[frontErrors.facebook]
                         }</div>
                     }
 
@@ -372,18 +521,18 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
 
                 </div>
-                <div className="md:flex gap-2">
-                    <div className="py-4 md:basis-1/2 px-4 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => handlePageSetingsSubmit(e)}>
+                <div className="flex flex-col gap-2 ps-2 ">
+                    <div className="py-4 w-1/2 basis-1/2 px-4 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => handleSubmit(e)}>
 
                         {locale == 'en' ? 'UPDATE SETINGS' : translate['UPDATE SETINGS']}
                     </div>
                     <a href={`page/show/${pageValues.id}`}>
-                    <div className="py-4 px-4 md:basis-1/2 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100">
-                            
-                        {locale == 'en' ? 'SEE PAGE' : translate['SEE PAGE']}
-                    </div>
+                        <div className="py-4 px-4 w-1/2 basis-1/2 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100">
+
+                            {locale == 'en' ? 'SEE PAGE' : translate['SEE PAGE']}
+                        </div>
                     </a>
-                    
+
                 </div>
                 {
                     pageValues.publish == 0 ?

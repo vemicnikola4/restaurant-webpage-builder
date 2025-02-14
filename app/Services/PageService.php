@@ -8,7 +8,7 @@ use App\Services\ContactService;
 use App\Services\AboutUsService;
 use App\Models\Page;
 use App\Http\Requests\StoreContactInfoRequest;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class PageService
@@ -39,6 +39,27 @@ class PageService
             $this->pageRepository->update($data);
         }
     }
+    public function initialCreate(array $data) : void
+    {
+        $tags = implode(',', $data['tags']);
+        $data['tags']= $tags;
+        if ( !$this->pageRepository->getOneWithUserId($data['user_id'])){
+            
+            $page = $this->pageRepository->create($data);
+
+
+
+
+        }
+    }
+    public function pageExists(int $userId) : ?Page
+    {
+        return $this->pageRepository->pageExists($userId);
+    }
+    public function pageExistsWithId(int $pageId) : ?Page
+    {
+        return $this->pageRepository->pageExistsWithId($pageId);
+    }
     public function getUsersPage(int $userId) : ?Page
     {
         $page = $this->pageRepository->getOneWithUserId($userId);
@@ -55,6 +76,42 @@ class PageService
             $this->pageRepository->updatePublished($pageId,1);
 
         }
+    }
+    public function getRestaurantsForGuest($request) : ?LengthAwarePaginator
+    {
+
+        
+        $query = Page::query();
+        
+        if ( $request['title'] ){
+            $query->where( "title",'like',"%".$request['title']."%");
+            
+        }
+        if ( $request['filters'] ){
+            $filters = $request['filters'];
+            foreach($filters as $filter ){
+                $query->orWhere( "tags",'like',"%".$filter ."%");
+
+            }
+        }
+        if ( $request['cities'] ){
+            $query->whereIn('city', $request['cities']);
+        }
+        $pages =  $this->pageRepository->pageQuery($query);
+
+        foreach ($pages as $page){
+            $page['media'] = asset('storage/'.$page->hero->media->path);
+        }
+        return $pages;
+        
+    }
+    public function getPages() : ?LengthAwarePaginator
+    {
+        $pages =  $this->pageRepository->getPages();
+        foreach ($pages as $page){
+            $page['media'] = asset('storage/'.$page->hero->media->path);
+        }
+        return $pages;
     }
     
 }

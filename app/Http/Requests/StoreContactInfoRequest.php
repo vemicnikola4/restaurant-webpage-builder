@@ -40,7 +40,7 @@ class StoreContactInfoRequest extends FormRequest
             'contactInfo.phone.required' => 'The contact phone field format is required.',
             'contactInfo.instagram.url' => 'The contact instagram link field format is invalid.',
             'contactInfo.facebook.url' => 'The contact facebook link field format is invalid.',
-            'contactInfo.onlineOrder.url' => 'The contact online order link field format is invalid.',
+            'contactInfo.onlineOrders.url' => 'The contact online order link field format is invalid.',
             'contactInfo.website.url' => 'The contact website link field format is invalid' ,
             
             // 'email.required' => 'The email address is required.',

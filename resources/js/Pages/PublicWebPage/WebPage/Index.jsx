@@ -208,7 +208,7 @@ const Index = ({ page }) => {
 
 
                 titleSubTitleDiv: {
-                    main: 'text-gray-900 bg-purple-200   bg-opacity-50 shadow-sm hover:shadow-lg',
+                    main: 'text-gray-900 bg-purple-200 border-2 border-gray-100  bg-opacity-50 shadow-sm hover:shadow-lg',
 
 
                 }

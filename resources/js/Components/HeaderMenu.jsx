@@ -31,6 +31,7 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
                     <div className="flex gap-3 justify-center items-center py-2">
                         <div onClick={e => scrollToTarget(e, 'aboutUsSection')} className="hover:cursor-pointer hover:underline hover:text-blue-500 "><a href="">{locale == 'en' ? 'About us' : 'O nama'}</a></div>
                         <div onClick={e => scrollToTarget(e, 'menuSection')} className="hover:cursor-pointer hover:underline hover:text-blue-500 "><a href="">{locale == 'en' ? 'Menu' : 'Meni'}</a></div>
+                        <div onClick={e => scrollToTarget(e, 'locationSection')} className="hover:cursor-pointer hover:underline hover:text-blue-500 "><a href="">{locale == 'en' ? 'Location' : 'Lokacija'}</a></div>
 
 
 
@@ -51,7 +52,7 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
 
                         </div>
                         <div className="flex justify-center items-center gap-1">
-                            <a href={contactInfo.onlineOrder}>
+                            <a href={contactInfo.onlineOrders}>
                                 <img className="w-6 h-6 rounded-lg" src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612&w=0&k=20&c=W_b90qFRpj_FyLyI19xWqB6EoNSuJYwMSN9nnKkE9Hk=" alt="" />
                             </a>
 
@@ -126,7 +127,7 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
                                     <img className="w-8 h-8 rounded-lg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Google_Maps_icon_%282015-2020%29.svg/2048px-Google_Maps_icon_%282015-2020%29.svg.png" alt="" />
 
                                 </a>
-                                <a href={contactInfo.onlineOrder}>
+                                <a href={contactInfo.onlineOrders}>
                                     <img className="w-8 h-8 rounded-lg" src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612&w=0&k=20&c=W_b90qFRpj_FyLyI19xWqB6EoNSuJYwMSN9nnKkE9Hk=" alt="" />
                                 </a>
                                 <a href={contactInfo.website}>
@@ -159,8 +160,9 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
                 }
 
                 <div className={dropDownMenu + " absolute top-10 left-18 font-bold rounded-md z-40 opacity-100 bg-opacity-100 " + themeInUse.dropDownMenu}>
-                    <div className=" px-6 py-4"><a href="#aboutUsSection">{locale == 'en' ? 'About us' : 'O nama'}</a></div>
-                    <div className="    px-6 py-4"><a href="#menuSection">{locale == 'en' ? 'Menu' : 'Meni'}</a></div>
+                    <div onClick={e => scrollToTarget(e, 'aboutUsSection')} className=" px-6 py-4"><a href="#aboutUsSection">{locale == 'en' ? 'About us' : 'O nama'}</a></div>
+                    <div onClick={e => scrollToTarget(e, 'menuSection')} className="    px-6 py-4"><a href="#menuSection">{locale == 'en' ? 'Menu' : 'Meni'}</a></div>
+                    <div onClick={e => scrollToTarget(e, 'locationSection')} className="px-6 py-4"><a href="#locationSection">{locale == 'en' ? 'Location' : 'Lokacija'}</a></div>
                 </div>
             </div>
 
