@@ -20,6 +20,7 @@ class ContactRepository
             'phone'=>$data['phone'],
             'menu_position'=>$data['menuPosition'],
             'location'=>$data['location'],
+            'map_link'=>$data['mapLink'],
             'page_id'=>$data['pageId'],
         ]);
        
@@ -43,6 +44,7 @@ class ContactRepository
             'phone'=>$data['phone'],
             'menu_position'=>$data['menuPosition'],
             'location'=>$data['location'],
+            'map_link'=>$data['mapLink'],
             'page_id'=>$data['pageId'],
             ]);
       

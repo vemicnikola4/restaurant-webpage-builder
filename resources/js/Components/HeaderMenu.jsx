@@ -44,8 +44,8 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
 
                         </div>
                         <div className="flex justify-center items-center gap-1">
-                            <a href={contactInfo.location}>
-                                <img className="w-6 h-6 rounded-lg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Google_Maps_icon_%282015-2020%29.svg/2048px-Google_Maps_icon_%282015-2020%29.svg.png" alt="" />
+                            <a href={contactInfo.mapLink}>
+                                <img className={"w-6 h-6 rounded-lg " } src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" />
 
                             </a>
 
@@ -123,8 +123,8 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
                                 <a href={`tel:${contactInfo.phone}`}>
                                     <img className="w-8 h-8 rounded-lg" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" />
                                 </a>
-                                <a href={contactInfo.location}>
-                                    <img className="w-8 h-8 rounded-lg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Google_Maps_icon_%282015-2020%29.svg/2048px-Google_Maps_icon_%282015-2020%29.svg.png" alt="" />
+                                <a href={contactInfo.mapLink}>
+                                    <img className="w-8 h-8 rounded-lg"  src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" />
 
                                 </a>
                                 <a href={contactInfo.onlineOrders}>

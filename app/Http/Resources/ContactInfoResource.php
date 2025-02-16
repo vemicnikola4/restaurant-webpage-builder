@@ -22,6 +22,7 @@ class ContactInfoResource extends JsonResource
             'pageId'=>$this->page_id,   
             'menuPosition'=>$this->menu_position,   
             'onlineOrders'=>$this->online_orders,   
+            'mapLink'=>$this->map_link,   
             'location'=>$this->location,   
             'phone'=>$this->phone,   
 

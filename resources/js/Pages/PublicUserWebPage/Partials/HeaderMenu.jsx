@@ -28,7 +28,13 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
                     <div className="flex gap-3 justify-center items-center py-2">
                         <div onClick={e => scrollToTarget(e, 'aboutUsSection')} className="hover:cursor-pointer hover:underline hover:text-blue-500 "><a href="">{locale == 'en' ? 'About us' : 'O nama'}</a></div>
                         <div onClick={e => scrollToTarget(e, 'menuSection')} className="hover:cursor-pointer hover:underline hover:text-blue-500 "><a href="">{locale == 'en' ? 'Menu' : 'Meni'}</a></div>
-                        <div onClick={e => scrollToTarget(e, 'locationSection')} className="hover:cursor-pointer hover:underline hover:text-blue-500 "><a href="">{locale == 'en' ? 'Location' : 'Lokacija'}</a></div>
+                        {
+                            contactInfo.location ?
+                                <div onClick={e => scrollToTarget(e, 'locationSection')} className="hover:cursor-pointer hover:underline hover:text-blue-500 "><a href="">{locale == 'en' ? 'Location' : 'Lokacija'}</a></div>
+                                :
+                                null
+                        }
+
 
 
                         <div className="flex justify-center items-center gap-1">
@@ -39,6 +45,20 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
 
 
                         </div>
+                        {
+                            contactInfo.location == null ?
+                                <div className="flex justify-center items-center gap-1">
+                                    <a href={contactInfo.mapLink}>
+                                        <img className="w-6 h-6 rounded-lg" src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" />
+
+                                    </a>
+
+
+                                </div>
+                                :
+                                null
+                        }
+
                         {
                             contactInfo.onlineOrder &&
                             <div className="flex justify-center items-center gap-1">
@@ -107,6 +127,10 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
                                 <a href={`tel:${contactInfo.phone}`}>
                                     <img className="w-8 h-8 rounded-lg" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" />
                                 </a>
+
+                                <a href={contactInfo.mapLink}>
+                                    <img className="w-8 h-8 rounded-lg" src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" />
+                                </a>
                                 {
                                     contactInfo.onlineOrder &&
                                     <a href={contactInfo.onlineOrder}>
@@ -154,8 +178,15 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
                 }
 
                 <div className={dropDownMenu + " absolute top-10 left-18 font-bold rounded-md z-40 opacity-100 bg-opacity-100 " + themeInUse.dropDownMenu}>
-                    <div className=" px-6 py-4"><a href="#aboutUsSection">{locale == 'en' ? 'About us' : 'O nama'}</a></div>
-                    <div className="    px-6 py-4"><a href="#menuSection">{locale == 'en' ? 'Menu' : 'Meni'}</a></div>
+                    <div onClick={e => scrollToTarget(e, 'aboutUsSection')} className=" px-6 py-4"><a href="#aboutUsSection">{locale == 'en' ? 'About us' : 'O nama'}</a></div>
+                    <div onClick={e => scrollToTarget(e, 'menuSection')} className="    px-6 py-4"><a href="#menuSection">{locale == 'en' ? 'Menu' : 'Meni'}</a></div>
+                    {
+                            contactInfo.location ?
+                                <div onClick={e => scrollToTarget(e, 'locationSection')} className=" px-6 py-4"><a href="">{locale == 'en' ? 'Location' : 'Lokacija'}</a></div>
+                                :
+                                null
+                        }
+
                 </div>
             </div>
 

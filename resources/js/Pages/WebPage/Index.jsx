@@ -77,10 +77,12 @@ const Index = ({ page }) => {
         'The price feald is required.': 'Polje cena je obavezno',
         'The price feald must be a number.': "Polje cena mora biti broj",
         'The price feald must be a number minimum 1.': 'Vrednost polja cena mora biti najmanje 1',
+        'The contact mapLink link field format is invalid.':'Polje map link nije u validnom formatu.',
         'Section must have at least one item.': 'Sekcija mora imati bar jedan proizvod',
-        'set map link instruction': "Na google maps pronadjte svoju lokaciju. Kliknite na share dugme. Izaberite opciju embed a map. Onda kliknite na copy html opciju. I kopirajte u polje. Dostupno samo na desktop varijanti.",
+        'set map link instruction': "Na google maps pronadjte svoju lokaciju. Kliknite na share dugme. Izaberite opciju embed a map. Onda kliknite na copy html opciju. I kopirajte u polje. Dostupno za uredjivanje samo na desktop varijanti.",
         'Something went wrong page not found': 'Nepostojeća stranica',
         "Paste maps location link":'Nalepite link ka va google mapama',
+        'The embeded map field format is invalid, see instruction.':'Polje za embeded mapu nije u validnom formatu. Vidite uputstvo.',
         'All copyrights reserved':'Sva prava rezervisana',
         'POST PAGE ONLINE':'POSTAVITE STRANICU ONLINE',
         'SEE PAGE' :'VIDITE STRANICU',
@@ -544,12 +546,13 @@ const Index = ({ page }) => {
             onlineOrders: null,
             website: null,
             menuPosition: 'center',
+            mapLink: null,
             pageId: pageValues.id,
             location : `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
 
         };
     }
-    let location = contactInitial.location;
+    let location = contactInitial.location ||  `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
     const [contactInfo, setContactInfo] = useState(contactInitial);
     // if (  contactInitial.location !== null ){
     //     location=  contactInitial.location;
