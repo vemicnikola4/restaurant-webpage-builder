@@ -487,7 +487,13 @@ const Index = ({ page }) => {
                     <Hero textBoxPosition={textBoxPosition} themes={themes} hero={hero} pageValues={pageValues} translate={translate} locale={locale} />
                     <AboutUs aboutUs={aboutUs} pageValues={pageValues} themes={themes} textAligment={textAligment} />
                     <Menu themes={themes} menuSections={menuSections} pageValues={pageValues} translate={translate} locale={locale} />
+                    {
+                    contactInfo.location ?
                     <MapProvider pageValues={pageValues} themes={themes} translate={translate} locale={locale} location={contactInfo.location} />
+
+                    :
+                    null
+                    }
                     <Footer themes={themes} contactInfo={contactInfo} pageValues={pageValues} translate={translate} locale={locale} />
 
                 </div>

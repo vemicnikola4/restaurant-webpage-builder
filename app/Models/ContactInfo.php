@@ -15,6 +15,7 @@ class ContactInfo extends Model
         'menu_position',
         'location',
         'page_id',
+        'map_link',
         
     ];
 }
