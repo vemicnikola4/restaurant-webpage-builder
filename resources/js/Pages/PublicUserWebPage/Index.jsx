@@ -488,11 +488,24 @@ const Index = ({ page }) => {
                     <AboutUs aboutUs={aboutUs} pageValues={pageValues} themes={themes} textAligment={textAligment} />
                     <Menu themes={themes} menuSections={menuSections} pageValues={pageValues} translate={translate} locale={locale} />
                     {
-                    contactInfo.location ?
-                    <MapProvider pageValues={pageValues} themes={themes} translate={translate} locale={locale} location={contactInfo.location} />
+                        contactInfo.location ?
+                            <MapProvider pageValues={pageValues} themes={themes} translate={translate} locale={locale} location={contactInfo.location} />
 
-                    :
-                    null
+                            :
+                            <div className={"flex flex-col  w-full justify-center-items-center text-center h-fit py-4 md:py-8 bg-gray-300 text-black "}>
+                                <h1 className={"font-bold text-lg md:text-4xl mb-4 "} >
+                                    {locale == 'en' ?  'Map view' : 'Prikaz mape'}
+                                </h1>
+                                <div>
+                                {locale == 'en' ?
+                                    'For displaing this section. Edit embeded map feald in Page setings.Embeded map feald editing available only in desktop view.'
+                                    :
+                                    'Za prikaz ove sekcije uredite embeded mapa polje u Podešavanjima stranice. Podešavanje polja embeded mapa dostupno samo u desktop varijanti aplikacije.'
+
+                                }
+                                </div>
+                               
+                            </div>
                     }
                     <Footer themes={themes} contactInfo={contactInfo} pageValues={pageValues} translate={translate} locale={locale} />
 
