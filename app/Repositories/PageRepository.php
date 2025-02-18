@@ -108,7 +108,7 @@ class PageRepository{
     public function getAll() : Collection
     {
         try {
-            return Page::all();
+            return Page::where('publish',1)->get();
         }catch (\Exception $e) {
             // Handle any other exceptions
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
@@ -127,7 +127,7 @@ class PageRepository{
     public function getPages() : LengthAwarePaginator
     {
         try {
-            return Page::paginate(3);
+            return Page::where('publish',1)->paginate(3);
         }catch (\Exception $e) {
             // Handle any other exceptions
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());

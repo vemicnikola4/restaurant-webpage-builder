@@ -35,7 +35,7 @@ const MapProvider = ({ pageValues, themes, translate, locale, location }) => {
 
     return (
         <div id="locationSection" className={"w-full h-fit md:h-screen  flex flex-col items-center pb-10 rounded-sm " + themeInUse.main}>
-            <h1 className={"font-light text-4xl py-4 " + themeInUse.title} >
+            <h1 className={"font-light text-md md:text-4xl py-4 text-center " + themeInUse.title} >
                 { locale == 'en' ? 'Embeded google map section' : 'Sekcija za embeded google mapu' }
             </h1>
             <div className="p-4 md:flex gap-2 justify-center bg-transparent px-2 md:px-10">

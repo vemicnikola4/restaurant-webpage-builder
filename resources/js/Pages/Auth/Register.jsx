@@ -6,6 +6,7 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Register() {
+    let locale = localStorage.getItem('locale') || 'sr';
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -23,11 +24,11 @@ export default function Register() {
 
     return (
         <GuestLayout>
-            <Head title="Register" />
+            <Head title={locale == 'en' ? "Register" : 'Registrujte se'} />
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value={locale == 'en' ? "Name" : 'Ime'} />
 
                     <TextInput
                         id="name"
@@ -61,7 +62,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel htmlFor="password" value={locale == 'en' ? "Password" : 'Lozinka'}/>
 
                     <TextInput
                         id="password"
@@ -80,7 +81,7 @@ export default function Register() {
                 <div className="mt-4">
                     <InputLabel
                         htmlFor="password_confirmation"
-                        value="Confirm Password"
+                        value={locale == 'en' ? "Confirm Password" : 'Potvrdite lozinku'}
                     />
 
                     <TextInput
@@ -107,11 +108,12 @@ export default function Register() {
                         href={route('login')}
                         className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
-                        Already registered?
+                        {locale == 'en' ? "Already registered?" : 'Već sam registrovan'}
+                        
                     </Link>
 
                     <PrimaryButton className="ms-4" disabled={processing}>
-                        Register
+                    {locale == 'en' ? "Register" : 'Registrujte se'}
                     </PrimaryButton>
                 </div>
             </form>

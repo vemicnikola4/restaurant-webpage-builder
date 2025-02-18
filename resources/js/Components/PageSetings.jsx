@@ -138,15 +138,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
             }
         }
-        if (!fealdDisabled.location) {
-            if (!isIframe(contactInfo.location)) {
-                lError = 'The embeded map field format is invalid, see instruction.';
-
-            } else {
-                setFrontErrors({ ...frontErrors, location: '' });
-
-            }
-        }
+        
 
         if (!isUrl(contactInfo.mapLink) || contactInfo.mapLink == '') {
             console.log(isUrl(contactInfo.mapLink));
@@ -160,12 +152,22 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
             pError = 'The contact phone field format is invalid.';
 
 
-        } else{
+        } else {
             pError = '';
             setFrontErrors({ ...frontErrors, phone: '' });
 
         }
-
+        if (window.innerWidth > 768) {
+            if (!fealdDisabled.location) {
+                if (!isIframe(contactInfo.location)) {
+                    lError = 'The embeded map field format is invalid, see instruction.';
+    
+                } else {
+                    setFrontErrors({ ...frontErrors, location: '' });
+    
+                }
+            }
+        } 
 
         setFrontErrors({
             instagram: iError,
@@ -173,8 +175,8 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
             website: wError,
             onlineOrders: orError,
             phone: pError,
-            location:lError,
-            mapLink:mError,
+            location: lError,
+            mapLink: mError,
         })
         if (iError == '' && orError == '' && wError == '' && fError == '' && pError == '' && lError == '' && mError == '') {
 
@@ -198,35 +200,35 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
     function isIframe(str) {
         const iframeRegex = /<iframe.*?<\/iframe>/i;
         return iframeRegex.test(str);
-      }
+    }
     // disable feaalds
     const onOnlineOrdersDisabled = () => {
         setFealdDisabled({ ...fealdDisabled, onlineOrders: true });
         setContactInfo({ ...contactInfo, onlineOrders: null });
-        setFrontErrors({...frontErrors,onlineOrders:''});
+        setFrontErrors({ ...frontErrors, onlineOrders: '' });
     }
     const onFacebookDisabled = () => {
         setFealdDisabled({ ...fealdDisabled, facebook: true });
         setContactInfo({ ...contactInfo, facebook: null });
-        setFrontErrors({...frontErrors,facebook:''});
+        setFrontErrors({ ...frontErrors, facebook: '' });
 
     }
     const onInstagramDisabled = () => {
         setFealdDisabled({ ...fealdDisabled, instagram: true });
         setContactInfo({ ...contactInfo, instagram: null });
-        setFrontErrors({...frontErrors,instagram:''});
+        setFrontErrors({ ...frontErrors, instagram: '' });
 
     }
     const onWebsiteDisabled = () => {
         setFealdDisabled({ ...fealdDisabled, website: true });
         setContactInfo({ ...contactInfo, website: null });
-        setFrontErrors({...frontErrors,website:''});
+        setFrontErrors({ ...frontErrors, website: '' });
 
     }
     const onLocationDisabled = () => {
         setFealdDisabled({ ...fealdDisabled, location: true });
         setContactInfo({ ...contactInfo, location: null });
-        setFrontErrors({...frontErrors,location:''});
+        setFrontErrors({ ...frontErrors, location: '' });
 
     }
     // //enable fealds
@@ -401,7 +403,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                             <img className="flex  rounded-md" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" />
                         </div>
                         <span className="px-1">*</span>
-                        <input type="text" value={contactInfo.phone} onChange={e => setContactInfo({ ...contactInfo, phone: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.phone  || bgErrors['contactInfo.phone'] ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste phone number" : translate["Paste phone number"]} />
+                        <input type="text" value={contactInfo.phone} onChange={e => setContactInfo({ ...contactInfo, phone: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.phone || bgErrors['contactInfo.phone'] ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste phone number" : translate["Paste phone number"]} />
                         <div className="px-2 bg-gray-400 flex justify-center items-center rounded-md ms-1 ">
                             x
                         </div>
@@ -433,10 +435,10 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                         <span className="px-1">*</span>
                         <input type="text" onChange={e => setContactInfo({ ...contactInfo, mapLink: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.mapLink ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste online order link" : translate["Paste online order link"]} disabled={fealdDisabled.mapLink} value={contactInfo.mapLink} onInvalid={e => setContactInfo({ ...contactInfo, mapLink: null })} />
                         {
-                                
-                                <div  className="px-2 bg-gray-400 flex justify-center items-center rounded-md ms-1 ">
-                                    x
-                                </div>
+
+                            <div className="px-2 bg-gray-400 flex justify-center items-center rounded-md ms-1 ">
+                                x
+                            </div>
                         }
 
                     </div>
@@ -492,7 +494,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                         }</div>
 
                     }
-                    
+
                     {/* Embeded map  */}
                     <div className="text-sm  flex w-full px-2 hidden md:flex  " >
                         {locale == 'en' ? 'Embeded google map feald' : 'Polje za embeded google mapu'}
@@ -539,7 +541,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                     }
                     {
                         frontErrors.location &&
-                        <div className="text-red-500 ps-2">{
+                        <div className="hidden md:block text-red-500 ps-2">{
                             locale == 'en' ? frontErrors.location : translate[frontErrors.location]
                         }</div>
 
@@ -580,7 +582,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                             locale == 'en' ? frontErrors.website : translate[frontErrors.website]
                         }</div>
                     }
-                    
+
                     {/* instagram link */}
                     <div className="text-sm  flex w-full px-2 flex  " >
                         {locale == 'en' ? 'Link to your instagram feald' : 'Polje za link ka vašem instagram profilu'}

@@ -43,7 +43,7 @@ const Footer = ({ themes, contactInfo, pageValues, translate, locale }) => {
                     </div>
                     <div className="flex py-10 gap-2">
                         <div className="flex justify-center w-12 h-12 rounded-lg">
-                            <a href={contactInfo.phone}><img className="h-full w-full rounded-lg" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" /></a>
+                            <a href={`tel:${contactInfo.phone}`}><img className="h-full w-full rounded-lg" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" /></a>
                         </div>
                         {
                             contactInfo.onlineOrder &&

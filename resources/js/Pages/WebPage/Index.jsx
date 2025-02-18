@@ -669,6 +669,7 @@ const Index = ({ page }) => {
     }, []);
     
    
+   
 
     return (
         <AuthenticatedLayout
@@ -708,7 +709,7 @@ const Index = ({ page }) => {
                     }
                 </div>
 
-                <div className={"z-10 h-fit pb-5 absolute top-0 bottom-0 left-0 right-5 md:flex  basis-1/4 md:relative z-40 pt-10  " + themes.main[pageValues.theme] + " " + pageSetingsShow}>
+                <div className={"z-10 h-fit pb-5 absolute top-0 bottom-0 left-0 right-0 md:flex  basis-1/4 md:relative z-40 pt-10  " + themes.main[pageValues.theme] + " " + pageSetingsShow}>
                     <PageSetings contactInitial={contactInitial} onPostPageClicked={onPostPageClicked} pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
                 </div>
                 <div className="md:flex md:flex-col w-full md:basis-3/4 relative ">
