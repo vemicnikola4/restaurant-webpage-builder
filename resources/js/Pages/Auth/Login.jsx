@@ -14,6 +14,14 @@ export default function Login({ status, canResetPassword }) {
         password: '',
         remember: false,
     });
+    let translate = {
+        
+        'Email field is required.':'Polje Email je obavezno.',
+        'Email field must be a word.':'Polje Email mora biti reč.',
+        'Email field must bu in form of email.':'Polje Email mora biti u formi email adrese.',
+        "These credentials do not match our records." :"Pogrešan emejl ili lozinka.",
+        'Password field is required.':'Polje Lozinka je obavezno',
+    }
 
     const submit = (e) => {
         e.preventDefault();
@@ -53,7 +61,7 @@ export default function Login({ status, canResetPassword }) {
                         onChange={(e) => setData('email', e.target.value)}
                     />
 
-                    <InputError message={errors.email} className="mt-2" />
+                    <InputError message={locale == 'en' ? errors.email : translate[errors.email]} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
@@ -69,7 +77,7 @@ export default function Login({ status, canResetPassword }) {
                         onChange={(e) => setData('password', e.target.value)}
                     />
 
-                    <InputError message={errors.password} className="mt-2" />
+                    <InputError message={locale == 'en' ? errors.password : translate[errors.password]} className="mt-2" />
                 </div>
 
                 <div className="mt-4 block">

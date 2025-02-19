@@ -6,6 +6,8 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function ResetPassword({ token, email }) {
+    let locale = localStorage.getItem('locale') || 'sr';
+
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token,
         email: email,
@@ -85,7 +87,9 @@ export default function ResetPassword({ token, email }) {
 
                 <div className="mt-4 flex items-center justify-end">
                     <PrimaryButton className="ms-4" disabled={processing}>
-                        Reset Password
+                        {locale == 'en' ? "Reset Password":"Resetuj lozinku"}
+
+                        
                     </PrimaryButton>
                 </div>
             </form>

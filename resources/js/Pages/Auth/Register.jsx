@@ -7,6 +7,18 @@ import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Register() {
     let locale = localStorage.getItem('locale') || 'sr';
+    let translate = {
+        'Name field is required.':'Polje Ime je obavezno.',
+        'Name field must be a word.':'Polje Ime mora biti reč.',
+        'Name field must contain max  255 characters.':'Polje Ime sme imati maksimum 255 karaktera.',
+        'Email field is required.':'Polje Email je obavezno.',
+        'Email field must be a word.':'Polje Email mora biti reč.',
+        'Email field must bu in form of email.':'Polje Email mora biti u formi email adrese.',
+        'Email field must contain max  255 characters.':'Polje Email sme imati maksimum 255 karaktera.',
+        'Email already exists.':'Email već postoji',
+        'Password field is required.':'Polje Lozinka je obavezno',
+        'The password field must be at least 8 characters.':'Polje Lozinka mora imati najmanje 8 karaktera.'
+    }
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -41,7 +53,7 @@ export default function Register() {
                         required
                     />
 
-                    <InputError message={errors.name} className="mt-2" />
+                    <InputError message={locale == 'en' ? errors.name : translate[errors.name]} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
@@ -58,11 +70,11 @@ export default function Register() {
                         required
                     />
 
-                    <InputError message={errors.email} className="mt-2" />
+                    <InputError message={locale == 'en' ? errors.email : translate[errors.email]} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value={locale == 'en' ? "Password" : 'Lozinka'}/>
+                    <InputLabel htmlFor="password" value={locale == 'en' ? "Password" : 'Lozinka'} />
 
                     <TextInput
                         id="password"
@@ -75,7 +87,7 @@ export default function Register() {
                         required
                     />
 
-                    <InputError message={errors.password} className="mt-2" />
+                    <InputError message={locale == 'en' ? errors.password : translate[errors.password]} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
@@ -109,11 +121,11 @@ export default function Register() {
                         className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                         {locale == 'en' ? "Already registered?" : 'Već sam registrovan'}
-                        
+
                     </Link>
 
                     <PrimaryButton className="ms-4" disabled={processing}>
-                    {locale == 'en' ? "Register" : 'Registrujte se'}
+                        {locale == 'en' ? "Register" : 'Registrujte se'}
                     </PrimaryButton>
                 </div>
             </form>

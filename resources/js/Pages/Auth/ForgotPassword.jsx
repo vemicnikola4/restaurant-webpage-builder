@@ -5,6 +5,11 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function ForgotPassword({ status }) {
+    let locale = localStorage.getItem('locale') || 'sr';
+
+    let translate = {
+        "We can't find a user with that email address." : 'Ne postoji user sa ovom email adresom',
+    }
     const { data, setData, post, processing, errors } = useForm({
         email: '',
     });
@@ -18,12 +23,21 @@ export default function ForgotPassword({ status }) {
     return (
         <GuestLayout>
             <Head title="Forgot Password" />
+            {
+                locale == 'en' ?
+                    <div className="mb-4 text-sm text-gray-600">
+                        Forgot your password? No problem. Just let us know your email
+                        address and we will email you a password reset link that will
+                        allow you to choose a new one.
+                    </div>
+                    :
+                    <div className="mb-4 text-sm text-gray-600">
+                        Zaboravili ste lozinku? Nema problema. Samo nam recite vašu email adresu i poslaćemo vam link za resetovanje lozinke,
+                        
+                    </div>
 
-            <div className="mb-4 text-sm text-gray-600">
-                Forgot your password? No problem. Just let us know your email
-                address and we will email you a password reset link that will
-                allow you to choose a new one.
-            </div>
+            }
+
 
             {status && (
                 <div className="mb-4 text-sm font-medium text-green-600">
@@ -33,7 +47,7 @@ export default function ForgotPassword({ status }) {
 
             <form onSubmit={submit}>
                 <TextInput
-                    id="email"
+                    id="email"s
                     type="email"
                     name="email"
                     value={data.email}
@@ -42,11 +56,13 @@ export default function ForgotPassword({ status }) {
                     onChange={(e) => setData('email', e.target.value)}
                 />
 
-                <InputError message={errors.email} className="mt-2" />
+                <InputError message={locale == 'en' ? errors.email : translate[errors.email]} className="mt-2" />
 
                 <div className="mt-4 flex items-center justify-end">
                     <PrimaryButton className="ms-4" disabled={processing}>
-                        Email Password Reset Link
+                        {
+                            locale == 'en' ? "Email Password Reset Link" : "Pošalji link za resetovanje lozinke"
+                        }
                     </PrimaryButton>
                 </div>
             </form>
