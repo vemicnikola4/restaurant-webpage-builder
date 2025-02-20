@@ -43,12 +43,12 @@ const MenuSectionItem = ({ index, item, deleteSectionItem, updateSectionItemsMod
     }, [modal]);
 
     return (
-        <div className="min-w-[250px] max-w-[250px] block bg-gray-300 shadow-lg shadow-white rounded-md min-h-[350px] pb-6 relative">
+        <div className="min-w-[250px] max-w-[250px] block bg-gray-300 shadow-lg shadow-black rounded-md min-h-[350px] pb-6 relative overflow-hidden">
             <button className="py-1 px-2 bg-red-500 absolute top-0 right-0" onClick={e => deleteItem()}>
                 x
             </button>
             <div className="w-full">
-                <img src={modal.mediaPath} alt="" className="w-full object-cover  rounded-t-lg h-48" />
+                <img src={modal.mediaPath} alt="" className="w-full object-cover  rounded-t-md h-48" />
             </div>
             <div>
                 <div className="p-2 text-ellipsis overflow-hidden ...  hover:text-clip">

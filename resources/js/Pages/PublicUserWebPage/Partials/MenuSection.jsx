@@ -20,6 +20,13 @@ const MenuSection = ({ section,sectionIndex,translate,locale }) => {
               
              
             </div>
+            {
+                menuSectionModal.note && 
+                <div className="flex w-full py-4 justify-center ps-0 md:justify-start md:ps-8 ">
+               { menuSectionModal.note}
+            </div>
+            }
+            
             <div className="flex overflow-x-auto space-x-4 p-4 ">
 
                

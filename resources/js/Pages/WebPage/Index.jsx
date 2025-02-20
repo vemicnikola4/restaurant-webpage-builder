@@ -79,6 +79,7 @@ const Index = ({ page }) => {
         'The price feald must be a number minimum 1.': 'Vrednost polja cena mora biti najmanje 1',
         'The contact mapLink link field format is invalid.':'Polje map link nije u validnom formatu.',
         'Section must have at least one item.': 'Sekcija mora imati bar jedan proizvod',
+        'The section note must be text.':'Napomena u vezi meni sekcije mora biti u tekstualnom formatu',
         'set map link instruction': "Na google maps pronadjte svoju lokaciju. Kliknite na share dugme. Izaberite opciju embed a map. Onda kliknite na copy html opciju. I kopirajte u polje. Dostupno za uredjivanje samo na desktop varijanti.",
         'Something went wrong page not found': 'Nepostojeća stranica',
         "Paste maps location link":'Nalepite link ka va google mapama',
@@ -590,6 +591,7 @@ const Index = ({ page }) => {
                 title: section.title,
                 items: section.items,
                 pageId: pageValues.id,
+                note:section.note,
 
             })
         ))
@@ -607,6 +609,7 @@ const Index = ({ page }) => {
                 }
             ],
             pageId: pageValues.id,
+            note:null,
 
         });
     }
@@ -669,7 +672,7 @@ const Index = ({ page }) => {
     }, []);
     
    
-   
+   console.log(pageValues);
 
     return (
         <AuthenticatedLayout
