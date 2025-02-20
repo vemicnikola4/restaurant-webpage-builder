@@ -22,6 +22,7 @@ class MenuSectionRepository
             'title'=>$data['title'],
             'index'=>$index,
             'page_id'=>$data['pageId'],
+            'note'=>$data['note'],
             ]);
             $items = $data['items'];
             foreach($items as $key => $item){

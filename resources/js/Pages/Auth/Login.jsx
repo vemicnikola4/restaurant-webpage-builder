@@ -44,7 +44,7 @@ export default function Login({ status, canResetPassword }) {
             <form onSubmit={submit}>
                 <div className='py-4 text-gray-600 underline hover:text-gray-900'>
                     <h2>
-                        <a href="register">{locale == 'en'? "Or Register" : 'Registrujte se'}</a>
+                        <a href="register">{locale == 'en'? "Or Register" : 'Ili se registrujte'}</a>
                     </h2>
                 </div>
                 <div>

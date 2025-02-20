@@ -41,11 +41,11 @@ const MapProvider = ({ pageValues, themes, translate, locale, location }) => {
             <div className="p-4 md:flex gap-2 justify-center bg-transparent px-2 md:px-10">
             {
                         locale == 'en' ?
-                            <div className={"w-full bg-gray-200 p-4 rounded-md text-black "}>
+                            <div className={"bg-gray-200 p-4 rounded-md text-black "}>
 
                                 Go to google maps. Find your location. Click on share button, then choose option embed a map. Click copy html and paste it in the feald. Available only on desktop. Easy peasy !</div>
                             :
-                            <div className={"w-full bg-gray-200 p-4 rounded-md text-black "}>
+                            <div className={"bg-gray-200 p-4 rounded-md text-black "}>
                                 {translate['set map link instruction']}
                             </div>
                     }

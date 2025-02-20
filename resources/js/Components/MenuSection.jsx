@@ -69,7 +69,6 @@ const MenuSection = ({ section, deliteMenuSection,updateSection,sectionIndex,bgE
     }, [menuSectionModal]);
 
 
-    console.log(bgErrors);
     return (
         <div className="p-3 w-full border border-2 border-gray-500 mt-2 relative text-black">
             <div className="absolute top-0 right-0  px-2 bg-red-500 font-bold hover:cursor-pointer" onClick={e=>deleteSection(menuSectionModal.id)}>
@@ -104,6 +103,19 @@ const MenuSection = ({ section, deliteMenuSection,updateSection,sectionIndex,bgE
                     } 
                 </div>
             </div>
+            <input type="text" name="sectionNote" id=""className="flex w-full py-8 bg-gray-300 rounded-sm ps-4" placeholder={locale == 'en' ? 'Enter note concerning this section. Optional.' : 'Unesite napomenu vezanu za ovu sekciju. Opciono.'} value={menuSectionModal.note} onChange={e=>setMenuSectionModal({...menuSectionModal,note:e.target.value})}/>
+            <div className="text-red-500">
+                     {
+                    bgErrors[`menu.${sectionIndex}.note`] ?
+                    locale == 'en'?
+                    <p>{bgErrors[`menu.${sectionIndex}.note`]}</p>
+                    :
+                    <p>{translate[bgErrors[`menu.${sectionIndex}.note`]]}</p>
+
+                    :
+                    null
+                    } 
+                </div>
             <div className="flex overflow-x-auto space-x-4 p-4 ">
 
                 <div className="h-full w-50px bg-blue-500 px-3  min-h-[350px] flex items-center font-extrabold text-2xl rounded-sm hover:cursor-pointer group relative" onClick={addItem}>

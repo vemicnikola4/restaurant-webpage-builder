@@ -31,7 +31,7 @@ export default function VerifyEmail({ status }) {
 
 
 
-                        Hvala što ste se registrivali! Pre nego što počnete molimo vas da verigikujete svoju email adresu klikom na link koji je poslat na vaš mejl? Ako niste primili emejl rado ćemo vam ga poslati opet.
+                        Hvala što ste se registrovali! Pre nego što počnete molimo vas da verifikujete svoju email adresu klikom na link koji smo vam upravo poslali? Ako niste primili emejl rado ćemo vam ga poslati opet.
                     </div>
 
             }

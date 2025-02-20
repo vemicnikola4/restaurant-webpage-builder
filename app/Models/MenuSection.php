@@ -15,6 +15,7 @@ class MenuSection extends Model
         'index',
         'page_id',
         'id',
+        'note',
        
     ];
     public function menuItems()
