@@ -1,7 +1,7 @@
 import HeaderMenu from "@/Components/HeaderMenu";
 import Hero from "@/Components/Hero";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { router, usePage } from '@inertiajs/react';
 import PageSetings from "@/Components/PageSetings";
 import AboutUs from "@/Components/AboutUs";
@@ -9,13 +9,14 @@ import { v4 as uuidv4 } from "uuid";
 import Menu from "@/Components/Menu";
 import Footer from "@/Components/Footer";
 import MapProvider from "@/Components/MapProvider";
+import MenuNoImgs from "@/Components/MenuNoImgs";
 
 
 const Index = ({ page }) => {
     const [locale, setLocale] = useState();
 
     const bgErrors = usePage().props.errors;
-    
+
 
     const translate = {
         "Page Settings": "Podešavanje stranice",
@@ -77,21 +78,21 @@ const Index = ({ page }) => {
         'The price feald is required.': 'Polje cena je obavezno',
         'The price feald must be a number.': "Polje cena mora biti broj",
         'The price feald must be a number minimum 1.': 'Vrednost polja cena mora biti najmanje 1',
-        'The contact mapLink link field format is invalid.':'Polje map link nije u validnom formatu.',
+        'The contact mapLink link field format is invalid.': 'Polje map link nije u validnom formatu.',
         'Section must have at least one item.': 'Sekcija mora imati bar jedan proizvod',
-        'The section note must be text.':'Napomena u vezi meni sekcije mora biti u tekstualnom formatu',
+        'The section note must be text.': 'Napomena u vezi meni sekcije mora biti u tekstualnom formatu',
         'set map link instruction': "Na google maps pronadjte svoju lokaciju. Kliknite na share dugme. Izaberite opciju embed a map. Onda kliknite na copy html opciju. I kopirajte u polje. Dostupno za uredjivanje samo na desktop varijanti.",
         'Something went wrong page not found': 'Nepostojeća stranica',
-        "Paste maps location link":'Nalepite link ka va google mapama',
-        'The embeded map field format is invalid, see instruction.':'Polje za embeded mapu nije u validnom formatu. Vidite uputstvo.',
-        'All copyrights reserved':'Sva prava rezervisana',
-        'POST PAGE ONLINE':'POSTAVITE STRANICU ONLINE',
-        'SEE PAGE' :'VIDITE STRANICU',
-        'Add menu section':'Dodajte sekciju',
-        'Add section button':"Klikom na ovo dugme dodaćete sekciju vašem meniju. Na primer: predjela, glavno jelo itd.",
-        'Add item button':"Klikom na ovo dugme dodaćete proizvod vašoj sekciji.",
-        "Paste embeded map":"Nalepite embeded mapu",
-        "SET PAGE OFFLINE":"POSTAVITE STRANICU OFFLINE"
+        "Paste maps location link": 'Nalepite link ka va google mapama',
+        'The embeded map field format is invalid, see instruction.': 'Polje za embeded mapu nije u validnom formatu. Vidite uputstvo.',
+        'All copyrights reserved': 'Sva prava rezervisana',
+        'POST PAGE ONLINE': 'POSTAVITE STRANICU ONLINE',
+        'SEE PAGE': 'VIDITE STRANICU',
+        'Add menu section': 'Dodajte sekciju',
+        'Add section button': "Klikom na ovo dugme dodaćete sekciju vašem meniju. Na primer: predjela, glavno jelo itd.",
+        'Add item button': "Klikom na ovo dugme dodaćete proizvod vašoj sekciji.",
+        "Paste embeded map": "Nalepite embeded mapu",
+        "SET PAGE OFFLINE": "POSTAVITE STRANICU OFFLINE"
 
     }
     const textBoxPosition = {
@@ -549,28 +550,28 @@ const Index = ({ page }) => {
             menuPosition: 'center',
             mapLink: null,
             pageId: pageValues.id,
-            location : `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
+            location: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`,
 
         };
     }
-    let location = contactInitial.location ||  `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+    let location = contactInitial.location || `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
     const [contactInfo, setContactInfo] = useState(contactInitial);
     // if (  contactInitial.location !== null ){
     //     location=  contactInitial.location;
     // }else{
     //     location = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
     // }
-    
+
     let aboutUsInitial;
     if (page.aboutUs) {
-       aboutUsInitial = {
-           title: page.aboutUs.data.title,
-           description: page.aboutUs.data.description,
-           textAligment: page.aboutUs.data.textAligment,
-           media: page.aboutUs.data.imagePath,
-           hasImage: page.aboutUs.data.hasImage,
-           pageId: page.aboutUs.data.pageId,
-       }
+        aboutUsInitial = {
+            title: page.aboutUs.data.title,
+            description: page.aboutUs.data.description,
+            textAligment: page.aboutUs.data.textAligment,
+            media: page.aboutUs.data.imagePath,
+            hasImage: page.aboutUs.data.hasImage,
+            pageId: page.aboutUs.data.pageId,
+        }
     } else {
         aboutUsInitial = {
             title: "Set About Us Title",
@@ -591,7 +592,7 @@ const Index = ({ page }) => {
                 title: section.title,
                 items: section.items,
                 pageId: pageValues.id,
-                note:section.note,
+                note: section.note,
 
             })
         ))
@@ -609,11 +610,42 @@ const Index = ({ page }) => {
                 }
             ],
             pageId: pageValues.id,
-            note:null,
+            note: null,
 
         });
     }
     const [menuSections, setMenuSections] = useState(menuSectionsInitial);
+
+    let menuSectionsNoimgsInitial = [];
+    if (page.menuSectionsNoimgs) {
+        page.menuSectionsNoimgs.map((section) => (
+            menuSectionsNoimgsInitial.push({
+                id: section.id,
+                title: section.title,
+                items: section.items,
+                pageId: pageValues.id,
+                note: section.note,
+
+            })
+        ))
+    } else {
+        menuSectionsNoimgsInitial.push({
+            id: uuidv4(),
+            title: '',
+            items: [
+                {
+                    id: uuidv4(),
+                    itemTitle: '',
+                    itemDescription: '',
+                    itemPrice: 0
+                }
+            ],
+            pageId: pageValues.id,
+            note: null,
+
+        });
+    }
+    const [menuSectionsNoimgs, setMenuSectionsNoImgs] = useState(menuSectionsNoimgsInitial);
 
 
     const setHeroTitle = (value) => {
@@ -630,7 +662,7 @@ const Index = ({ page }) => {
     const handlePageSetingsSubmit = (e) => {
         router.post('/page', pageValues);
 
-        
+
 
     }
     const handleAboutUsSubmit = (e) => {
@@ -646,9 +678,9 @@ const Index = ({ page }) => {
         router.post('/menu', { menu: menuSections });
 
     }
-    const onPostPageClicked=(e)=>{
+    const onPostPageClicked = (e) => {
         e.preventDefault();
-        router.post('/postPage',pageValues);
+        router.post('/postPage', pageValues);
         window.location.reload();
     }
     const [pageSetingsShow, setPageSetingsShow] = useState('hidden');
@@ -660,7 +692,18 @@ const Index = ({ page }) => {
             setPageSetingsShow('hidden');
         }
     }
-   
+    const deliteMenuNoImgsSection = (id) => {
+
+        let newNoImgsSections = menuSectionsNoimgs.filter(item => item.id !== id);
+        onDeleteNoImgsSection(newNoImgsSections);
+        // setMenuSectionsNoImgs((prevItems) => {
+        //     return prevItems.filter(item => item.id !== id);
+
+        // });
+
+
+    }
+
     useEffect(() => {
         if (localStorage.getItem('locale')) {
             setLocale(localStorage.getItem('locale'));
@@ -670,9 +713,10 @@ const Index = ({ page }) => {
         }
 
     }, []);
-    
-   
-   console.log(pageValues);
+
+
+
+    console.log(pageValues);
 
     return (
         <AuthenticatedLayout
@@ -716,11 +760,13 @@ const Index = ({ page }) => {
                     <PageSetings contactInitial={contactInitial} onPostPageClicked={onPostPageClicked} pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
                 </div>
                 <div className="md:flex md:flex-col w-full md:basis-3/4 relative ">
-                    <HeaderMenu themes={themes} textBoxPosition={textBoxPosition} contactInfo={contactInfo} setContactInfo={setContactInfo} pageValues={pageValues} setPageValues={setPageValues} translate={translate} locale={locale}/>
+                    <HeaderMenu themes={themes} textBoxPosition={textBoxPosition} contactInfo={contactInfo} setContactInfo={setContactInfo} pageValues={pageValues} setPageValues={setPageValues} translate={translate} locale={locale} />
                     <Hero textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
                     <AboutUs themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit} />
+                    
+                    <MenuNoImgs themes={themes} menuSections={menuSectionsNoimgs} setMenuSections={setMenuSectionsNoImgs} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
                     <Menu themes={themes} menuSections={menuSections} setMenuSections={setMenuSections} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
-                    <MapProvider pageValues={pageValues} themes={themes} translate={translate} locale={locale} location={location}/>
+                    <MapProvider pageValues={pageValues} themes={themes} translate={translate} locale={locale} location={location} />
                     <Footer themes={themes} contactInfo={contactInfo} pageValues={pageValues} translate={translate} locale={locale} location={location} />
 
                 </div>

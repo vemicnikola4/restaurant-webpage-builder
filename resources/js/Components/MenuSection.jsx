@@ -76,7 +76,7 @@ const MenuSection = ({ section, deliteMenuSection,updateSection,sectionIndex,bgE
             </div>
             <div className="w-64  self-center md:self-start mb-3">
                 <h1>
-                    <input className="p-2 rounded-sm bg-gray-200" type="text" placeholder="Set section Title" value={menuSectionModal.title} onChange={e=>(setTitle(e))}/>
+                    <input className="p-2 rounded-sm bg-gray-200" type="text" placeholder={locale =='en' ? "Set section Title" : "Unesite naslov sekcije"} value={menuSectionModal.title} onChange={e=>(setTitle(e))}/>
                 </h1>
                 <div className="text-red-500">
                      {

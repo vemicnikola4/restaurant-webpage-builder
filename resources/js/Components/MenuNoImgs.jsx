@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect } from "react";
-import MenuSection from "./MenuSection";
+import MenuSectionsNoImgs from "./MenuSectionNoImgs";
 import { v4 as uuidv4 } from "uuid";
 
-const Menu = ({themes,menuSections,setMenuSections,pageValues,handleMenuSubmit,bgErrors,translate,locale}) => {
+const MenuNoImgs = ({themes,menuSections,setMenuSections,pageValues,handleMenuSubmit,bgErrors,translate,locale}) => {
 
 
     const [themeInUse, setThemeInUse] = useState(themes.menu[pageValues.theme]);
@@ -79,11 +79,18 @@ const Menu = ({themes,menuSections,setMenuSections,pageValues,handleMenuSubmit,b
      }, [menuSections]);
 
     return (
-        <div id="menuSection" className={"flex flex-col items-center md:items-start md:ps-5 w-full h-fit py-6 " + themeInUse.main }>
-            
+        <div id="menuSection" className={"flex flex-col items-start p-4 w-full h-fit py-6 " + themeInUse.main }>
+            <div id="createMenuTitleDiv" className="md:p-8">
+                <h1 className={"text-md sm:text-md md:text-4xl text-center md:text-start " + themeInUse.title}>{locale == 'en' ? 'Create Your Menu ' : 'Kreirajte svoj meni'}</h1>
+                <p className="text-md py-4">
+                    {locale == 'en' ? "You can create your menu to be with or without roducy images, or combined. Menu must contain at least one menu section or your page will not be visible to clients." :
+                    "Svoj meni možete urediti sa ili bez slika proizvoda. Važno je da postoji bar jedna sekcija menija inače vaša stranica neće biti vidljiva online."
+                    }
+                </p>
+            </div>
             <div className="md:ps-6 py-4 relative flex justify-center md:block">
                 <div className="w-64 py-2 px-4  rounded-sm bg-blue-500 hover:cursor-pointer flex justify-center items-centertext-center group " onClick={addMenuSection} >
-                    {locale == 'en' ? 'Add menu section' : translate['Add menu section']}
+                    {locale == 'en' ? 'Add menu section ' : 'Dodajte sekciju menija '}
                     <div className=" absolute left-0 ms-12 mt-2 opacity-0 scale-95 md:group-hover:opacity-100 group-hover:scale-100 transition-opacity transition-transform duration-300 bg-gray-200 p-4 rounded-md text-black z-10 ">
                     {locale == 'en' ? 'By clicking this button you will add a section to your menu. Main course, appetizers, dessert etc.' : translate['Add section button']}
                         
@@ -91,10 +98,10 @@ const Menu = ({themes,menuSections,setMenuSections,pageValues,handleMenuSubmit,b
                 </div>
 
             </div>
-            <div className="py-6 flex flex-col items-center min-w-[300px] max-w-[300px] md:max-w-[1100px]">
+            <div className="py-6 flex flex-col items-center w-full">
             {
                     menuSections.map((section,ind) => (
-                        <MenuSection translate={translate} bgErrors={bgErrors} sectionIndex={ind} key={section.id} section={section} onDeleteSectionItem={onDeleteSectionItem} deliteMenuSection={deliteMenuSection} updateSection={updateSection} locale={locale}/>
+                        <MenuSectionsNoImgs translate={translate} bgErrors={bgErrors} sectionIndex={ind} key={section.id} section={section} onDeleteSectionItem={onDeleteSectionItem} deliteMenuSection={deliteMenuSection} updateSection={updateSection} locale={locale}/>
 
                     ))
                 }
@@ -111,4 +118,4 @@ const Menu = ({themes,menuSections,setMenuSections,pageValues,handleMenuSubmit,b
 
 }
 
-export default Menu;
+export default MenuNoImgs;
