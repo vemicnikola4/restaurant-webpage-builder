@@ -75,7 +75,7 @@ const MenuSectionItem = ({ index, item, deleteSectionItem, updateSectionItemsMod
                     <div className="flex flex-col gap-1 items-center">
                         <div>
                         <h2 className="font-bold text-2xl">
-                        <input type="text" className="bg-transparent text-center border-b-2 w-full" placeholder="Enter Title" value={titleInput} onChange={e => setModalTitle(e)} />
+                        <input type="text" className="bg-transparent text-center border-b-2 w-full" placeholder="Enter Title" value={locale == 'en' ? "Enter Title" : 'Unesite naslov'} onChange={e => setModalTitle(e)} />
                     </h2>
                         </div>
                         <div className="text-red-500">
@@ -97,7 +97,7 @@ const MenuSectionItem = ({ index, item, deleteSectionItem, updateSectionItemsMod
 
 
                 <div className="mt-2 px-2">
-                    <textarea name="" placeholder="Enter item description" className="bg-transparent text-center border-b-2 w-full" id="" onChange={e => setModalDescription(e)} value={description}></textarea>
+                    <textarea name="" placeholder={locale == 'en' ? "Enter item description" : 'Unesite opis proizvoda'} className="bg-transparent text-center border-b-2 w-full" id="" onChange={e => setModalDescription(e)} value={description}></textarea>
                 </div>
                 <div className="text-red-500 text-center">
                     {
