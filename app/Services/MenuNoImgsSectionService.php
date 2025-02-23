@@ -43,7 +43,7 @@ class MenuNoImgsSectionService
     // {
        
     // }
-    public function verifyMenuSections( $request ,$menuSectionRequest) :string
+    public function verifyMenuSections( $request ,$menuSectionRequest) :void
     {
         $menu = $request['menu'];
         $menuSectionsValidated = $menuSectionRequest->validated();
@@ -53,9 +53,9 @@ class MenuNoImgsSectionService
             $menuSectionExists = $this->menuSectionRepository->sectionExists($section['id']);
             if ($menuSectionExists ){
                 $this->menuSectionRepository-> delete($section['id']);
-                return $this->menuSectionRepository->create($section,$key);
+                $this->menuSectionRepository->create($section,$key);
             }else{
-                return $this->menuSectionRepository->create($section,$key);
+                $this->menuSectionRepository->create($section,$key);
 
             }
         }

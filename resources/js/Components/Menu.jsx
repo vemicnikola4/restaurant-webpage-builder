@@ -29,6 +29,7 @@ const Menu = ({themes,menuSections,setMenuSections,pageValues,handleMenuSubmit,b
                     itemPrice: 0,
                 }
             ],
+            note:null,
             pageId:pageValues.id,
         }
         setMenuSections([...menuSections, newSection]);

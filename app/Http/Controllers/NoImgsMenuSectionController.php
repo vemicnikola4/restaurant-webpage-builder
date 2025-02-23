@@ -18,10 +18,10 @@ class NoImgsMenuSectionController extends Controller
     }
     public function store(Request $request, StoreNoImgsMenuSectionRequest $noImgsMenuSectionRequest )
     {
-        $msg = $this->noImgsMenuSectionService->verifyMenuSections($request,  $noImgsMenuSectionRequest);  
+        $this->noImgsMenuSectionService->verifyMenuSections($request,  $noImgsMenuSectionRequest);  
         $this->menuSectionService->deleteMenu($request['menu'][0]['pageId']);
 
-        return redirect()->route('dashboard')->with('message', $msg);   
+        return redirect()->route('dashboard')->with('message', 'Successfully created');   
         
     }
     public function destroy($pageId)
