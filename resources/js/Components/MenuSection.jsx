@@ -116,9 +116,9 @@ const MenuSection = ({ section, deliteMenuSection,updateSection,sectionIndex,bgE
                     null
                     } 
                 </div>
-            <div className="flex overflow-x-auto space-x-4 p-4 ">
+            <div className="flex overflow-x-auto space-x-4 p-4 relative items-center ">
 
-                <div className="h-full w-50px bg-blue-500 px-3  min-h-[350px] flex items-center font-extrabold text-2xl rounded-sm hover:cursor-pointer group relative" onClick={addItem}>
+                <div className="h-full sticky z-10 left-0 w-50px bg-blue-500 px-3  min-h-[400px] flex items-center font-extrabold text-2xl rounded-sm hover:cursor-pointer group relative" onClick={addItem}>
                     +
                     <div className="z-10 absolute left-0 ms-12 mt-2 opacity-0 scale-95 md:group-hover:opacity-100 group-hover:scale-100 transition-opacity transition-transform duration-300 bg-gray-200 p-4 rounded-md font-normal text-base " >
                     {locale == 'en' ? 'By clicking this button you will add new product to this section.' : translate['Add item button']}

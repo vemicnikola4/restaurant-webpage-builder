@@ -45,7 +45,8 @@ class MenuSectionService
     {
        
     }
-    public function verifyMenuSections( $request ,$menuSectionRequest){
+    public function verifyMenuSections( $request ,$menuSectionRequest) :string
+    {
         $menu = $request['menu'];
         $menuSectionsValidated = $menuSectionRequest->validated();
         $menuSectionsFromDb = $this->getMenuSectionsForPage($menu[0]['pageId']);
@@ -189,8 +190,11 @@ class MenuSectionService
 
         }
       
-        
+        return 'Successfully created';
     }
-
+    public function deleteMenu(int $pageId) : string
+    {
+       return $this->menuSectionRepository->deleteMenu($pageId);
+    }
     
 }

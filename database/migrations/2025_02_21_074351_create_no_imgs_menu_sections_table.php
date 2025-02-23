@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('no_imgs_menu_sections', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
+            $table->string('title');
+            $table->text('note');
+            $table->integer('index');
+            $table->foreignId('page_id')->constrained('pages','id')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

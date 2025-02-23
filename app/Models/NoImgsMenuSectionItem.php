@@ -4,22 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class NoImgsMenuSection extends Model
+class NoImgsMenuSectionItem extends Model
 {
-    protected $table = 'no_imgs_menu_sections';
+    protected $table = 'no_imgs_menu_section_items';
     public $incrementing = false;  // Disable auto-incrementing for UUID or string primary key
     protected $keyType = 'string';
-
+    
     protected $fillable = [
         'title',
+        'description',
+        'price',
+        'discounted',
+        'discount',
         'index',
-        'page_id',
         'id',
-        'note',
+        'menu_section_id',
+
        
     ];
-    public function menuItems()
+    public function section()
     {
-        return $this->hasMany(NoImgsMenuSectionItem::class,'menu_section_id');
+        return $this->belongsTo(MenuNoImgsMenuSection::class);
     }
 }

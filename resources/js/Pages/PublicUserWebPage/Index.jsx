@@ -5,6 +5,7 @@ import AboutUs from "./Partials/AboutUs";
 import MapProvider from "./Partials/MapProvider";
 import Footer from "./Partials/Footer";
 import Menu from "./Partials/Menu";
+import NoImgsMenu from "./Partials/NoImgsMenu";
 
 const Index = ({ page }) => {
     const [locale, setLocale] = useState();
@@ -44,6 +45,15 @@ const Index = ({ page }) => {
 
     }
     const [menuSections, setMenuSections] = useState(menuSectionsInitial);
+
+    let noImgsMenuSectionsInitial;
+    if (page.noImgsMenuSections) {
+        noImgsMenuSectionsInitial = page.noImgsMenuSections;
+    } else {
+        noImgsMenuSectionsInitial = null;
+
+    }
+    const [noImgsMenuSections, setNoImgsMenuSections] = useState(noImgsMenuSectionsInitial);
 
     const translate = {
         "Page Settings": "Podešavanje stranice",
@@ -153,8 +163,8 @@ const Index = ({ page }) => {
     {
         main: {
 
-            light: 'bg-gray-100 text-gray-700 ',
-            dark: 'bg-gray-900 text-white ',
+            light: 'bg-gray-300 text-gray-900 ',
+            dark: 'bg-gray-700 text-white ',
             blue: 'bg-blue-200 text-gray-700 ',
             red: 'bg-red-200 text-gray-700  ',
             purple: 'bg-purple-200 text-gray-700  ',
@@ -480,36 +490,57 @@ const Index = ({ page }) => {
 
         pageValues.publish == 1
             ?
-            hero !== null && aboutUs !== null && menuSections !== null ?
-                <div className={"flex-col justify-center " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
+            hero !== null && aboutUs !== null ?
+                noImgsMenuSections !== null || menuSections !== null ?
+                    <div className={"flex-col justify-center " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
 
-                    <HeaderMenu themes={themes} textBoxPosition={textBoxPosition} pageValues={pageValues} contactInfo={contactInfo} translate={translate} locale={locale} />
-                    <Hero textBoxPosition={textBoxPosition} themes={themes} hero={hero} pageValues={pageValues} translate={translate} locale={locale} />
-                    <AboutUs aboutUs={aboutUs} pageValues={pageValues} themes={themes} textAligment={textAligment} />
-                    <Menu themes={themes} menuSections={menuSections} pageValues={pageValues} translate={translate} locale={locale} />
-                    {
-                        contactInfo.location ?
-                            <MapProvider pageValues={pageValues} themes={themes} translate={translate} locale={locale} location={contactInfo.location} />
-
-                            :
-                            <div className={"flex flex-col  w-full justify-center-items-center text-center h-fit py-4 md:py-8 bg-gray-300 text-black "}>
-                                <h1 className={"font-bold text-lg md:text-4xl mb-4 "} >
-                                    {locale == 'en' ?  'Map view' : 'Prikaz mape'}
-                                </h1>
-                                <div>
-                                {locale == 'en' ?
-                                    'For displaing this section. Edit embeded map feald in Page setings.Embeded map feald editing available only in desktop view.'
-                                    :
-                                    'Za prikaz ove sekcije uredite embeded mapa polje u Podešavanjima stranice. Podešavanje polja embeded mapa dostupno samo u desktop varijanti aplikacije.'
-
+                        <HeaderMenu themes={themes} textBoxPosition={textBoxPosition} pageValues={pageValues} contactInfo={contactInfo} translate={translate} locale={locale} />
+                        <Hero textBoxPosition={textBoxPosition} themes={themes} hero={hero} pageValues={pageValues} translate={translate} locale={locale} />
+                        <AboutUs aboutUs={aboutUs} pageValues={pageValues} themes={themes} textAligment={textAligment} />
+                        <div className={"flex w-full justify-center items-center " + themes.main[pageValues.theme]}>
+                            <h1 className={"text-md sm:text-md md:text-4xl font-bold  text-center md:text-start py-4  "}>
+                                {
+                                    locale == 'en' ? "Our Menu" : 'Naš meni'
                                 }
-                                </div>
-                               
-                            </div>
-                    }
-                    <Footer themes={themes} contactInfo={contactInfo} pageValues={pageValues} translate={translate} locale={locale} />
+                            </h1>
+                        </div>
+                        {
+                            menuSections ?
+                                <Menu themes={themes} menuSections={menuSections} pageValues={pageValues} translate={translate} locale={locale} />
+                                :
 
-                </div>
+                                <NoImgsMenu themes={themes} menuSections={noImgsMenuSections} pageValues={pageValues} translate={translate} locale={locale} />
+
+                        }
+                        {
+                            contactInfo.location ?
+                                <MapProvider pageValues={pageValues} themes={themes} translate={translate} locale={locale} location={contactInfo.location} />
+
+                                :
+                                <div className={"flex flex-col  w-full justify-center-items-center text-center h-fit py-4 md:py-8 bg-gray-300 text-black "}>
+                                    <h1 className={"font-bold text-lg md:text-4xl mb-4 "} >
+                                        {locale == 'en' ? 'Map view' : 'Prikaz mape'}
+                                    </h1>
+                                    <div>
+                                        {locale == 'en' ?
+                                            'For displaing this section. Edit embeded map feald in Page setings.Embeded map feald editing available only in desktop view.'
+                                            :
+                                            'Za prikaz ove sekcije uredite embeded mapa polje u Podešavanjima stranice. Podešavanje polja embeded mapa dostupno samo u desktop varijanti aplikacije.'
+
+                                        }
+                                    </div>
+
+                                </div>
+                        }
+                        <Footer themes={themes} contactInfo={contactInfo} pageValues={pageValues} translate={translate} locale={locale} />
+
+                    </div>
+                    :
+                    <div className={"flex justify-center items-center  h-screen w-screen text-6xl text-center " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
+                        {locale == 'en' ?
+                            'Finish editing your page' : "Završite uredjivanje svoje stranice"
+                        }
+                    </div>
                 :
                 <div className={"flex justify-center items-center  h-screen w-screen text-6xl text-center " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
                     {locale == 'en' ?

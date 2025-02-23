@@ -433,7 +433,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                             <img className="flex  rounded-md" src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" />
                         </div>
                         <span className="px-1">*</span>
-                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, mapLink: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.mapLink ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste online order link" : translate["Paste online order link"]} disabled={fealdDisabled.mapLink} value={contactInfo.mapLink} onInvalid={e => setContactInfo({ ...contactInfo, mapLink: null })} />
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, mapLink: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.mapLink ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste google maps link" : translate["Paste google maps link"]} disabled={fealdDisabled.mapLink} value={contactInfo.mapLink} onInvalid={e => setContactInfo({ ...contactInfo, mapLink: null })} />
                         {
 
                             <div className="px-2 bg-gray-400 flex justify-center items-center rounded-md ms-1 ">

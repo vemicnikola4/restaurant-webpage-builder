@@ -44,7 +44,8 @@ class HeroController extends Controller
     public function store(Request $request,StoreHeroRequest $heroRequest)
     {
         $this->heroService->validateHero($request,$heroRequest);
-        return Redirect::route('dashboard');
+        return redirect()->route('dashboard')->with('message', 'Successfully created');   
+
         
         
     }

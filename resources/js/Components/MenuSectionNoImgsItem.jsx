@@ -74,7 +74,7 @@ const MenuSectionNoImgsItem = ({ index, item, deleteSectionItem, updateSectionIt
 
 
 
-            <div className="flex  w-full">
+            <div className="flex flex-col w-full">
                 <textarea name="" placeholder={locale == 'en' ? "Enter item descriptiom" : 'Unesite opis proizvoda'} className="bg-transparent text-center border-b-2 w-full" id="" onChange={e => setModalDescription(e)} value={description}></textarea>
                 <div className="text-red-500 text-center">
                     {
