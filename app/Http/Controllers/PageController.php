@@ -10,6 +10,7 @@ use App\Services\HeroService;
 use App\Services\ContactService;
 use App\Services\AboutUsService;
 use App\Services\MenuSectionService;
+use App\Services\MenuNoImgsSectionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -21,13 +22,14 @@ class PageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function __construct(PageService $pageService, HeroService $heroService, ContactService $contactService,AboutUsService $aboutUsService,MenuSectionService $menuSectionService)
+    public function __construct(PageService $pageService, HeroService $heroService, ContactService $contactService,AboutUsService $aboutUsService,MenuSectionService $menuSectionService, MenuNoImgsSectionService $menuNoImgsSectionService)
     {
         $this->pageService = $pageService;
         $this->heroService = $heroService;
         $this->contactService = $contactService;
         $this->aboutUsService = $aboutUsService;
         $this->menuSectionService = $menuSectionService;
+        $this->menuNoImgsSectionService = $menuNoImgsSectionService;
        
     }
     public function index()
@@ -40,8 +42,9 @@ class PageController extends Controller
         $user =Auth::user();
         $pageExists = $this->pageService->pageExists($user->id);
 
+        
         if ( $pageExists ){
-
+            $message = session('message');
             $page = $this->pageService->getUsersPage($user->id);
 
             $heroExists = $this->heroService->heroExists($page->id);
@@ -89,9 +92,17 @@ class PageController extends Controller
                 $page['menuSections'] = null;
 
             } 
-            
+            $noImgsSectionsExists = $this->menuNoImgsSectionService->menuSectionsExists($page->id); 
+                if ( $noImgsSectionsExists ){
+                    $noImgsSectionsExists = $this->menuNoImgsSectionService->getMenuSectionsForPage($page->id);
+                    $page['noImgsMenuSections']=$noImgsSectionsExists;
+                }else{
+                    $page['noImgsMenuSections'] = null;
+    
+                } 
                 return Inertia::render('WebPage/Index',[
                     'page'=>$page,
+                    'message'=>$message,
                 ]);
             
         }else{
@@ -180,6 +191,14 @@ class PageController extends Controller
                     $page['menuSections']=$menuSections;
                 }else{
                     $page['menuSections'] = null;
+    
+                } 
+                $noImgsSectionsExists = $this->menuNoImgsSectionService->menuSectionsExists($page->id); 
+                if ( $noImgsSectionsExists ){
+                    $menuSections = $this->menuNoImgsSectionService->getMenuSectionsForPage($page->id);
+                    $page['noImgsMenuSections']=$menuSections;
+                }else{
+                    $page['noImgsMenuSections'] = null;
     
                 } 
                 

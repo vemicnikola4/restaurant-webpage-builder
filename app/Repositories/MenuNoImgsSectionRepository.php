@@ -1,23 +1,22 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\MenuSection;
-use App\Models\MenuSectionItem;
-use App\Models\MenuSectionItemMedia;
+use App\Models\NoImgsMenuSection;
+use App\Models\NoImgsMenuSectionItem;
 use Illuminate\Support\Collection;
 
 
-class MenuSectionRepository 
+class MenuNoImgsSectionRepository 
 {
 
     public function __construct(
-        protected MenuSection $model
+        protected NoImgsMenuSection $model
     ){}
 
-    public function create( array $data, int $index) : void
+    public function create( array $data, int $index) : string
     {
         try {
-            $menuSection = MenuSection::create([
+            $menuSection = NoImgsMenuSection::create([
             'id'=>$data['id'],
             'title'=>$data['title'],
             'index'=>$index,
@@ -33,14 +32,9 @@ class MenuSectionRepository
                     'id'=>$item['id'],
                     'index'=>$key,
                 ]);
-                $menuItemDb->media()->create([
-                    'path'=>$item['mediaPath'],
-                    'extention'=>$item['mediaExtention'],
-                    'alt'=>$item['mediaAlt'],
-                ]);
+                
             }
-            
-            
+            return 'Successfully created';
             
             
             
@@ -54,7 +48,7 @@ class MenuSectionRepository
     public function getMenuSectionsForPage( int $pageId) : Collection
     {
         try {
-         return  MenuSection::where('page_id',$pageId)->orderBy('index')->get();
+         return  NoImgsMenuSection::where('page_id',$pageId)->orderBy('index')->get();
        
        
             
@@ -64,11 +58,11 @@ class MenuSectionRepository
         } 
 
     }
-    public function menuSectionsExists( int $pageId) : ?MenuSection
+    public function menuSectionsExists( int $pageId) : ?NoImgsMenuSection
     {
         try {
 
-            return   MenuSection::where('page_id',$pageId)->first();
+            return   NoImgsMenuSection::where('page_id',$pageId)->first();
             
             
         } catch (\Exception $e) {
@@ -80,7 +74,7 @@ class MenuSectionRepository
     public function delete( string $sectionId) : void
     {
         try {
-            $section = MenuSection::find($sectionId); 
+            $section = NoImgsMenuSection::find($sectionId); 
             $section->delete();
             
         } catch (\Exception $e) {
@@ -92,7 +86,7 @@ class MenuSectionRepository
     public function deleteMenu( int $pageId) : string
     {
         try {
-            MenuSection::where('page_id', $pageId)->delete(); 
+            NoImgsMenuSection::where('page_id', $pageId)->delete(); 
             return 'Successfully deleted';
             
         } catch (\Exception $e) {
@@ -101,11 +95,11 @@ class MenuSectionRepository
         } 
 
     }
-    public function sectionExists( string $sectionId) : ?MenuSection
+    public function sectionExists( string $sectionId) : ?NoImgsMenuSection
     {
         try {
 
-            return   MenuSection::find($sectionId);
+            return   NoImgsMenuSection::find($sectionId);
             
             
         } catch (\Exception $e) {
@@ -114,11 +108,11 @@ class MenuSectionRepository
         } 
 
     }
-    public function getMenuSection( string $sectionId) : MenuSection
+    public function getMenuSection( string $sectionId) : NoImgsMenuSection
     {
         try {
 
-            $section =   MenuSection::find($sectionId);
+            $section =   NoImgsMenuSection::find($sectionId);
             $section['items']= $this->getItems($section);
             foreach( $section['items'] as $item ){
                 $item['media'] = $this->getItemMedia($item);
@@ -135,7 +129,7 @@ class MenuSectionRepository
     {
         try {
 
-            return MenuSectionItem::where('menu_section_id',$section->id)->orderBy('index')->get();
+            return NoImgsMenuSectionItem::where('menu_section_id',$section->id)->orderBy('index')->get();
             
         } catch (\Exception $e) {
             // Handle any other exceptions
@@ -143,22 +137,11 @@ class MenuSectionRepository
         } 
 
     }
-    public function getItemMedia( object $item) 
-    {
-        try {
-            return $item->media;
-            
-            
-        } catch (\Exception $e) {
-            // Handle any other exceptions
-            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
-        } 
-
-    }
+    
     public function menuItemExists( string $itemId) : ?MenuSectionItem
     {
         try {
-         return  MenuSectionItem::where('id',$itemId)->first();
+         return  NoImgsMenuSectionItem::where('id',$itemId)->first();
        
        
             
@@ -171,8 +154,7 @@ class MenuSectionRepository
     public function getMenuItem( string $itemId) : ?MenuSectionItem
     {
         try {
-        $item =  MenuSectionItem::where('id',$itemId)->first();
-       $item['media']= $item->media;
+        $item =  NoImgsMenuSectionItem::where('id',$itemId)->first();
        return $item;
        
             
@@ -182,25 +164,5 @@ class MenuSectionRepository
         } 
 
     }
-    public function updateMenuItemWithoutMedia(object $model, $newItem ) : void
-    {
-        try {
-            $menuSectionItem = MenuSectionItem::find( $model->id);
-            $menuSectionItem->update(
-                [
-                    'title'=>$newItem['itemTitle'],
-                    'description'=>$newItem['itemDescription'],
-                    'price'=>$newItem['itemPrice'],
-                   
-            
-                ]);
-               
-       
-            
-        } catch (\Exception $e) {
-            // Handle any other exceptions
-            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
-        } 
-
-    }
+    
 }

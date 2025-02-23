@@ -75,7 +75,7 @@ const MenuSectionItem = ({ index, item, deleteSectionItem, updateSectionItemsMod
                     <div className="flex flex-col gap-1 items-center">
                         <div>
                         <h2 className="font-bold text-2xl">
-                        <input type="text" className="bg-transparent text-center border-b-2 w-full" placeholder="Enter Title" value={locale == 'en' ? "Enter Title" : 'Unesite naslov'} onChange={e => setModalTitle(e)} />
+                        <input type="text" className="bg-transparent text-center border-b-2 w-full" placeholder={locale == 'en' ? "Enter Title" : 'Unesite naslov'} value={modal.itemTitle} onChange={e => setModalTitle(e)} />
                     </h2>
                         </div>
                         <div className="text-red-500">
@@ -115,7 +115,7 @@ const MenuSectionItem = ({ index, item, deleteSectionItem, updateSectionItemsMod
                     <div className="flex flex-col gap-1 items-center">
                         <div>
                             <p>
-                                <input type="number" className="bg-transparent text-center border-b-2 " placeholder="Enter Item Price" value={price} onChange={e => setModalPrice(e)} />
+                                <input type="number" className="bg-transparent text-center border-b-2 " placeholder={locale == 'en' ? "Enter item price" : 'Unesite cenu proizvoda'} value={price} onChange={e => setModalPrice(e)} />
                             </p>
                         </div>
                         <div className="text-red-500 text-center">

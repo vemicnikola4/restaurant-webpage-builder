@@ -6,6 +6,7 @@ use App\Http\Controllers\HeroController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\NoImgsMenuSectionController;
 use App\Http\Controllers\MenuSectionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/contactInfo',[ContactInfoController::class,'store'])->name('contactInfo.store');
     Route::post('/aboutUs',[AboutUsController::class,'store'])->name('aboutUs.store');
     Route::post('/menu',[MenuSectionController::class,'store'])->name('menu.store');
+    Route::post('/menuNoImgs',[NoImgsMenuSectionController::class,'store'])->name('menuNoImgs.store');
+    Route::delete('/menu/{id}', [MenuSectionController::class, 'destroy'])->name('menu.delete');
+    Route::delete('/menuNoImgs/{id}', [NoImgsMenuSectionController::class, 'destroy'])->name('menuNoImgs.delete');
 });
 
 require __DIR__.'/auth.php';

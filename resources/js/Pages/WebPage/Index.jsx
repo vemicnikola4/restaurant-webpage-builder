@@ -16,8 +16,20 @@ const Index = ({ page }) => {
     const [locale, setLocale] = useState();
 
     const bgErrors = usePage().props.errors;
+    let message = usePage().props.message;
+    if (message == 'Successfully deleted') {
+        window.location.reload();
+    } else if (message == 'Successfully created') {
+        window.location.reload();
 
+    }
+    const [menuBuilder, setMenuBuilder] = useState(
+        page.menuSections ? 
+        'imgs'
+        : 
+        page.noImgsMenuSections ? 'noImgs' : 'imgs'
 
+    );
     const translate = {
         "Page Settings": "Podešavanje stranice",
         "Page Title": "Naslov stranice",
@@ -34,6 +46,7 @@ const Index = ({ page }) => {
         "Paste phone number": "Nalepite broj telefona",
         "Paste facebook link": "Nalepite facebook link",
         "Paste instagram link": "Nalepite instagram link",
+        "Paste google maps link": "Nalepite link ka google mapama",
         "Paste website link": "Nalepite link ka vasem sajtu",
         "SAVE": "SAČUVAJ",
         "Upload background image": "Učitajte pozadinsku sliku",
@@ -138,8 +151,8 @@ const Index = ({ page }) => {
     {
         main: {
 
-            light: 'bg-gray-100 text-gray-700',
-            dark: 'bg-gray-900 text-white ',
+            light: 'bg-gray-300 text-gray-700',
+            dark: 'bg-gray-700 text-white ',
             blue: 'bg-blue-200 text-black',
             red: 'bg-red-200 text-black ',
             purple: 'bg-purple-300 text-black ',
@@ -616,10 +629,10 @@ const Index = ({ page }) => {
     }
     const [menuSections, setMenuSections] = useState(menuSectionsInitial);
 
-    let menuSectionsNoimgsInitial = [];
-    if (page.menuSectionsNoimgs) {
-        page.menuSectionsNoimgs.map((section) => (
-            menuSectionsNoimgsInitial.push({
+    let menuSectionsNoImgsInitial = [];
+    if (page.noImgsMenuSections) {
+        page.noImgsMenuSections.map((section) => (
+            menuSectionsNoImgsInitial.push({
                 id: section.id,
                 title: section.title,
                 items: section.items,
@@ -629,7 +642,7 @@ const Index = ({ page }) => {
             })
         ))
     } else {
-        menuSectionsNoimgsInitial.push({
+        menuSectionsNoImgsInitial.push({
             id: uuidv4(),
             title: '',
             items: [
@@ -645,7 +658,7 @@ const Index = ({ page }) => {
 
         });
     }
-    const [menuSectionsNoimgs, setMenuSectionsNoImgs] = useState(menuSectionsNoimgsInitial);
+    const [menuSectionsNoimgs, setMenuSectionsNoImgs] = useState(menuSectionsNoImgsInitial);
 
 
     const setHeroTitle = (value) => {
@@ -692,18 +705,29 @@ const Index = ({ page }) => {
             setPageSetingsShow('hidden');
         }
     }
-    const deliteMenuNoImgsSection = (id) => {
+    // const deliteMenuNoImgsSection = (id) => {
 
-        let newNoImgsSections = menuSectionsNoimgs.filter(item => item.id !== id);
-        onDeleteNoImgsSection(newNoImgsSections);
-        // setMenuSectionsNoImgs((prevItems) => {
-        //     return prevItems.filter(item => item.id !== id);
+    //     let newNoImgsSections = menuSectionsNoimgs.filter(item => item.id !== id);
+    //     onDeleteNoImgsSection(newNoImgsSections);
+    //     // setMenuSectionsNoImgs((prevItems) => {
+    //     //     return prevItems.filter(item => item.id !== id);
 
-        // });
+    //     // });
 
+
+    // }
+    const menuBuilderChange = ()=>{
+        if ( menuBuilder == 'imgs'){
+            setMenuBuilder('noImgs')
+        }else{
+            setMenuBuilder('imgs');
+        }
+    }
+    const handleNoImgsMenuSubmit = (e) => {
+        e.preventDefault();
+        router.post('/menuNoImgs', { menu: menuSectionsNoimgs });
 
     }
-
     useEffect(() => {
         if (localStorage.getItem('locale')) {
             setLocale(localStorage.getItem('locale'));
@@ -711,8 +735,9 @@ const Index = ({ page }) => {
             setLocale('sr');
 
         }
-
     }, []);
+
+    
 
 
 
@@ -763,9 +788,25 @@ const Index = ({ page }) => {
                     <HeaderMenu themes={themes} textBoxPosition={textBoxPosition} contactInfo={contactInfo} setContactInfo={setContactInfo} pageValues={pageValues} setPageValues={setPageValues} translate={translate} locale={locale} />
                     <Hero textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
                     <AboutUs themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit} />
-                    
-                    <MenuNoImgs themes={themes} menuSections={menuSectionsNoimgs} setMenuSections={setMenuSectionsNoImgs} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
-                    <Menu themes={themes} menuSections={menuSections} setMenuSections={setMenuSections} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
+                    <div className={"flex w-full justify-center " + themes.main[pageValues.theme]}>
+                        <div className="p-4 bg-blue-500 rounded-sm hover:cursor-pointer " onClick={e=>menuBuilderChange()}>
+                            {
+                                locale == 'en' ?
+
+                                menuBuilder == 'imgs' ? 'Create menu with no images' : 'Create menu with no images'
+                                :
+                                menuBuilder == 'imgs' ? 'Kreirajte svoj meni bez slika' : 'Kreirajte svoj meni sa slikama'
+
+                            }
+                        </div>
+                    </div>
+                    {menuBuilder == 'imgs' ?
+                        <Menu themes={themes} menuSections={menuSections} setMenuSections={setMenuSections} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
+                        :
+                        <MenuNoImgs handleNoImgsMenuSubmit={handleNoImgsMenuSubmit} themes={themes} menuSections={menuSectionsNoimgs} setMenuSections={setMenuSectionsNoImgs} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
+                    }
+
+
                     <MapProvider pageValues={pageValues} themes={themes} translate={translate} locale={locale} location={location} />
                     <Footer themes={themes} contactInfo={contactInfo} pageValues={pageValues} translate={translate} locale={locale} location={location} />
 

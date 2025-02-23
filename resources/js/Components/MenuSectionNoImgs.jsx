@@ -128,7 +128,7 @@ const MenuSectionsNoImgs = ({ section, deliteMenuSection, updateSection, section
 
                 </div>
 
-                <div className="flex justify-start gap-2 ">
+                <div className="flex flex-wrap justify-start gap-2 ">
                     {
                         menuSectionModal.items.map((item, ind) => (
                             <MenuSectionNoImgsItem bgErrors={bgErrors} key={ind} index={ind} item={item} deleteSectionItem={deleteSectionItem} updateSectionItemsModal={updateSectionItemsModal} sectionIndex={sectionIndex} translate={translate} locale={locale} />
