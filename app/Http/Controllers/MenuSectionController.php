@@ -20,14 +20,14 @@ class MenuSectionController extends Controller
     {
         $msg = $this->menuSectionService->verifyMenuSections($request,  $menuSectionRequest);     
         $this->noImgsMenuSectionService->deleteMenu($request['menu'][0]['pageId']);
-        return redirect()->route('dashboard')->with('message', $msg);   
+        return redirect()->route('dashboard')->with('message', 'Successfully created');   
         
     }
     public function destroy($pageId)
     {
-        $msg = $this->menuSectionService->deleteMenu($pageId);    
+        $this->menuSectionService->deleteMenu($pageId);    
 
-        return redirect()->route('dashboard')->with('message', $msg);   
+        return redirect()->route('dashboard')->with('message','Successfully deleted');   
         
     }
 }

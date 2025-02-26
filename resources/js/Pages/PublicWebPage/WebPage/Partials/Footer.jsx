@@ -45,6 +45,9 @@ const Footer = ({ themes, contactInfo, pageValues, translate, locale }) => {
                         <div className="flex justify-center w-12 h-12 rounded-lg">
                             <a href={`tel:${contactInfo.phone}`}><img className="h-full w-full rounded-lg" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" /></a>
                         </div>
+                        <div className="flex justify-center w-12 h-12 rounded-lg">
+                            <a href={contactInfo.mapLink}><img className="h-full w-full rounded-lg" src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" /></a>
+                        </div>
                         {
                             contactInfo.onlineOrder &&
                             <div className="flex justify-center w-12 h-12 rounded-lg">

@@ -1,8 +1,8 @@
 
 import { useEffect, useState } from "react";
 import Tag from "./Tag";
+import WorkingHours from "./WorkingHours";
 const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, handlePageSetingsSubmit, togglePageSetingsShow, contactInfo, setContactInfo, bgErrors, onPostPageClicked, contactInitial }) => {
-    console.log(contactInfo);
     const [themeInUse, setThemeInUse] = useState(themes.pageSetings[pageValues.theme]);
     const [frontErrors, setFrontErrors] = useState({
         facebook: '',
@@ -45,6 +45,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
     const [selectedTags, setSelectedTags] = useState(pageValues.tags);
     const [seeTags, setSeeTags] = useState(false);
     const [showEmbededInstruction, setShowEmbededInstruction] = useState(false);
+    
     const toggleSeeTags = () => {
         setSeeTags(!seeTags);
     }
@@ -138,7 +139,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
             }
         }
-        
+
 
         if (!isUrl(contactInfo.mapLink) || contactInfo.mapLink == '') {
             console.log(isUrl(contactInfo.mapLink));
@@ -161,13 +162,13 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
             if (!fealdDisabled.location) {
                 if (!isIframe(contactInfo.location)) {
                     lError = 'The embeded map field format is invalid, see instruction.';
-    
+
                 } else {
                     setFrontErrors({ ...frontErrors, location: '' });
-    
+
                 }
             }
-        } 
+        }
 
         setFrontErrors({
             instagram: iError,
@@ -252,9 +253,9 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
         setFealdDisabled({ ...fealdDisabled, location: false });
         setContactInfo({ ...contactInfo, location: contactInitial.location });
     }
-
-
-
+    
+    
+    
 
     useEffect(() => {
         if (fealdDisabled.onlineOrders == true) {
@@ -296,6 +297,14 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
             localStorage.setItem('facebook', '1');
 
         }
+        if (fealdDisabled.location == true) {
+            localStorage.setItem('location', '2');
+
+            setContactInfo({ ...contactInfo, location: null });
+        } else {
+            localStorage.setItem('location', '1');
+
+        }
         if (fealdDisabled.phone == true) {
             setContactInfo({ ...contactInfo, phone: null });
         }
@@ -306,17 +315,16 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
         setPageValues({ ...pageValues, contactInfo: contactInfo });
 
     }, [contactInfo]);
-
     return (
         <div className={"flex w-full  h-full relative" + themes.main[pageValues.theme]}>
-            <div className="md:hidden py-2 px-3 flex justify-center items-center absolute left-4 top-2 text-2xl bg-gray-200 rounded-md hover:bg-red-600 hover:cursor-pointer font-extrabold text-black" onClick={e => togglePageSetingsShow()}>
-                x
+            <div className="md:hidden py-1 px-2 flex justify-center items-center absolute left-4 top-2 text-4xl font-bold bg-gray-200 rounded-md hover:bg-red-600 hover:cursor-pointer font-extrabold text-black" onClick={e => togglePageSetingsShow()}>
+               X
             </div>
             <div className="w-full flex flex-col gap-4 px-2 pt-3">
                 <div className="pt-4 text-md md:text-2xl">
                     <h1>{locale == 'en' ? 'Page Settings' : translate['Page Settings']}</h1>
                 </div>
-
+                
                 <div className="w-full flex flex-col gap-4">
                     <label className="w-full" htmlFor="">{locale == 'en' ? 'Page Title' : translate['Page Title']}</label>
                     <input type="text" value={pageValues.title} onChange={e => setPageValues({ ...pageValues, title: e.target.value })} className={"w-full px-2  rounded-md " + themeInUse.input} />
@@ -383,6 +391,9 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
 
                 </div>
+                {/* openhours setup */}
+                
+                <WorkingHours themeInUse={themeInUse} locale={locale} pageValues={pageValues} setPageValues={setPageValues} bgErrors={bgErrors}/>
                 <div className=" w-full flex flex-col gap-4">
                     <label className='w-full' htmlFor="vity">{locale == 'en' ? 'Choose city' : translate['Choose city']}</label>
                     <select className={"rounded-md w-full " + themeInUse.input} value={pageValues.city} name="city" id="" onChange={e => setPageValues({ ...pageValues, city: e.target.value })}>

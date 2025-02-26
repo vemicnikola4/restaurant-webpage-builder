@@ -29,6 +29,7 @@ const MenuNoImgs = ({ themes, menuSections, setMenuSections, pageValues, handleN
                     itemPrice: 0,
                 }
             ],
+            note:null,
             pageId: pageValues.id,
         }
         setMenuSections([...menuSections, newSection]);

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import MenuSectionItem from "./MenuSectionItem";
 
-const MenuSection = ({ section,sectionIndex,translate,locale }) => {
+const MenuSection = ({ section,sectionIndex,translate,locale,pageValues }) => {
 
 
     const [menuSectionModal, setMenuSectionModal] = useState(section);
@@ -33,7 +33,7 @@ const MenuSection = ({ section,sectionIndex,translate,locale }) => {
                 <div className="flex justify-start gap-2 ">
                      {
                         menuSectionModal.items.map((item, ind) => (
-                           <MenuSectionItem key={ind} item={item}/>
+                           <MenuSectionItem key={ind} item={item} pageValues={pageValues}/>
                         ))
                     }
 

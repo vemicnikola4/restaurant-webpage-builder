@@ -7,18 +7,18 @@ const NoImgsMenuSectionItem = ({ item }) => {
 
 
     return (
-        <div className="grid w-full h-full grid-cols-2 rounded-sm shadow-md shadow-black p-4 justify-center font-bold overflow-hidden">
-            <div className="flex flex-wrap ">
-                <div>
+        <div className="grid w-full h-full grid-cols-2 rounded-sm shadow-md shadow-black py-8 px-4 justify-center  overflow-hidden">
+            <div className="flex flex-col ">
+                <div className="font-bold text-xl ">
                     {modal.title}
 
                 </div>
-                <div className="flex  ">
+                <div className="flex  py-2">
                     {modal.description}
                 </div>
             </div>
 
-            <div className="w-full flex justify-end">
+            <div className="w-full flex justify-end font-bold text-xl">
                 {modal.price}RSD
             </div>
         </div>

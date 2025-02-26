@@ -42,7 +42,6 @@ class PageController extends Controller
         $user =Auth::user();
         $pageExists = $this->pageService->pageExists($user->id);
 
-        
         if ( $pageExists ){
             $message = session('message');
             $page = $this->pageService->getUsersPage($user->id);
@@ -119,14 +118,14 @@ class PageController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * [{"day":"sunday","value":0,"open":true,"openHours":9,"openMinutes":0,"closingHours":22,"closingMinutes":0},{"day":"monday","value":1,"open":true,"openHours":9,"openMinutes":0,"closingHours":22,"closingMinutes":0},{"day":"tuesday","value":2,"open":false,"openHours":null,"openMinutes":null,"closingHours":null,"closingMinutes":null},{"day":"wednesday","value":3,"open":false,"openHours":null,"openMinutes":null,"closingHours":null,"closingMinutes":null},{"day":"thursday","value":4,"open":false,"openHours":null,"openMinutes":null,"closingHours":null,"closingMinutes":null},{"day":"friday","value":5,"open":false,"openHours":null,"openMinutes":null,"closingHours":null,"closingMinutes":null},{"day":"saturday","value":6,"open":false,"openHours":null,"openMinutes":null,"closingHours":null,"closingMinutes":null}]
      */
     public function store(PageRequest $request, StoreContactInfoRequest $contactRequest)
     {
         $validated = $request->validated();
         
         $this->pageService->create($validated,$contactRequest);
-
-        return Redirect::route('dashboard');
+        // return redirect()->route('dashboard')->with('message', 'Successfully created'); 
     }
     public function initialStore(PageRequest $request)
     {
@@ -213,10 +212,10 @@ class PageController extends Controller
     public function show($id)
     {       
        
-            $page = $this->pageService->pageExistsWithId($id);
+            $pageExists = $this->pageService->pageExistsWithId($id);
 
-            if ( $page ){
-    
+            if ( $pageExists ){
+                $page = $this->pageService->getPage($pageExists->id);
                 $heroExists = $this->heroService->heroExists($page->id);
                 if ( $heroExists){
                     $hero = $this->heroService->getHeroForPage($page->id);
@@ -262,7 +261,7 @@ class PageController extends Controller
                     $page['menuSections'] = null;
     
                 } 
-                
+                    $this->pageService->incrementVisited($page->id);
                     return Inertia::render('PublicWebPage/WebPage/Index',[
                         'page'=>$page,
                     ]);
@@ -297,8 +296,14 @@ class PageController extends Controller
     }
     public function postPage(Request $request)
     {
+        
         $this->pageService->postPage($request['id']);
 
         
+    }
+    function updateMenuPosition( Request $request ){
+        $data = $request['data'];
+        $this->pageService->updateMenuPosition($data);
+
     }
 }

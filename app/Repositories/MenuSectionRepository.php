@@ -89,11 +89,10 @@ class MenuSectionRepository
         } 
 
     }
-    public function deleteMenu( int $pageId) : string
+    public function deleteMenu( int $pageId) : void
     {
         try {
             MenuSection::where('page_id', $pageId)->delete(); 
-            return 'Successfully deleted';
             
         } catch (\Exception $e) {
             // Handle any other exceptions

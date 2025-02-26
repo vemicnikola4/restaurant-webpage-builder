@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 
 
-const MenuSectionItem = ({ item }) => {
+const MenuSectionItem = ({ item,pageValues }) => {
 
     const [modal, setModal] = useState(item)
 
 
     return (
-        <div className="min-w-[250px] max-w-[250px] block bg-transparent shadow-lg shadow-gray-900 rounded-md min-h-[350px] pb-6 relative">
+        <div className={"min-w-[250px] max-w-[250px] block shadow-md shadow-gray-900 rounded-md min-h-[350px] pb-6 relative "+ (pageValues.theme !== 'dark' ? 'bg-white ' : 'bg-transparent')}>
 
             <div className="w-full">
                 <img src={modal.mediaPath} alt="" className="w-full object-cover  rounded-t-lg h-48" />

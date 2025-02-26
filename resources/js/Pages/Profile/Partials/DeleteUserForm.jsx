@@ -8,6 +8,8 @@ import { useForm } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 
 export default function DeleteUserForm({ className = '' }) {
+    let locale = localStorage.getItem('locale') || 'sr';
+
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
     const passwordInput = useRef();
 
@@ -49,32 +51,30 @@ export default function DeleteUserForm({ className = '' }) {
         <section className={`space-y-6 ${className}`}>
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Delete Account
+                    {locale == 'en' ? 'Delete Account' : 'Izbrišite nalog'}
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Once your account is deleted, all of its resources and data
-                    will be permanently deleted. Before deleting your account,
-                    please download any data or information that you wish to
-                    retain.
+                    {locale == 'en' ? 'Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account,please download any data or information that you wish to retain.' : 'Jednom kada ibrišete svoj nalog, svi vaši podaci će biti trajno izbrisani. Pre brisanja svog naloga preuzmite sve što želite da sačuvate.'}
+
+
                 </p>
             </header>
 
             <DangerButton onClick={confirmUserDeletion}>
-                Delete Account
+                {locale == 'en' ? 'Delete Account' : 'Izbrišite nalog'}
             </DangerButton>
 
             <Modal show={confirmingUserDeletion} onClose={closeModal}>
                 <form onSubmit={deleteUser} className="p-6">
                     <h2 className="text-lg font-medium text-gray-900">
-                        Are you sure you want to delete your account?
+                        {locale == 'en' ? 'Are you sure you want to delete your account?' : 'Da li ste sigurni da želite da izbrišite nalog'}
+
                     </h2>
 
                     <p className="mt-1 text-sm text-gray-600">
-                        Once your account is deleted, all of its resources and
-                        data will be permanently deleted. Please enter your
-                        password to confirm you would like to permanently delete
-                        your account.
+                        {locale == 'en' ? 'Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.' : 'Jednom kada obrišete svoj nalog,svi vaši podaci će biti trajno izbrisani. Unesite svoju lozinku kako bi potvrdili trajno brisanje naloga.'}
+
                     </p>
 
                     <div className="mt-6">
@@ -106,11 +106,15 @@ export default function DeleteUserForm({ className = '' }) {
 
                     <div className="mt-6 flex justify-end">
                         <SecondaryButton onClick={closeModal}>
-                            Cancel
+
+                            {locale == 'en' ? 'Cancel' : 'Otkaži'}
+
                         </SecondaryButton>
 
                         <DangerButton className="ms-3" disabled={processing}>
-                            Delete Account
+                            {locale == 'en' ? ' Delete Account' : 'Obriši nalog'}
+
+
                         </DangerButton>
                     </div>
                 </form>

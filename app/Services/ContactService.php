@@ -36,12 +36,10 @@ class ContactService
         return new ContactInfoResource($contact);
 
     }
-    // public function getOneWithPath(string $path) : ?Media
-    // {
-    //     return $this->mediaRepository->getOneWithPath($path);
-    // }
-    // public function deleteOne(int $id) : void
-    // {
-    //     $this->mediaRepository->deleteOne($id);
-    // }
+    public function updateMenuPosition(array $data) : void
+    {
+       $this->contactRepository->updateMenuPosition($data);
+
+    }
+    
 }
