@@ -64,9 +64,9 @@ class MenuNoImgsSectionService
       
         
     }
-    public function deleteMenu(int $pageId) : string
+    public function deleteMenu(int $pageId) : void
     {
-       return $this->menuSectionRepository->deleteMenu($pageId);
+       $this->menuSectionRepository->deleteMenu($pageId);
     }
     
 }

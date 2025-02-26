@@ -50,6 +50,7 @@ Užice,Uroševac,Crveni krst,Crna Trava,Čajetina,Čačak,Čoka,Čukarica,Šabac
             'font_family'=>'required|string|in:font-sans,font-serif,font-mono',
             'publish'=>'nullable|boolean',
             'user_id' => 'required|exists:users,id',
+            'workingHours' =>'required|array',
         ];
     }
 }

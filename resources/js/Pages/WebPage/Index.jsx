@@ -78,7 +78,7 @@ const Index = ({ page }) => {
         'Giros': "Giros",
         'BreakFast': "Doručak",
         'Lunch': "Ručak", 'Dinner': "Večera", 'Dine in': "Sedenje",
-        'Drive through': "Auto-restoran", 'Drinks': "Piće", 'Kebab': "Kebab", 'Indian': "Indijski", 'Fish': "Riba", 'Pasta': "Pasta", 'Italian': "Intalijanski", 'International': "Internacionalni", 'Mexican': "Meksički", 'Tai': "Tajlandski", 'Chinese': "Kineski", 'Japanese': "Japanski", 'French': "Francuski", 'French Fries': "Pomfrit", 'Burgers': "Burgeri", 'Chicken': "Piletina", 'Traditional cousine': "Tradicionalna", 'Snack Bar': "Snek bar",
+        'Drive through': "Auto-restoran", 'Drinks': "Piće", 'Kebab': "Kebab", 'Indian': "Indijski", 'Fish': "Riba", 'Pasta': "Pasta", 'Italian': "Intalijanski", 'International': "Internacionalni", 'Mexican': "Meksički", 'Tai': "Tajlandski", 'Chinese': "Kineski", 'Japanese': "Japanski", 'French': "Francuski", 'French Fries': "Pomfrit", 'Burgers': "Burgeri", 'Chicken': "Piletina", 'Traditional cousine': "Tradicionalni", 'Snack Bar': "Snek bar",
         'The contact phone field format is invalid.': "Kontakt telefon nije u validnom formatu",
         'The contact phone field format is required.': "Kontakt telefon polje je obavezno.",
         'The contact instagram link field format is invalid.': "Instagram link nije u validnom formatu",
@@ -151,7 +151,7 @@ const Index = ({ page }) => {
     {
         main: {
 
-            light: 'bg-gray-300 text-gray-700',
+            light: 'bg-gray-100 text-gray-700',
             dark: 'bg-gray-700 text-white ',
             blue: 'bg-blue-200 text-black',
             red: 'bg-red-200 text-black ',
@@ -162,8 +162,8 @@ const Index = ({ page }) => {
         },
         heroSection: {
             light: {
-                menuDiv: 'bg-gray-300 bg-opacity-70 border-b-2 border-b-gray-100 text-gray-900  ',
-                dropDownMenu: 'bg-gray-300 text-gray-700',
+                menuDiv: 'bg-gray-100 bg-opacity-70 border-b-2 border-b-gray-100 text-gray-900  ',
+                dropDownMenu: 'bg-gray-300 text-gray-700 z-20',
                 selectThemeInput: 'bg-gray-300  opacity-80 text-gray-900 ',
                 setBgDiv: {
                     main: "bg-gray-300 border-2 border-gray-300 bg-opacity-70 shadow-sm hover:shadow-lg",
@@ -180,7 +180,7 @@ const Index = ({ page }) => {
             },
             dark: {
                 menuDiv: 'bg-gray-900 bg-opacity-70 border-b-2 border-b-gray-100 text-white ',
-                dropDownMenu: 'bg-gray-700 text-white',
+                dropDownMenu: 'bg-gray-700 text-white z-40',
 
                 selectThemeInput: 'bg-gray-700 text-white ',
                 setBgDiv: {
@@ -281,7 +281,7 @@ const Index = ({ page }) => {
         },
         aboutUs: {
             light: {
-                main: 'bg-gray-300  text-gray-900 ',
+                main: 'bg-gray-100  text-gray-900 ',
                 textBox: 'bg-gray-300 ',
                 input: 'bg-gray-300  opacity-80 text-gray-900 ',
             },
@@ -323,7 +323,7 @@ const Index = ({ page }) => {
         },
         menu: {
             light: {
-                main: 'bg-gray-300  text-gray-900 ',
+                main: 'bg-gray-100  text-gray-900 ',
                 title: 'text-gray-900',
                 input: 'bg-gray-100 bg-opacity-50 border-b-1 text-gray-700',
             },
@@ -627,6 +627,7 @@ const Index = ({ page }) => {
 
         });
     }
+
     const [menuSections, setMenuSections] = useState(menuSectionsInitial);
 
     let menuSectionsNoImgsInitial = [];
@@ -705,17 +706,13 @@ const Index = ({ page }) => {
             setPageSetingsShow('hidden');
         }
     }
-    // const deliteMenuNoImgsSection = (id) => {
-
-    //     let newNoImgsSections = menuSectionsNoimgs.filter(item => item.id !== id);
-    //     onDeleteNoImgsSection(newNoImgsSections);
-    //     // setMenuSectionsNoImgs((prevItems) => {
-    //     //     return prevItems.filter(item => item.id !== id);
-
-    //     // });
-
-
-    // }
+    const updateMenuPositionSubmit = (e)=>{
+        e.preventDefault(e);
+        router.post('/updateMenuPosition', { data : {
+            pageId:pageValues.id, position: contactInfo.menuPosition 
+        }} );
+    }
+    
     const menuBuilderChange = ()=>{
         if ( menuBuilder == 'imgs'){
             setMenuBuilder('noImgs')
@@ -782,10 +779,10 @@ const Index = ({ page }) => {
                 </div>
 
                 <div className={"z-10 h-fit pb-5 absolute top-0 bottom-0 left-0 right-0 md:flex  basis-1/4 md:relative z-40 pt-10  " + themes.main[pageValues.theme] + " " + pageSetingsShow}>
-                    <PageSetings contactInitial={contactInitial} onPostPageClicked={onPostPageClicked} pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
+                    <PageSetings page={page} contactInitial={contactInitial} onPostPageClicked={onPostPageClicked} pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
                 </div>
                 <div className="md:flex md:flex-col w-full md:basis-3/4 relative ">
-                    <HeaderMenu themes={themes} textBoxPosition={textBoxPosition} contactInfo={contactInfo} setContactInfo={setContactInfo} pageValues={pageValues} setPageValues={setPageValues} translate={translate} locale={locale} />
+                    <HeaderMenu updateMenuPositionSubmit={updateMenuPositionSubmit}themes={themes} textBoxPosition={textBoxPosition} contactInfo={contactInfo} setContactInfo={setContactInfo} pageValues={pageValues} setPageValues={setPageValues} translate={translate} locale={locale} />
                     <Hero textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
                     <AboutUs themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit} />
                     <div className={"flex w-full justify-center " + themes.main[pageValues.theme]}>

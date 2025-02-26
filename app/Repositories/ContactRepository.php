@@ -80,18 +80,23 @@ class ContactRepository
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
         } 
     }
-    // public function deleteOne(int $id) : void 
-    // {
-        
-    //     try {
-    //         Media::destroy($id);
-
+    public function updateMenuPosition( array $data) : void
+    {
+        try {
+            ContactInfo::where('page_id',  $data['pageId'])->update(
+            [
+                
+            'menu_position'=>$data['position'],
             
-    //     } catch (\Exception $e) {
-    //         // Handle any other exceptions
-    //         throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
-    //     } 
-    // }
+            ]);
+      
+            
+        } catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
 
 }
 

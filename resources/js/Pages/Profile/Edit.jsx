@@ -1,3 +1,4 @@
+import { useState,useEffect } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import DeleteUserForm from './Partials/DeleteUserForm';
@@ -5,6 +6,9 @@ import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 
 export default function Edit({ mustVerifyEmail, status }) {
+    const [locale, setLocale] = useState();
+    
+
     const translate = {
         "Page Setings": "Podešavanje stranice",
         "Page Title": "Naslov stranice",
@@ -17,11 +21,11 @@ export default function Edit({ mustVerifyEmail, status }) {
         "Set background": "Podesite Pozadinu",
         "Enter Title": "Unesite Naslov",
         "Enter Subtitle": "Unesite Podaslov",
-        "Paste online order link":"Nalepite link za online kupovinu",
-        "Paste phone number":"Nalepite broj telefona",
-        "Paste facebook link":"Nalepite facebook link",
-        "Paste instagram link":"Nalepite instagram link",
-        "Paste website link":"Nalepite link ka vasem sajtu",
+        "Paste online order link": "Nalepite link za online kupovinu",
+        "Paste phone number": "Nalepite broj telefona",
+        "Paste facebook link": "Nalepite facebook link",
+        "Paste instagram link": "Nalepite instagram link",
+        "Paste website link": "Nalepite link ka vasem sajtu",
         "SAVE": "SAČUVAJ",
         "Upload background image": "Učitajte pozadinsku sliku",
         "The title field is required.": "Naslov je obavezan!",
@@ -54,14 +58,25 @@ export default function Edit({ mustVerifyEmail, status }) {
         'Lunch': "Ručak", 'Dinner': "Večera", 'Dine in': "Sedenje",
         'Drive through': "Auto-restoran", 'Drinks': "Piće", 'Kebab': "Kebab", 'Indian': "Indijski", 'Fish': "Riba", 'Pasta': "Pasta", 'Italian': "Intalijanski", 'International': "Internacionalni", 'Mexican': "Meksički", 'Tai': "Tajlandski", 'Chinese': "Kineski", 'Japanese': "Japanski", 'French': "Francuski", 'French Fries': "Pomfrit", 'Burgers': "Burgeri", 'Chicken': "Piletina", 'Traditional cousine': "Tradicionalna", 'Snack Bar': "Snek bar"
     }
+
+    useEffect(() => {
+        if (localStorage.getItem('locale')) {
+            setLocale(localStorage.getItem('locale'));
+        } else {
+            setLocale('sr');
+
+        }
+    }, []);
     return (
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Profile
+                    {locale == 'en' ? 'Profile' : 'Profil'}
                 </h2>
             }
             translate={translate}
+            locale={locale}
+            setLocale={setLocale}
         >
             <Head title="Profile" />
 

@@ -106,7 +106,7 @@ const Menu = ({themes,menuSections,setMenuSections,pageValues,handleMenuSubmit,b
                         
                     </div>
                 </div>
-                <div className="w-64 py-2 px-4  rounded-sm bg-yellow-500 hover:cursor-pointer flex justify-center items-centertext-center group " onClick={e=>deleteMenu()}>
+                <div className="w-64 py-2 px-4  rounded-sm bg-yellow-500 hover:cursor-pointer flex justify-center items-center text-center group " onClick={e=>deleteMenu()}>
                     {locale == 'en' ? 'Delete Menu' : 'Izbrišite meni'}
                   
                         

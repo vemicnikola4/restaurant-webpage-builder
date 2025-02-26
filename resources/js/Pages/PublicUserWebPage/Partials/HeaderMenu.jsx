@@ -5,10 +5,12 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
     const [themeInUse, setThemeInUse] = useState(themes.heroSection[pageValues.theme]);
 
     const [dropDownMenu, setDropDownMenu] = useState('hidden');
+    const [showHours, setShowHours] = useState(false);
 
     const toggleDropDown = () => {
         if (dropDownMenu == 'hidden') {
             setDropDownMenu('block');
+            setShowHours(false);
         } else {
             setDropDownMenu('hidden');
         }
@@ -19,8 +21,39 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
         targetDiv.scrollIntoView({ behavior: "smooth" });
     };
 
+    let date = new Date();
+    let day = date.getDay();
 
+    let h = date.getHours();
+    let m = date.getMinutes();
+   
+    let isOpen = false;
+    pageValues.workingHours.forEach(element => {
+        if (element.value == day) {
+            if (h > element.openHours && h < element.closingHours) {
 
+                isOpen = true;
+            } else if (h == element.openHours) {
+                if (m >= element.openMinutes) {
+                    isOpen = true;
+                } else {
+                    isOpen = false;
+                }
+            } else if (h == element.closingHours) {
+                if (m < element.closingHours) {
+                    isOpen = true;
+                } else {
+                    isOpen = false;
+                }
+            }
+
+        }
+    })
+    useEffect(()=>{
+        if ( showHours ){
+            setDropDownMenu('hidden');
+        }
+    },[showHours]);
     return (
         <div id="menuDiv" className={"z-10 w-full absolute top-0 right-0 left-0    flex  " + textBoxPosition.headerMenu[contactInfo.menuPosition] + " " + themeInUse.menuDiv}>
             <div className={"flex md:flex-col z-10  "}>
@@ -34,6 +67,35 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
                                 :
                                 null
                         }
+                        <div onClick={e => setShowHours(!showHours)} className="hover:cursor-pointer hover:underline hover:text-blue-500 ">{locale == 'en' ? 'Hours' : 'Radno vreme'}</div>
+                        <div className={showHours ? ' z-90 flex flex-wrap gap-4  text-sm absolute mt-8 top-16 right-2 p-4 bg-opacity-100 ' + themeInUse.dropDownMenu : 'hidden'}>
+                            <span className={isOpen ? 'text-green-500' : 'text-red-500'}>{isOpen ? locale == 'en' ? 'Open' : 'Otvoreno' : locale == 'en' ? 'Closed' : 'Zatvoreno'}</span>
+
+                            {pageValues.workingHours.map((day, ind) =>
+
+                                day.open ?
+                                    <div key={ind}>
+                                        <span>{locale == 'en' ? day.day : translate[day.day]}  </span>
+                                        <span>{day.openHours < 10 ? '0' : null}{day.openHours}:</span>
+                                        <span>{day.openMinutes < 10 ? '0' : null}{day.openMinutes} - </span>
+                                        <span>{day.closingHours < 10 ? '0' : null}{day.closingHours}:</span>
+                                        <span>{day.closingMinutes < 10 ? '0' : null}{day.closingMinutes} /</span>
+
+
+                                    </div>
+                                    :
+                                    <div key={ind}>
+                                        <span>{locale == 'en' ? day.day : translate[day.day]} - </span>
+                                        <span className="text-red-500">{locale == 'en' ? 'Closed' : 'Zatvoreno'}</span>
+
+
+
+                                    </div>
+
+
+                            )}
+                        </div>
+
 
 
 
@@ -123,7 +185,35 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
                     pageValues.theme === 'dark' ?
                         <div className="flex gap-4 w-full ps-12">
                             <img src="https://img.icons8.com/?size=50&id=8113&format=png" alt="" className={"w-8 h-8  bg-white opacity-100  "} onClick={e => toggleDropDown()} />
-                            <div className="flex gap-2  w-full justify-end">
+                            <div className="flex gap-2  w-full justify-end items-center ">
+                            <div onClick={e => setShowHours(!showHours)} className="px-2 font-bold ">{locale == 'en' ? 'Hours' : 'Radno vreme'}</div>
+                                <div className={showHours ? ' z-40 flex flex-col absolute mt-14 top-14 left-8 p-4 bg-opacity-100 rounded-sm ' + themeInUse.dropDownMenu : 'hidden'}>
+                                    <span className={isOpen ? 'text-green-500' : 'text-red-500'}>{isOpen ? locale == 'en' ? 'Open' : 'Otvoreno' : locale == 'en' ? 'Closed' : 'Zatvoreno'}</span>
+
+                                    {pageValues.workingHours.map((day, ind) =>
+
+                                        day.open ?
+                                            <div key={ind}>
+                                                <span>{day.day} - </span>
+                                                <span>{day.openHours < 10 ? '0' : null}{day.openHours} : </span>
+                                                <span>{day.openMinutes < 10 ? '0' : null}{day.openMinutes} - </span>
+                                                <span>{day.closingHours < 10 ? '0' : null}{day.closingHours} : </span>
+                                                <span>{day.closingMinutes < 10 ? '0' : null}{day.closingMinutes}</span>
+
+
+                                            </div>
+                                            :
+                                            <div key={ind}>
+                                                <span>{day.day} - </span>
+                                                <span className="text-red-500">{locale == 'en' ? 'Closed' : 'Zatvoreno'}</span>
+
+
+
+                                            </div>
+
+
+                                    )}
+                                </div>
                                 <a href={`tel:${contactInfo.phone}`}>
                                     <img className="w-8 h-8 rounded-lg" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" />
                                 </a>
@@ -163,11 +253,40 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
                         </div>
 
                         :
-                        <div className="flex gap-4 w-full">
+                        <div className="flex gap-4 w-full  ">
 
                             <img src="https://img.icons8.com/?size=50&id=8113&format=png" alt="" className={"w-8 h-8 opacity-100 "} onClick={e => toggleDropDown()} />
-                            <div className="flex gap-2  w-full justify-end">
+                            <div className="flex gap-2  w-full items-center justify-end">
+                                <div onClick={e => setShowHours(!showHours)} className="px-2 font-bold ">{locale == 'en' ? 'Hours' : 'Radno vreme'}</div>
+                                <div className={showHours ? ' z-40 flex flex-col absolute mt-14 top-14 left-8 p-4 bg-opacity-100 rounded-sm ' + themeInUse.dropDownMenu : 'hidden'}>
+                                    <span className={isOpen ? 'text-green-500' : 'text-red-500'}>{isOpen ? locale == 'en' ? 'Open' : 'Otvoreno' : locale == 'en' ? 'Closed' : 'Zatvoreno'}</span>
+
+                                    {pageValues.workingHours.map((day, ind) =>
+
+                                        day.open ?
+                                            <div key={ind}>
+                                                <span>{day.day} - </span>
+                                                <span>{day.openHours < 10 ? '0' : null}{day.openHours} : </span>
+                                                <span>{day.openMinutes < 10 ? '0' : null}{day.openMinutes} - </span>
+                                                <span>{day.closingHours < 10 ? '0' : null}{day.closingHours} : </span>
+                                                <span>{day.closingMinutes < 10 ? '0' : null}{day.closingMinutes}</span>
+
+
+                                            </div>
+                                            :
+                                            <div key={ind}>
+                                                <span>{day.day} - </span>
+                                                <span className="text-red-500">{locale == 'en' ? 'Closed' : 'Zatvoreno'}</span>
+
+
+
+                                            </div>
+
+
+                                    )}
+                                </div>
                                 <a href={`tel:${contactInfo.phone}`}>
+
                                     <img className="w-8 h-8 rounded-lg" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" />
                                 </a>
 
@@ -205,15 +324,15 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
                         </div>
                 }
 
-                <div className={dropDownMenu + " absolute top-12 left-18 font-bold rounded-md z-40 opacity-100 bg-opacity-100 py-4 px-8 text-center " + themeInUse.dropDownMenu}>
+                <div className={dropDownMenu + " absolute mt-14 top-12 left-18 font-bold rounded-sm z-40 opacity-100 bg-opacity-100 py-2 px-8 text-center " + themeInUse.dropDownMenu}>
                     <div onClick={e => scrollToTarget(e, 'aboutUsSection')} className=" px-6 py-4"><a href="#aboutUsSection">{locale == 'en' ? 'About us' : 'O nama'}</a></div>
                     <div onClick={e => scrollToTarget(e, 'menuSection')} className="    px-6 py-4"><a href="#menuSection">{locale == 'en' ? 'Menu' : 'Meni'}</a></div>
                     {
-                            contactInfo.location ?
-                                <div onClick={e => scrollToTarget(e, 'locationSection')} className=" px-6 py-4"><a href="">{locale == 'en' ? 'Location' : 'Lokacija'}</a></div>
-                                :
-                                null
-                        }
+                        contactInfo.location ?
+                            <div onClick={e => scrollToTarget(e, 'locationSection')} className=" px-6 py-4"><a href="">{locale == 'en' ? 'Location' : 'Lokacija'}</a></div>
+                            :
+                            null
+                    }
 
                 </div>
             </div>

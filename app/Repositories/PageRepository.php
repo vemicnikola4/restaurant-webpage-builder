@@ -20,6 +20,7 @@ class PageRepository{
                 'theme'=>$data['theme'],
                 'font_family'=>$data['font_family'],
                 'tags'=>$data['tags'],
+                
                 'user_id'=>$data['user_id'],
                 'publish'=>0,
             ]);
@@ -37,6 +38,7 @@ class PageRepository{
                 'title'=>$data['title'],
                 'city'=>$data['city'],
                 'theme'=>$data['theme'],
+                'working_hours'=>$data['workingHours'],
                 'font_family'=>$data['font_family'],
                 'tags'=>$data['tags'],
             ]);
@@ -127,7 +129,28 @@ class PageRepository{
     public function getPages() : LengthAwarePaginator
     {
         try {
-            return Page::where('publish',1)->paginate(3);
+            return Page::where('publish',1)->orderBy('visited','desc')->paginate(3);
+        }catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
+    public function incrementVisited(int $pageId) : void
+    {
+        try {
+            $page = Page::find($pageId);
+            if ( $page->visited ){
+
+                $a = $page->visited + 1;
+            }else{
+            
+
+                $a = 1;
+            }
+            $page->visited = $a;
+            $page->save();
+            // $page->update(['visited' => $a]);
         }catch (\Exception $e) {
             // Handle any other exceptions
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());

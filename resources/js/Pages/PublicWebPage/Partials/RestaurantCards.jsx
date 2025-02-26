@@ -29,7 +29,9 @@ const RestaurantCards = ({ pages, locale, queryParams,translate }) => {
                             }
                         </h1>
                 } */}
-
+                <div className="py-4 text-lg md:text-2xl lg:text-4xl py-4">
+                    {locale == 'en' ? 'Most visited' : 'Najpregledaniji restorani'}
+                </div>
                 <div className="flex max-w-[300px] md:max-w-[700px] lg:max-w-full overflow-x-auto space-x-4 gap-2 p-2">
                     {
                         restaurants.map((page, ind) => (

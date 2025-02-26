@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 
-const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactInfo, setContactInfo,translate ,locale}) => {
+const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactInfo, setContactInfo, translate, locale,updateMenuPositionSubmit }) => {
 
     const [themeInUse, setThemeInUse] = useState(themes.heroSection[pageValues.theme]);
 
@@ -45,7 +45,7 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
                         </div>
                         <div className="flex justify-center items-center gap-1">
                             <a href={contactInfo.mapLink}>
-                                <img className={"w-6 h-6 rounded-lg " } src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" />
+                                <img className={"w-6 h-6 rounded-lg "} src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" />
 
                             </a>
 
@@ -96,21 +96,29 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
 
                 <div className="hidden md:flex justify-center p-4">
                     {locale == 'en' ?
-                    <select name="" id="" className={"p-3 rounded-md " + themeInUse.selectThemeInput} onChange={e => setContactInfo({ ...contactInfo, menuPosition: e.target.value })}>
-                    
-                        <option value="">menu position</option>
-                        <option value="center">center</option>
-                        <option value="left">left</option>
-                        <option value="right">right</option>
-                    </select>
-                    :
-                    <select name="" id="" className={"p-3 rounded-md " + themeInUse.selectThemeInput} onChange={e => setContactInfo({ ...contactInfo, menuPosition: e.target.value })}>
-                    
-                        <option value="">izaberite poziciju</option>
-                        <option value="center">centralno</option>
-                        <option value="left">levo</option>
-                        <option value="right">desno</option>
-                    </select>
+                        <div className="flex gap-2">
+                            <select name="" id="" className={"p-3 rounded-md " + themeInUse.selectThemeInput} onChange={e => setContactInfo({ ...contactInfo, menuPosition: e.target.value })}>
+
+                                <option value="">menu position</option>
+                                <option value="center">center</option>
+                                <option value="left">left</option>
+                                <option value="right">right</option>
+                            </select>
+                                <div className="w-32 py-3 p-6 rounded-sm bg-blue-500 bg-opacity-90 hover:bg-opacity-100 hover:cursor-pointer text-center " onClick={e => updateMenuPositionSubmit(e)}>{locale == 'en' ? "SAVE" : translate["SAVE"]}</div>
+                        </div>
+
+                        :
+                        <div className="flex gap-2">
+                            <select name="" id="" className={"p-3 rounded-md " + themeInUse.selectThemeInput} onChange={e => setContactInfo({ ...contactInfo, menuPosition: e.target.value })}>
+
+                                <option value="">izaberite poziciju</option>
+                                <option value="center">centralno</option>
+                                <option value="left">levo</option>
+                                <option value="right">desno</option>
+                            </select>
+                                <div className="w-32 py-3 p-6 rounded-sm bg-blue-500 bg-opacity-90 hover:bg-opacity-100 hover:cursor-pointer text-center " onClick={e => updateMenuPositionSubmit(e)}>{locale == 'en' ? "SAVE" : translate["SAVE"]}</div>
+                        </div>
+
                     }
                 </div>
             </div>
@@ -124,7 +132,7 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
                                     <img className="w-8 h-8 rounded-lg" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" />
                                 </a>
                                 <a href={contactInfo.mapLink}>
-                                    <img className="w-8 h-8 rounded-lg"  src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" />
+                                    <img className="w-8 h-8 rounded-lg" src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" />
 
                                 </a>
                                 <a href={contactInfo.onlineOrders}>

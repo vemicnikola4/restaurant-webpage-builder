@@ -9,6 +9,7 @@ import { useRef } from 'react';
 export default function UpdatePasswordForm({ className = '' }) {
     const passwordInput = useRef();
     const currentPasswordInput = useRef();
+    let locale = localStorage.getItem('locale') || 'sr';
 
     const {
         data,
@@ -48,12 +49,14 @@ export default function UpdatePasswordForm({ className = '' }) {
         <section className={className}>
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Update Password
+                    {locale == 'en' ? 'Update Password' : 'Izmenite lozinku'}
+
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Ensure your account is using a long, random password to stay
-                    secure.
+                    {locale == 'en' ? 'Ensure your account is using a long, random password to stay secure.' : 'Osigurajte snažnu lozinku kako bi vaš nalog bio siguran.'}
+
+
                 </p>
             </header>
 
@@ -61,7 +64,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 <div>
                     <InputLabel
                         htmlFor="current_password"
-                        value="Current Password"
+                        value={locale == 'en' ? "Current Password" : "Trenutna lozinka"}
                     />
 
                     <TextInput
@@ -83,7 +86,8 @@ export default function UpdatePasswordForm({ className = '' }) {
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password" value="New Password" />
+                    <InputLabel htmlFor="password" value={locale == 'en' ? "New Password" : "Nova lozinka"}
+ />
 
                     <TextInput
                         id="password"
@@ -101,7 +105,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 <div>
                     <InputLabel
                         htmlFor="password_confirmation"
-                        value="Confirm Password"
+                         value={locale == 'en' ? "Confirm Password" : "Potvrdite lozinku"}
                     />
 
                     <TextInput
@@ -122,7 +126,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <PrimaryButton disabled={processing}>{locale == 'en' ? "Save" : "Sačuvajte"}</PrimaryButton>
 
                     <Transition
                         show={recentlySuccessful}
@@ -132,7 +136,9 @@ export default function UpdatePasswordForm({ className = '' }) {
                         leaveTo="opacity-0"
                     >
                         <p className="text-sm text-gray-600">
-                            Saved.
+
+                            {locale == 'en' ? 'Saved.' : 'Sačuvano'}
+
                         </p>
                     </Transition>
                 </div>

@@ -126,7 +126,15 @@ const Index = ({ page }) => {
         'Add section button': "Klikom na ovo dugme dodaćete sekciju vašem meniju. Na primer: predjela, glavno jelo itd.",
         'Add item button': "Klikom na ovo dugme dodaćete proizvod vašoj sekciji.",
         "Paste embeded map": "Nalepite embeded mapu",
-        "SET PAGE OFFLINE": "POSTAVITE STRANICU OFFLINE"
+        "SET PAGE OFFLINE": "POSTAVITE STRANICU OFFLINE",
+        'monday':'ponedeljak',
+        'tuesday':'utorak',
+        'wednesday':'sreda',
+        'thursday':'četvrtak',
+        'friday':'petak',
+        'saturday':'subota',
+        'sunday':'nedelja',
+
 
     }
     const textBoxPosition = {
@@ -163,7 +171,7 @@ const Index = ({ page }) => {
     {
         main: {
 
-            light: 'bg-gray-300 text-gray-900 ',
+            light: 'bg-gray-100 text-gray-900 ',
             dark: 'bg-gray-700 text-white ',
             blue: 'bg-blue-200 text-gray-700 ',
             red: 'bg-red-200 text-gray-700  ',
@@ -250,7 +258,7 @@ const Index = ({ page }) => {
         },
         aboutUs: {
             light: {
-                main: 'bg-gray-300  text-gray-900 ',
+                main: 'bg-gray-100  text-gray-900 ',
 
             },
             dark: {
@@ -285,7 +293,7 @@ const Index = ({ page }) => {
         },
         menu: {
             light: {
-                main: 'bg-gray-300  text-gray-900 ',
+                main: 'bg-gray-100 text-gray-900 ',
                 title: 'text-gray-900',
                 input: 'bg-gray-100 bg-opacity-50 border-b-1 text-gray-700',
             },

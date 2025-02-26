@@ -26,8 +26,8 @@ class NoImgsMenuSectionController extends Controller
     }
     public function destroy($pageId)
     {
-        $msg = $this->noImgsMenuSectionService->deleteMenu($pageId);    
-        return redirect()->route('dashboard')->with('message', $msg);   
+        $this->noImgsMenuSectionService->deleteMenu($pageId);    
+        return redirect()->route('dashboard')->with('message','Successfully deleted');   
         
     }
 }

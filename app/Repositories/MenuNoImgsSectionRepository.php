@@ -13,7 +13,7 @@ class MenuNoImgsSectionRepository
         protected NoImgsMenuSection $model
     ){}
 
-    public function create( array $data, int $index) : string
+    public function create( array $data, int $index) : void
     {
         try {
             $menuSection = NoImgsMenuSection::create([
@@ -34,7 +34,6 @@ class MenuNoImgsSectionRepository
                 ]);
                 
             }
-            return 'Successfully created';
             
             
             
@@ -83,11 +82,10 @@ class MenuNoImgsSectionRepository
         } 
 
     }
-    public function deleteMenu( int $pageId) : string
+    public function deleteMenu( int $pageId) : void
     {
         try {
             NoImgsMenuSection::where('page_id', $pageId)->delete(); 
-            return 'Successfully deleted';
             
         } catch (\Exception $e) {
             // Handle any other exceptions
