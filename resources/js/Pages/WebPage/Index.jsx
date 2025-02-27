@@ -14,8 +14,9 @@ import MenuNoImgs from "@/Components/MenuNoImgs";
 
 const Index = ({ page }) => {
     const [locale, setLocale] = useState();
-
     const bgErrors = usePage().props.errors;
+    const user = usePage().props.auth.user;
+
     let message = usePage().props.message;
     if (message == 'Successfully deleted') {
         window.location.reload();
@@ -162,7 +163,7 @@ const Index = ({ page }) => {
         },
         heroSection: {
             light: {
-                menuDiv: 'bg-gray-100 bg-opacity-70 border-b-2 border-b-gray-100 text-gray-900  ',
+                menuDiv: ' bg-gray-100 bg-opacity-70 border-b border-b-gray-100 text-gray-900  ',
                 dropDownMenu: 'bg-gray-300 text-gray-700 z-20',
                 selectThemeInput: 'bg-gray-300  opacity-80 text-gray-900 ',
                 setBgDiv: {
@@ -179,7 +180,7 @@ const Index = ({ page }) => {
 
             },
             dark: {
-                menuDiv: 'bg-gray-900 bg-opacity-70 border-b-2 border-b-gray-100 text-white ',
+                menuDiv: 'bg-gray-900 bg-opacity-70 border-b border-b-gray-100 text-white ',
                 dropDownMenu: 'bg-gray-700 text-white z-40',
 
                 selectThemeInput: 'bg-gray-700 text-white ',
@@ -694,7 +695,7 @@ const Index = ({ page }) => {
     }
     const onPostPageClicked = (e) => {
         e.preventDefault();
-        router.post('/postPage', pageValues);
+        router.post(route('page.post', pageValues.id));
         window.location.reload();
     }
     const [pageSetingsShow, setPageSetingsShow] = useState('hidden');
@@ -779,12 +780,12 @@ const Index = ({ page }) => {
                 </div>
 
                 <div className={"z-10 h-fit pb-5 absolute top-0 bottom-0 left-0 right-0 md:flex  basis-1/4 md:relative z-40 pt-10  " + themes.main[pageValues.theme] + " " + pageSetingsShow}>
-                    <PageSetings page={page} contactInitial={contactInitial} onPostPageClicked={onPostPageClicked} pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
+                    <PageSetings user={user} page={page} contactInitial={contactInitial} onPostPageClicked={onPostPageClicked} pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
                 </div>
                 <div className="md:flex md:flex-col w-full md:basis-3/4 relative ">
                     <HeaderMenu updateMenuPositionSubmit={updateMenuPositionSubmit}themes={themes} textBoxPosition={textBoxPosition} contactInfo={contactInfo} setContactInfo={setContactInfo} pageValues={pageValues} setPageValues={setPageValues} translate={translate} locale={locale} />
                     <Hero textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
-                    <AboutUs themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit} />
+                    <AboutUs locale={locale} translate={translate} bgErrors={bgErrors} themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit} />
                     <div className={"flex w-full justify-center " + themes.main[pageValues.theme]}>
                         <div className="p-4 bg-blue-500 rounded-sm hover:cursor-pointer " onClick={e=>menuBuilderChange()}>
                             {

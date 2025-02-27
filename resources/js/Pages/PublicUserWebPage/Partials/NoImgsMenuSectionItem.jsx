@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 
 
-const NoImgsMenuSectionItem = ({ item }) => {
+const NoImgsMenuSectionItem = ({ item, pageValues }) => {
 
     const [modal, setModal] = useState(item)
 
 
     return (
-        <div className="grid w-full h-full grid-cols-2 rounded-sm shadow-md shadow-black py-8 px-4 justify-center  overflow-hidden">
+        <div className={"grid w-full h-full grid-cols-2   py-8 px-4 justify-center  overflow-hidden " + (
+            pageValues.theme !== 'dark' ? 'bg-white rounded-md ' : 'bg-transparent shadow-md shadow-black '
+        )}>
             <div className="flex flex-col ">
                 <div className="font-bold text-xl ">
                     {modal.title}

@@ -32,8 +32,22 @@ const Index = ({ queryParams, pages }) => {
         'Drive through':"Auto-restoran",'Drinks':"Piće",'Kebab':"Kebab",'Indian':"Indijski",'Fish':"Riba",'Pasta':"Pasta",'Italian':"Intalijanski",'International':"Internacionalni",'Mexican':"Meksički",'Tai':"Tajlandski",'Chinese':"Kineski",'Japanese':"Japanski",'French':"Francuski",'French Fries':"Pomfrit",'Burgers':"Burgeri",'Chicken':"Piletina",'Traditional cousine':"Tradicionalni",'Snack Bar':"Snek bar","Burek":'Burek','Crepes':'Palačinke','Deserts':'Dezerti','Mediteranian':'Mediteranska','Salads':'Salate','Seafood':'Morski plodovi','Vegan':'Veganski','Vegetarian':'Vegetarijanski','All copyrights reserved':'Sva prava rezervisana'
     
     }
+    function isEmpty(obj) {
+        for (const prop in obj) {
+          if (Object.hasOwn(obj, prop)) {
+            return false;
+          }
+        }
+      
+        return true;
+      }
     const onSearchRestaurantClicked = () => {
-        router.get(route('getRestaurants', queryParams));
+        if ( !isEmpty(queryParams) ){
+            router.get(route('getRestaurants', queryParams));
+
+        }else{
+            router.get('/');
+        }
     }
     useEffect(() => {
         if (localStorage.getItem('locale')) {
@@ -44,7 +58,6 @@ const Index = ({ queryParams, pages }) => {
         }
 
     }, []);
-
     return (
         <div className="">
             <Hero translate={translate} locale={locale} setLocale={setLocale} queryParams={queryParams} onSearchRestaurantClicked={onSearchRestaurantClicked} />

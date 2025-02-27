@@ -17,6 +17,7 @@ class AboutUsController extends Controller
     public function store(Request $request,StoreAboutUsRequest $storeAboutUsRequest )
     {
         $this->aboutUsService->validateAboutUs($request,$storeAboutUsRequest);
+        
         return redirect()->route('dashboard')->with('message', 'Successfully created');   
         
         

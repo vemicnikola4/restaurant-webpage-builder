@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import NoImgsMenuSectionItem from "./NoImgsMenuSectionItem";
 
-const NoImgsMenuSection = ({ section, sectionIndex, translate, locale }) => {
+const NoImgsMenuSection = ({ section, sectionIndex, translate, locale , pageValues }) => {
 
 
     const [menuSectionModal, setMenuSectionModal] = useState(section);
@@ -27,14 +27,14 @@ const NoImgsMenuSection = ({ section, sectionIndex, translate, locale }) => {
                     </div>
                 }
 
-            <div className={(showItems ? 'grid md:grid-cols-2 lg:grid-cols-3 md:gap-4   p-4 ' : 'hidden')}>
+            <div className={(showItems ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4   p-2 md:p-4 ' : 'hidden')}>
 
                 
 
                 {
                     
                     menuSectionModal.items.map((item, ind) => (
-                        <NoImgsMenuSectionItem key={ind} item={item} />
+                        <NoImgsMenuSectionItem key={ind} item={item} pageValues={pageValues}/>
                     ))
                 }
 

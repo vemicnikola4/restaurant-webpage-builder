@@ -2,13 +2,13 @@ import Checkbox from "@/Components/Checkbox";
 import { useState, useEffect } from "react";
 import Tag from "./Tag";
 const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantClicked }) => {
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState(queryParams.title || '');
     const [mdFiltersDiv, setMdFiltersDiv] = useState('hidden');
     const [smFiltersDiv, setSmFiltersDiv] = useState('hidden');
     const [smMunicipalitiesDiv, setSmMunicipalitiesDiv] = useState('hidden');
     const [mdMunicipalitiesDiv, setMdMunicipalitiesDiv] = useState('hidden');
-    const [filters, setFilters] = useState([]);
-    const [filtersMunicipalities, setFiltersMunicipalities] = useState([]);
+    const [filters, setFilters] = useState(queryParams.filters || []);
+    const [filtersMunicipalities, setFiltersMunicipalities] = useState(queryParams.cities || []);
 
     const cities = ["Ada", "Aleksandrovac", "Aleksinac", "Alibunar", "Apatin", "Aranđelovac", "Arilje", "Babušnica", "Bajina Bašta", "Barajevo",
         "Batočina", "Bač", "Bačka Palanka", "Bačka Topola", "Bački Petrovac", "Bela Palanka", "Bela Crkva", "Beočin", "Bečej",
@@ -164,7 +164,7 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
                         </p>
                         <div className=" flex w-full gap-4 items-center  ">
                             <input type="text
-                            " className="bg-gray-300 md:h-12 md:w-96 rounded-sm flex basis-2/3 ps-4 text-black " name="restaurantName" placeholder={locale=='en' ? 'Restaurant name' : 'Naziv restorana'} onChange={e=>setTitle(e.target.value)}/>
+                            " className="bg-gray-300 md:h-12 md:w-96 rounded-sm flex basis-2/3 ps-4 text-black " name="restaurantName" placeholder={locale=='en' ? 'Restaurant name' : 'Naziv restorana'} onChange={e=>setTitle(e.target.value)} value={title}/>
                             <div className="bg-gray-300 flex basis-2/3 h-12 text-black ps-4 border border-1 border-gray-700 rounded-sm justify-between items-center">
                                 {
                                     locale == 'en' ?
@@ -347,8 +347,8 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
                         </div>
                         <div className="grid grid-cols-3 gap-2 text-gray-900 p-2 " >
                             {
-                                cities.map(element => (
-                                    <div className={" hover:cursor-pointer hover:bg-opacity-70 p-2 flex justify-center items-center text-center 1 rounded-md text-gray-900 bg-blue-100 bg-opacity-50 " + (filtersMunicipalities.includes(element) ? "bg-red-200" : null)} onClick={e => onMunicipalityClicked(element)}>
+                                cities.map((element,ind )=> (
+                                    <div key={ind} className={" hover:cursor-pointer hover:bg-opacity-70 p-2 flex justify-center items-center text-center 1 rounded-md text-gray-900 bg-blue-100 bg-opacity-50 " + (filtersMunicipalities.includes(element) ? "bg-red-200" : null)} onClick={e => onMunicipalityClicked(element)}>
                                         {element}
                                     </div>
 

@@ -25,7 +25,7 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
 
 
     return (
-        <div id="menuDiv" className={"w-full absolute top-0 right-0 left-0    flex text-black  " + textBoxPosition.headerMenu[contactInfo.menuPosition] + " " + themeInUse.menuDiv}>
+        <div id="menuDiv" className={"z-10 w-full absolute top-0 right-0 left-0  h-10  flex   " + themeInUse.menuDiv + " " +textBoxPosition.headerMenu[contactInfo.menuPosition]  }>
             <div className={"flex md:flex-col z-10  "}>
                 <div className="hidden md:flex gap-3 items-center font-bold">
                     <div className="flex gap-3 justify-center items-center py-2">
@@ -155,7 +155,7 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
                         :
                         <div className="flex gap-4 w-full">
 
-                            <img src="https://img.icons8.com/?size=50&id=8113&format=png" alt="" className={"w-6 h-6 opacity-100 "} onClick={e => toggleDropDown()} />
+                            <img src="https://img.icons8.com/?size=50&id=8113&format=png" alt="" className={"w-6 h-6  "} onClick={e => toggleDropDown()} />
                             <div className="flex gap-2  w-full justify-end">
                                 <img className="w-8 h-8 rounded-lg" src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612&w=0&k=20&c=W_b90qFRpj_FyLyI19xWqB6EoNSuJYwMSN9nnKkE9Hk=" alt="" />
                                 <img className="w-8 h-8 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWDSis8YTAJOlHswnE8KHbEoW5Q3lwZSSMrA&s" alt="" />

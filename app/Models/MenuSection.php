@@ -22,5 +22,8 @@ class MenuSection extends Model
     {
         return $this->hasMany(MenuSectionItem::class,'menu_section_id');
     }
-
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
 }

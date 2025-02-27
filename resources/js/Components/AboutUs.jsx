@@ -2,7 +2,7 @@ import { use, useContext, useEffect, useState } from "react";
 
 
 
-const AboutUs = ({aboutUs,setAboutUs,pageValues,themes,textAligment,handleAboutUsSubmit}) => {
+const AboutUs = ({aboutUs,setAboutUs,pageValues,themes,textAligment,handleAboutUsSubmit,bgErrors,locale ,translate}) => {
 
     // const [aboutUsTitle, setAboutUsTitle] = useState('Set title. About us eg.');
     // const [aboutUsTextarea, setAboutUsTextarea] = useState('Set Description');
@@ -65,6 +65,13 @@ const AboutUs = ({aboutUs,setAboutUs,pageValues,themes,textAligment,handleAboutU
 
                     </div>
                     <div className="md:basis-1/2 w-full h-1/2 md:h-5/6  bg-gray-100  py-20 px-2 relative flex items-center rounded-lg relative">
+                    {
+                        bgErrors.media  &&
+                        
+                        <span className=" z-10 bg-ggray-400 p-2 text-red-500">{
+                            locale == 'en' ? bgErrors.media : translate[bgErrors.media]
+                        }</span>
+                        } 
                         <img src={aboutUs.media} alt="" className="w-full h-full object-cover bg-center  absolute bottom-0 left-0 opacity-70  rounded-sm" />
                         <div className="z-10 border-2 border-gray-800 w-full flex justify-center items-center  rounded-sm font-bold">
                             <div className="absolute right-0 top-0 p-2 bg-red-500 hover:cursor-pointer rounded-sm" onClick={e => setHasImage(!hasImage)}>
@@ -75,7 +82,6 @@ const AboutUs = ({aboutUs,setAboutUs,pageValues,themes,textAligment,handleAboutU
                         className={"bg-transparent px-2 rounded-lg w-full focus:outline-none"} type="file" name="" onChange={e => setAboutUs({...aboutUs,media:e.target.files[0]})}
                     />
                            
-                            </div>
                            
                             
 
@@ -85,6 +91,8 @@ const AboutUs = ({aboutUs,setAboutUs,pageValues,themes,textAligment,handleAboutU
 
 
                 </div>
+                </div>
+                      
                 <div className="relative w-5/6 py-3 mb-3">
                     <div className=" text-center mt-2 w-full flex justify-center md:justify-end md:absolute bottom-1 pe-3">
                         <div className="w-32 py-3 p-6 rounded-sm bg-blue-500 bg-opacity-80 hover:bg-opacity-90 hover:cursor-pointer" onClick={e=>handleAboutUsSubmit()}>SAVE</div>

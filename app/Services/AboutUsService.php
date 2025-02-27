@@ -95,12 +95,12 @@ class AboutUsService
         }else{
             if ( $aboutUsExists ){
                 $mediaPath = asset('storage/'.$aboutUsExists['media']->path);
-                if ( $mediaPath == $request['media']){
+                if ( $mediaPath !== $request['media']){
                     $mediaValidated = $request->validate([
                         'media' => 'required|image|mimes:jpg,jpeg,png,gif,webp',
                     ],[
                         'media.required' => 'The media field is required.',
-                        'media.image'=> 'The title field must be an image.',
+                        'media.image'=> 'The media field must be an image.',
                         'media.mimes'=> 'Extentions allowed:jpg,jpeg,png,gif.',
                         
                         // 'email.required' => 'The email address is required.',
@@ -109,7 +109,7 @@ class AboutUsService
                 }
                 
 
-                $this->aboutUsRepository->updateWithoutMedia($aboutUsValidated,$aboutUsValidated );
+                $this->aboutUsRepository->updateWithoutMedia($aboutUsExists,$aboutUsValidated );
     
             }else{
                 $this->aboutUsRepository->createWithoutMedia($aboutUsValidated );

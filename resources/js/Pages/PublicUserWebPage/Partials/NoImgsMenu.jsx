@@ -26,7 +26,7 @@ const NoImgsMenu = ({ themes, menuSections, pageValues, translate, locale }) => 
                         menuSections ?
 
                             menuSections.map((section, ind) => (
-                                <NoImgsMenuSection section={section} sectionIndex={ind} translate={translate} locale={locale} />
+                                <NoImgsMenuSection section={section} sectionIndex={ind} translate={translate} locale={locale} pageValues={pageValues} />
 
                             ))
 

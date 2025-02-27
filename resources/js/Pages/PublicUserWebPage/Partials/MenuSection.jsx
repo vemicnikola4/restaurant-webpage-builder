@@ -14,7 +14,7 @@ const MenuSection = ({ section,sectionIndex,translate,locale,pageValues }) => {
         <div className="p-3 w-full mt-2 relative">
            
             <div className="w-64  self-center md:self-start mb-3">
-                <h1 className="text-md md:text-2xl font-bold" >
+                <h1 className="text-xl md:text-2xl font-bold" >
                     {menuSectionModal.title}
                 </h1>
               
@@ -22,7 +22,7 @@ const MenuSection = ({ section,sectionIndex,translate,locale,pageValues }) => {
             </div>
             {
                 menuSectionModal.note && 
-                <div className="flex w-full py-4 justify-center ps-0 md:justify-start md:ps-8 ">
+                <div className="flex w-full text-md font-bold md:text-xl py-4 justify-center ps-0 md:justify-start md:ps-8 ">
                { menuSectionModal.note}
             </div>
             }

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Tag from "./Tag";
 import WorkingHours from "./WorkingHours";
-const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, handlePageSetingsSubmit, togglePageSetingsShow, contactInfo, setContactInfo, bgErrors, onPostPageClicked, contactInitial }) => {
+const PageSetings = ({ user, themes, pageValues, setPageValues, locale, translate, handlePageSetingsSubmit, togglePageSetingsShow, contactInfo, setContactInfo, bgErrors, onPostPageClicked, contactInitial }) => {
     const [themeInUse, setThemeInUse] = useState(themes.pageSetings[pageValues.theme]);
     const [frontErrors, setFrontErrors] = useState({
         facebook: '',
@@ -316,6 +316,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
     }, [contactInfo]);
     return (
+     
         <div className={"flex w-full  h-full relative" + themes.main[pageValues.theme]}>
             <div className="md:hidden py-1 px-2 flex justify-center items-center absolute left-4 top-2 text-4xl font-bold bg-gray-200 rounded-md hover:bg-red-600 hover:cursor-pointer font-extrabold text-black" onClick={e => togglePageSetingsShow()}>
                X
@@ -698,7 +699,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
                         {locale == 'en' ? 'UPDATE SETINGS' : translate['UPDATE SETINGS']}
                     </div>
-                    <a href={`page/show/${pageValues.id}`}>
+                    <a href={user.is_admin ? `/admin/page/show/${pageValues.id}` : `/page/show/${pageValues.id}`}>
                         <div className="py-4 px-4 w-1/2 basis-1/2 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100">
 
                             {locale == 'en' ? 'SEE PAGE' : translate['SEE PAGE']}

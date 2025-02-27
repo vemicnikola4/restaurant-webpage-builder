@@ -22,6 +22,8 @@ class PageService
 
     public function create(array $data,$contactRequest) 
     {
+        $user = Auth::user();
+
         $tags = implode(',', $data['tags']);
         foreach($data['workingHours'] as $key => $val ){
             if ( $data['workingHours'][$key]['open'] == true ){
@@ -60,7 +62,12 @@ class PageService
             $this->contactService->create($contactValidated['contactInfo']);
             
             $this->pageRepository->update($data);
-            return redirect()->route('dashboard')->with('message','Successfully created');   
+            if ($user->is_admin){
+                return redirect()->route('admin.page.dashboard',$data['userId']);
+            }else{
+                return redirect()->route('dashboard')->with('message','Successfully created');   
+
+            }
 
 
         }
@@ -107,6 +114,7 @@ class PageService
     public function postPage(int $pageId) :void
     {
         $page = $this->pageRepository->getOne($pageId);
+        
         if( $page->publish == 1 ){
             $this->pageRepository->updatePublished($pageId,0);
         }else{
@@ -127,7 +135,7 @@ class PageService
         if ( $request['filters'] ){
             $filters = $request['filters'];
             foreach($filters as $filter ){
-                $query->orWhere( "tags",'like',"%".$filter ."%");
+                $query->where( "tags",'like',"%".$filter ."%");
 
             }
         }
@@ -138,6 +146,8 @@ class PageService
 
         foreach ($pages as $page){
             $page['media'] = asset('storage/'.$page->hero->media->path);
+            $workingHours = json_decode($page->working_hours);
+            $page->workingHours = $workingHours;
         }
         return $pages;
         
@@ -147,6 +157,8 @@ class PageService
         $pages =  $this->pageRepository->getPages();
         foreach ($pages as $page){
             $page['media'] = asset('storage/'.$page->hero->media->path);
+            $workingHours = json_decode($page->working_hours);
+            $page->workingHours = $workingHours;
         }
         return $pages;
     }
@@ -158,5 +170,10 @@ class PageService
     {
 
         $this->contactService->updateMenuPosition($data);
+    }
+    public function adminGetPages() : ?LengthAwarePaginator
+    {
+        return $this->pageRepository->adminGetPages();
+
     }
 }

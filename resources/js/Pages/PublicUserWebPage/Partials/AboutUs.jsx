@@ -24,12 +24,12 @@ const AboutUs = ({ aboutUs, pageValues, themes, textAligment }) => {
 
                 <div className={"h-screen py-12 w-5/6  px-4  md:flex md:flex-row gap-2 justify-center items-center relative " + themeInUse.main}>
                     <div className="h-1/2 md:h-5/6 md:basis-1/2 w-full  md:flex flex-col ">
-                        <div className="w-full flex justify-start py-4 md:ps-2 text-start">
+                        <div className="w-full h-fit md:h-full flex justify-start py-4 md:ps-2 text-start">
                             <h1 className={"w-full md:pe-6 text-xl  md:text-4xl md:text-md font-bold "}>
                                 {aboutUs.title}
                             </h1>
                         </div>
-                        <div className="w-full  h-48 md:h-96 flex justify-start md:pe-6 text-xl md:text-2xl">
+                        <div className="w-full  h-48 md:h-96 flex ustify-center md:justify-start text-center md:text-start md:pe-6 text-xl md:text-2xl">
                             {aboutUs.description}
 
                         </div>

@@ -100,7 +100,13 @@ class PageRepository{
     {
         try {
             $page = Page::find($pageId);
+            // dd( $page->hero);
+            // dd( $page->aboutUs);
+            // dd( $page->menuSections);
+            // dd( $page->noImgsmenuSections);
             $page->update(['publish' => $value]);
+
+            
         }catch (\Exception $e) {
             // Handle any other exceptions
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
@@ -121,7 +127,7 @@ class PageRepository{
  
     {
         try{
-            return $pages = $query->paginate(3);
+            return $pages = $query->paginate(5);
         }catch(\Exception $e){
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
         }
@@ -129,7 +135,7 @@ class PageRepository{
     public function getPages() : LengthAwarePaginator
     {
         try {
-            return Page::where('publish',1)->orderBy('visited','desc')->paginate(3);
+            return Page::where('publish',1)->orderBy('visited','desc')->paginate(5);
         }catch (\Exception $e) {
             // Handle any other exceptions
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
@@ -151,6 +157,16 @@ class PageRepository{
             $page->visited = $a;
             $page->save();
             // $page->update(['visited' => $a]);
+        }catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
+    public function adminGetPages() : LengthAwarePaginator
+    {
+        try {
+            return Page::paginate(10);
         }catch (\Exception $e) {
             // Handle any other exceptions
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());

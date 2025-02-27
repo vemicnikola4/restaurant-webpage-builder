@@ -31,6 +31,16 @@ export default function AuthenticatedLayout({ header, children, locale, setLocal
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex ">
+                                {
+                                    user.is_admin ?
+                                        <NavLink
+                                            href={route('admin.dashboard')}
+                                            active={route().current('admin.dashboard')}
+                                        >
+                                            {locale == 'en' ? 'Admin Page' : "Admin stranica"}
+                                        </NavLink>
+                                        : null
+                                }
                                 <NavLink
                                     href={route('dashboard')}
                                     active={route().current('dashboard')}
@@ -147,6 +157,16 @@ export default function AuthenticatedLayout({ header, children, locale, setLocal
                         >
                             {locale == 'en' ? 'Dashboard' : translate["Dashboard"]}
                         </ResponsiveNavLink>
+                        {
+                            user.is_admin ?
+                                <ResponsiveNavLink
+                                    href={route('admin.dashboard')}
+                                    active={route().current('admin.dashboard')}
+                                >
+                                    {locale == 'en' ? 'Admin Page' : "Admin stranica"}
+                                </ResponsiveNavLink>
+                                : null
+                        }
                         <div className="flex gap-2 justify-start items-center p-1">
                             <div className={"w-8 h-8 hover:cursor-pointer p-5 rounded-md shadow-md flex justify-center items-center  hover:bg-gray-100 hover:text-blue-500 hover:underline " + (locale == 'en' ? "bg-gray-300 text-white  " : null)} onClick={e => setLanguage('en')}>en</div>
                             <div className={"w-8 h-8 hover:cursor-pointer p-5 rounded-md shadow-md flex justify-center items-center  hover:bg-gray-100 hover:text-blue-500 hover:underline " + (locale == 'sr' ? "bg-gray-300 text-white " : null)} onClick={e => setLanguage('sr')}>sr</div>

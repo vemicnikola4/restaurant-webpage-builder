@@ -40,6 +40,10 @@ class PageController extends Controller
     public function dashboard()
     {
         $user =Auth::user();
+        if ( $user-> is_admin ){
+            return Redirect::route('dashboard');
+
+        }
         $pageExists = $this->pageService->pageExists($user->id);
 
         if ( $pageExists ){
@@ -99,10 +103,25 @@ class PageController extends Controller
                     $page['noImgsMenuSections'] = null;
     
                 } 
+                // if ( $page->publish == 1 ){
+                //     if(!$heroExists || !$contatExists ||  !$aboutUsExists ){
+                //         $this->postPage( $page->id);
+                //     }else{
+                //         if( !$noImgsSectionsExists && !$menusectionsExists){
+                //         $this->postPage( $page->id);
+
+                //         }
+                //     }
+                // }
+               if ( $user->is_admin ){
+                return redirect()->route('admin.pageShow.dashboard', $page->id);
+               }else{
                 return Inertia::render('WebPage/Index',[
                     'page'=>$page,
                     'message'=>$message,
                 ]);
+               }
+                
             
         }else{
             return Inertia::render('Dashboard');  
@@ -129,6 +148,7 @@ class PageController extends Controller
     }
     public function initialStore(PageRequest $request)
     {
+        $user =Auth::user();
         $validated = $request->validated();
         
         $this->pageService->initialCreate($validated);
@@ -209,6 +229,7 @@ class PageController extends Controller
         }
 
     }
+    
     public function show($id)
     {       
        
@@ -294,10 +315,34 @@ class PageController extends Controller
     {
         //
     }
-    public function postPage(Request $request)
+    public function postPage(int $pageId)
     {
-        
-        $this->pageService->postPage($request['id']);
+        // $heroExists = $this->heroService->heroExists($page->id);
+        // $contatExists = $this->contactService->contactExists($page->id);
+        // $aboutUsExists = $this->aboutUsService->aboutUsExists($page->id);
+        // $noImgsSectionsExists = $this->menuNoImgsSectionService->menuSectionsExists($page->id); 
+        // $menusectionsExists = $this->menuSectionService->menuSectionsExists($page->id);    
+
+
+        //         if ( $heroExists && $contatExists &&  $aboutUsExists ){
+        //             if( $noImgsSectionsExists || $menusectionsExists ){
+                        
+
+        //             }else{
+        //                 // return redirect()->route('dashboard')->with('message','Finish page editing');   
+ 
+
+        //             }
+        //         }else{
+        //             // return redirect()->route('dashboard')->with('message','Finish page editing');   
+
+
+        //         }
+    
+               
+              $this->pageService->postPage($pageId);   
+                    
+                
 
         
     }

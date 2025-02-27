@@ -488,6 +488,7 @@ const Index = ({ page }) => {
         pageValues.publish == 1
             ?
             hero !== null && aboutUs !== null && menuSections !== null ?
+                
                 <div className={"flex-col justify-center " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
 
                     <HeaderMenu themes={themes} textBoxPosition={textBoxPosition} pageValues={pageValues} contactInfo={contactInfo} translate={translate} locale={locale} />
@@ -507,7 +508,7 @@ const Index = ({ page }) => {
                 :
                 <div className={"flex justify-center items-center  h-screen w-screen text-6xl text-center " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
                     {locale == 'en' ?
-                        'Finish editing your page' : "Završite uredjivanje svoje stranice"
+                        'Comming Soon' : "Stranica uskoro dostupna"
                     }
                 </div>
             :
