@@ -7,7 +7,7 @@ const MenuSectionItem = ({ item,pageValues }) => {
 
 
     return (
-        <div className={"min-w-[250px] max-w-[250px] block shadow-md shadow-gray-900 rounded-md min-h-[350px] pb-6 relative "+ (pageValues.theme !== 'dark' ? 'bg-white ' : 'bg-transparent')}>
+        <div className={"min-w-[250px] max-w-[250px] block   rounded-md min-h-[350px] pb-6 relative "+ (pageValues.theme !== 'dark' ? 'bg-white shadow-md ' : 'bg-transparent shadow-md shadow-black ')}>
 
             <div className="w-full">
                 <img src={modal.mediaPath} alt="" className="w-full object-cover  rounded-t-lg h-48" />
@@ -16,7 +16,7 @@ const MenuSectionItem = ({ item,pageValues }) => {
                 <div className="flex justify-center  w-full">
                     <div className="flex flex-col gap-1 items-center border-b-2 ">
                         <div>
-                            <h2 className="font-bold text-2xl">
+                            <h2 className="font-bold text-2xl text-center ">
                                 {modal.itemTitle}
 
                             </h2>
@@ -28,7 +28,7 @@ const MenuSectionItem = ({ item,pageValues }) => {
                 </div>
 
 
-                <div className="my-4 px-4 text-justify  w-full">
+                <div className="my-4 px-4 flex justify-center items-center text-center  w-full ">
                     {modal.itemDescription}
                 </div>
 

@@ -1,6 +1,8 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage} from '@inertiajs/react';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
+    const errors = usePage().props.errors;
+    
     const handleImageError = () => {
         document
             .getElementById('screenshot-container')

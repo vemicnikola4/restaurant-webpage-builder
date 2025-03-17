@@ -45,12 +45,13 @@ Sremska Mitrovica,Sremski Karlovci,Stara Pazova,Stari grad,Stragari,Subotica,Suv
 Surčin,Temerin,Titel,Topola,Trgovište,Trstenik,Tutin,Ćićevac,Ćuprija,Ub,
 Užice,Uroševac,Crveni krst,Crna Trava,Čajetina,Čačak,Čoka,Čukarica,Šabac,
 Šid,Štimlje,Štrpce',
-            'tags'=>'required|array|in:Food truck,Pub,Bakery,Pizza,Deli,Fine Dining,Buffet,Bar,Bar and Brewery,Fast food,Cafeteria,BBQ,Giros,Breakfast,Lunch,Dinner,Dine in,Drive through,Drinks,Kebab,Indian,Fish,Pasta,Italian,International,Mexican,Tai,Chinese,Japanese,French,French Fries,Burgers,Chicken,Traditional cousine,Snack Bar,Crepes,Mediteranian,Deserts,Salads,Vegan,Vegetarian',
+            'tags'=>'required|array|in:Food truck,Pub,Bakery,Pizza,Deli,Fine Dining,Buffet,Bar,Bar and Brewery,Fast food,Cafeteria,BBQ,Giros,Breakfast,Lunch,Dinner,Dine in,Drive through,Drinks,Kebab,Indian,Fish,Pasta,Italian,International,Mexican,Tai,Chinese,Japanese,French,French Fries,Burgers,Chicken,Traditional cousine,Snack Bar,Crepes,Mediteranian,Seafood,Deserts,Salads,Vegan,Vegetarian,Burek,Sandwiches',
             'theme'=>'required|string|in:dark,light,blue,yellow,red,purple,green',
             'font_family'=>'required|string|in:font-sans,font-serif,font-mono',
             'publish'=>'nullable|boolean',
             'user_id' => 'required|exists:users,id',
-            'workingHours' =>'required|array',
+            'workingHours' =>'',
         ];
     }
 }
+//  'Food truck', 'Pub', 'Bakery', 'Pizza', 'Deli', 'Fine Dining', 'Buffet', 'Bar', 'Bar and Brewery', 'Fast food', 'Cafeteria', 'BBQ', 'Giros', 'Breakfast', 'Lunch', 'Dinner', 'Dine in', 'Drive through', 'Drinks', 'Kebab', 'Indian', 'Fish', 'Pasta', 'Italian', 'International', 'Mexican', 'Tai', 'Chinese', 'Japanese', 'French', 'French Fries', 'Burgers', 'Chicken', 'Traditional cousine', 'Snack Bar', 'Burek', 'Mediteranian', 'Seafood', 'Crepes', 'Salads', 'Deserts', 'Vegan', 'Vegetarian'

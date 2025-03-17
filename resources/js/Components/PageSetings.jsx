@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Tag from "./Tag";
 import WorkingHours from "./WorkingHours";
-const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, handlePageSetingsSubmit, togglePageSetingsShow, contactInfo, setContactInfo, bgErrors, onPostPageClicked, contactInitial }) => {
+const PageSetings = ({ page, user, uploadPageErrors, themes, pageValues, setPageValues, locale, translate, handlePageSetingsSubmit, togglePageSetingsShow, contactInfo, setContactInfo, bgErrors, onPostPageClicked, contactInitial, workingHours }) => {
     const [themeInUse, setThemeInUse] = useState(themes.pageSetings[pageValues.theme]);
     const [frontErrors, setFrontErrors] = useState({
         facebook: '',
@@ -14,10 +14,10 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
         mapLink: '',
     });
     const tagsEn = [
-        'Food truck', 'Pub', 'Bakery', 'Pizza', 'Deli', 'Fine Dining', 'Buffet', 'Bar', 'Bar and Brewery', 'Fast food', 'Cafeteria', 'BBQ', 'Giros', 'BreakFast', 'Lunch', 'Dinner', 'Dine in', 'Drive through', 'Drinks', 'Kebab', 'Indian', 'Fish', 'Pasta', 'Italian', 'International', 'Mexican', 'Tai', 'Chinese', 'Japanese', 'French', 'French Fries', 'Burgers', 'Chicken', 'Traditional cousine', 'Snack Bar'
+        'Sandwiches','Food truck', 'Pub', 'Bakery', 'Pizza', 'Deli', 'Fine Dining', 'Buffet', 'Bar', 'Bar and Brewery', 'Fast food', 'Cafeteria', 'BBQ', 'Giros', 'Breakfast', 'Lunch', 'Dinner', 'Dine in', 'Drive through', 'Drinks', 'Kebab', 'Indian', 'Fish', 'Pasta', 'Italian', 'International', 'Mexican', 'Tai', 'Chinese', 'Japanese', 'French', 'French Fries', 'Burgers', 'Chicken', 'Traditional cousine', 'Snack Bar'
     ];
     const tagsSr = [
-        'Kombi restoran', 'Pab', 'Pekara', 'Pica', 'Fine Dining', 'Švedski sto', 'Bar', 'Bar  i proizvodnja pića', 'Brza hrana', 'Kafeterija', 'Roštilj', 'Giros', 'Doručak', 'Ručak', 'Večera', 'Sedenje', 'Auto-restoran', 'Piće', 'Kebab', 'Indijski', 'Riba', 'Pasta', 'Italijanski', 'Internacionalni', 'Meksički', 'Tajlandski', 'Kineski', 'Japanski', 'Francuski', 'Pomfrit', 'Burgeri', 'Piletina', 'Tradicionalna kuhinja'
+        'Sendviči','Kombi restoran', 'Pab', 'Pekara', 'Pica', 'Fine Dining', 'Švedski sto', 'Bar', 'Bar  i proizvodnja pića', 'Brza hrana', 'Kafeterija', 'Roštilj', 'Giros', 'Doručak', 'Ručak', 'Večera', 'Sedenje', 'Auto-restoran', 'Piće', 'Kebab', 'Indijski', 'Riba', 'Pasta', 'Italijanski', 'Internacionalni', 'Meksički', 'Tajlandski', 'Kineski', 'Japanski', 'Francuski', 'Pomfrit', 'Burgeri', 'Piletina', 'Tradicionalna kuhinja'
     ];
     const cities = ["Ada", "Aleksandrovac", "Aleksinac", "Alibunar", "Apatin", "Aranđelovac", "Arilje", "Babušnica", "Bajina Bašta", "Barajevo",
         "Batočina", "Bač", "Bačka Palanka", "Bačka Topola", "Bački Petrovac", "Bela Palanka", "Bela Crkva", "Beočin", "Bečej",
@@ -45,7 +45,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
     const [selectedTags, setSelectedTags] = useState(pageValues.tags);
     const [seeTags, setSeeTags] = useState(false);
     const [showEmbededInstruction, setShowEmbededInstruction] = useState(false);
-    
+
     const toggleSeeTags = () => {
         setSeeTags(!seeTags);
     }
@@ -253,9 +253,9 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
         setFealdDisabled({ ...fealdDisabled, location: false });
         setContactInfo({ ...contactInfo, location: contactInitial.location });
     }
-    
-    
-    
+
+
+
 
     useEffect(() => {
         if (fealdDisabled.onlineOrders == true) {
@@ -318,13 +318,13 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
     return (
         <div className={"flex w-full  h-full relative" + themes.main[pageValues.theme]}>
             <div className="md:hidden py-1 px-2 flex justify-center items-center absolute left-4 top-2 text-4xl font-bold bg-gray-200 rounded-md hover:bg-red-600 hover:cursor-pointer font-extrabold text-black" onClick={e => togglePageSetingsShow()}>
-               X
+                X
             </div>
             <div className="w-full flex flex-col gap-4 px-2 pt-3">
                 <div className="pt-4 text-md md:text-2xl">
                     <h1>{locale == 'en' ? 'Page Settings' : translate['Page Settings']}</h1>
                 </div>
-                
+
                 <div className="w-full flex flex-col gap-4">
                     <label className="w-full" htmlFor="">{locale == 'en' ? 'Page Title' : translate['Page Title']}</label>
                     <input type="text" value={pageValues.title} onChange={e => setPageValues({ ...pageValues, title: e.target.value })} className={"w-full px-2  rounded-md " + themeInUse.input} />
@@ -392,8 +392,8 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
                 </div>
                 {/* openhours setup */}
-                
-                <WorkingHours themeInUse={themeInUse} locale={locale} pageValues={pageValues} setPageValues={setPageValues} bgErrors={bgErrors}/>
+
+                <WorkingHours themeInUse={themeInUse} locale={locale} pageValues={pageValues} setPageValues={setPageValues} bgErrors={bgErrors} />
                 <div className=" w-full flex flex-col gap-4">
                     <label className='w-full' htmlFor="vity">{locale == 'en' ? 'Choose city' : translate['Choose city']}</label>
                     <select className={"rounded-md w-full " + themeInUse.input} value={pageValues.city} name="city" id="" onChange={e => setPageValues({ ...pageValues, city: e.target.value })}>
@@ -414,7 +414,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                             <img className="flex  rounded-md" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" />
                         </div>
                         <span className="px-1">*</span>
-                        <input type="text" value={contactInfo.phone} onChange={e => setContactInfo({ ...contactInfo, phone: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.phone || bgErrors['contactInfo.phone'] ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste phone number" : translate["Paste phone number"]} />
+                        <input type="text" value={contactInfo.phone !== null ? contactInfo.phone : ''} onChange={e => setContactInfo({ ...contactInfo, phone: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.phone || bgErrors['contactInfo.phone'] ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste phone number" : translate["Paste phone number"]} />
                         <div className="px-2 bg-gray-400 flex justify-center items-center rounded-md ms-1 ">
                             x
                         </div>
@@ -444,7 +444,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                             <img className="flex  rounded-md" src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" />
                         </div>
                         <span className="px-1">*</span>
-                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, mapLink: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.mapLink ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste google maps link" : translate["Paste google maps link"]} disabled={fealdDisabled.mapLink} value={contactInfo.mapLink} onInvalid={e => setContactInfo({ ...contactInfo, mapLink: null })} />
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, mapLink: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.mapLink ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste google maps link" : translate["Paste google maps link"]} disabled={fealdDisabled.mapLink} value={contactInfo.mapLink !== null ? contactInfo.mapLink : ''} onInvalid={e => setContactInfo({ ...contactInfo, mapLink: null })} />
                         {
 
                             <div className="px-2 bg-gray-400 flex justify-center items-center rounded-md ms-1 ">
@@ -478,7 +478,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                             <img className="flex  rounded-md" src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612&w=0&k=20&c=W_b90qFRpj_FyLyI19xWqB6EoNSuJYwMSN9nnKkE9Hk=" alt="" />
                         </div>
 
-                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, onlineOrders: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.onlineOrders ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste online order link" : translate["Paste online order link"]} disabled={fealdDisabled.onlineOrders} value={contactInfo.onlineOrders} onInvalid={e => setContactInfo({ ...contactInfo, onlineOrders: null })} />
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, onlineOrders: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.onlineOrders ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste online order link" : translate["Paste online order link"]} disabled={fealdDisabled.onlineOrders} value={contactInfo.onlineOrders !== null ? contactInfo.onlineOrders : ''} onInvalid={e => setContactInfo({ ...contactInfo, onlineOrders: null })} />
                         {
                             fealdDisabled.onlineOrders ?
                                 <div onClick={e => onOnlineOrdersEnabled()} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
@@ -567,7 +567,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                             <img className="flex  rounded-md" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWDSis8YTAJOlHswnE8KHbEoW5Q3lwZSSMrA&s" alt="" />
                         </div>
 
-                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, website: e.target.value })} className={"w-full  rounded-md relative " + themeInUse.input + (frontErrors.website !== '' ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste website link" : translate["Paste website link"]} disabled={fealdDisabled.website} value={contactInfo.website} />
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, website: e.target.value })} className={"w-full  rounded-md relative " + themeInUse.input + (frontErrors.website !== '' ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste website link" : translate["Paste website link"]} disabled={fealdDisabled.website} value={contactInfo.website !== null ? contactInfo.website : ''} />
                         {
                             fealdDisabled.website ?
                                 <div onClick={e => onWebsiteEnabled()} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
@@ -604,7 +604,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                             <img className="flex  rounded-md" src="https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-instagram-icon-png-image_6315974.png" alt="" />
                         </div>
 
-                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, instagram: e.target.value })} className={"w-full  rounded-md " + themeInUse.input + (frontErrors.instagram ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste instagram link" : translate["Paste instagram link"]} disabled={fealdDisabled.instagram} value={contactInfo.instagram} />
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, instagram: e.target.value })} className={"w-full  rounded-md " + themeInUse.input + (frontErrors.instagram ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste instagram link" : translate["Paste instagram link"]} disabled={fealdDisabled.instagram} value={contactInfo.instagram !== null ? contactInfo.instagram : ''} />
                         {
                             fealdDisabled.instagram ?
                                 <div onClick={e => onInstagramEnabled()} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
@@ -639,7 +639,7 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
                         </div>
 
 
-                        <input type="text" value={pageValues.facebook} onChange={e => setContactInfo({ ...contactInfo, facebook: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.facebook ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste facebook link" : translate["Paste facebook link"]} disabled={fealdDisabled.facebook} />
+                        <input type="text" value={pageValues.facebook !== null ? pageValues.facebook : ''} onChange={e => setContactInfo({ ...contactInfo, facebook: e.target.value })} className={"w-full   rounded-md " + themeInUse.input + (frontErrors.facebook ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste facebook link" : translate["Paste facebook link"]} disabled={fealdDisabled.facebook} />
                         {
                             fealdDisabled.facebook ?
                                 <div onClick={e => onFacebookEnabled()} className="px-2 bg-green-500 flex justify-center items-center rounded-md ms-1 hover:cursor-pointer hover:bg-green-600 z-10 opacity-100">
@@ -694,32 +694,51 @@ const PageSetings = ({ themes, pageValues, setPageValues, locale, translate, han
 
                 </div>
                 <div className="flex flex-col gap-2 ps-2 ">
-                    <div className="py-4 w-1/2 basis-1/2 px-4 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => handleSubmit(e)}>
+                    {page.contactInfo ?
 
-                        {locale == 'en' ? 'UPDATE SETINGS' : translate['UPDATE SETINGS']}
-                    </div>
-                    <a href={`page/show/${pageValues.id}`}>
-                        <div className="py-4 px-4 w-1/2 basis-1/2 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100">
+                        <div className="mb-12 py-4 w-1/2 basis-1/2 px-4 bg-green-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => handleSubmit(e)}>
 
-                            {locale == 'en' ? 'SEE PAGE' : translate['SEE PAGE']}
+                            {locale == 'en' ? 'UPDATE SETINGS' : 'IZMENITE PODEŠAVANJA'}
                         </div>
-                    </a>
-
-                </div>
-                {
-                    pageValues.publish == 0 ?
-
-                        <div className="py-4 px-4 w-2/3 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => onPostPageClicked(e)}>
-
-                            {locale == 'en' ? 'POST PAGE ONLINE' : translate['POST PAGE ONLINE']}
-                        </div>
-
                         :
-                        <div className="py-4 px-4 w-2/3 bg-yellow-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => onPostPageClicked(e)}>
+                        <div className=" mb-12 py-4 w-1/2 basis-1/2 px-4 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => handleSubmit(e)}>
 
-                            {locale == 'en' ? 'SET PAGE OFFLINE' : translate['SET PAGE OFFLINE']}
+                            {locale == 'en' ? 'CREATE INITIAL SETINGS ' : 'SAČUVAJTE POČETNA PODEŠAVANJA'}
                         </div>
-                }
+                    }
+                    <div>
+                        <a href={user.is_admin ? `/admin/page/show/${pageValues.id}` : `/page/show/${pageValues.id}`}>
+                            <div className="py-4 px-4 w-1/2 basis-1/2 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100">
+
+                                {locale == 'en' ? 'SEE PAGE' : translate['SEE PAGE']}
+                            </div>
+                        </a>
+                    </div>
+
+                    {
+                        pageValues.publish == 0 ?
+
+                            <div className="py-4 px-4 w-2/3 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => onPostPageClicked(e)}>
+
+                                {locale == 'en' ? 'POST PAGE ONLINE' : translate['POST PAGE ONLINE']}
+                            </div>
+
+                            :
+                            <div className="py-4 px-4 w-2/3 bg-yellow-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e => onPostPageClicked(e)}>
+
+                                {locale == 'en' ? 'SET PAGE OFFLINE' : translate['SET PAGE OFFLINE']}
+                            </div>
+
+
+                    }
+                    {
+                        uploadPageErrors.error &&
+                        <div className="text-red-500 ps-2">{
+                            locale == 'en' ? uploadPageErrors.error : translate[uploadPageErrors.error]
+                        }</div>
+                    }
+                </div>
+
             </div>
 
         </div>

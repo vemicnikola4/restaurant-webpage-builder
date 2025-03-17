@@ -40,6 +40,7 @@ class PageController extends Controller
     public function dashboard()
     {
         $user =Auth::user();
+       
         $pageExists = $this->pageService->pageExists($user->id);
 
         if ( $pageExists ){
@@ -99,10 +100,23 @@ class PageController extends Controller
                     $page['noImgsMenuSections'] = null;
     
                 } 
+                // if ( $page->publish == 1 ){
+                //     if(!$heroExists || !$contatExists ||  !$aboutUsExists ){
+                //         $this->postPage( $page->id);
+                //     }else{
+                //         if( !$noImgsSectionsExists && !$menusectionsExists){
+                //         $this->postPage( $page->id);
+
+                //         }
+                //     }
+                // }
+               
                 return Inertia::render('WebPage/Index',[
                     'page'=>$page,
                     'message'=>$message,
                 ]);
+               
+                
             
         }else{
             return Inertia::render('Dashboard');  
@@ -129,6 +143,7 @@ class PageController extends Controller
     }
     public function initialStore(PageRequest $request)
     {
+        $user =Auth::user();
         $validated = $request->validated();
         
         $this->pageService->initialCreate($validated);
@@ -209,6 +224,7 @@ class PageController extends Controller
         }
 
     }
+    
     public function show($id)
     {       
        
@@ -261,6 +277,14 @@ class PageController extends Controller
                     $page['menuSections'] = null;
     
                 } 
+                $noImgsSectionsExists = $this->menuNoImgsSectionService->menuSectionsExists($page->id); 
+                if ( $noImgsSectionsExists ){
+                    $noImgsSectionsExists = $this->menuNoImgsSectionService->getMenuSectionsForPage($page->id);
+                    $page['noImgsMenuSections']=$noImgsSectionsExists;
+                }else{
+                    $page['noImgsMenuSections'] = null;
+    
+                } 
                     $this->pageService->incrementVisited($page->id);
                     return Inertia::render('PublicWebPage/WebPage/Index',[
                         'page'=>$page,
@@ -294,10 +318,14 @@ class PageController extends Controller
     {
         //
     }
-    public function postPage(Request $request)
+    public function postPage(int $pageId)
     {
-        
-        $this->pageService->postPage($request['id']);
+       
+    
+               
+        $this->pageService->postPage($pageId);
+                    
+                
 
         
     }

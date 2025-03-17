@@ -5,10 +5,10 @@ import AboutUs from "./Partials/AboutUs";
 import MapProvider from "./Partials/MapProvider";
 import Footer from "./Partials/Footer";
 import Menu from "./Partials/Menu";
+import NoImgsMenu from "./Partials/NoImgsMenu";
 
 const Index = ({ page }) => {
     const [locale, setLocale] = useState();
-    console.log(page);
     const [pageValues, setPageValues] = useState(page);
     let heroInitial;
     if (page.hero) {
@@ -45,6 +45,14 @@ const Index = ({ page }) => {
     }
     const [menuSections, setMenuSections] = useState(menuSectionsInitial);
 
+    let noImgsMenuSectionsInitial;
+    if (page.noImgsMenuSections) {
+        noImgsMenuSectionsInitial = page.noImgsMenuSections;
+    } else {
+        noImgsMenuSectionsInitial = null;
+
+    }
+    const [noImgsMenuSections, setNoImgsMenuSections] = useState(noImgsMenuSectionsInitial);
     const translate = {
         "Page Settings": "Podešavanje stranice",
         "Page Title": "Naslov stranice",
@@ -117,13 +125,13 @@ const Index = ({ page }) => {
         'Add item button': "Klikom na ovo dugme dodaćete proizvod vašoj sekciji.",
         "Paste embeded map": "Nalepite embeded mapu",
         "SET PAGE OFFLINE": "POSTAVITE STRANICU OFFLINE",
-        'monday':'ponedeljak',
-        'tuesday':'utorak',
-        'wednesday':'sreda',
-        'thursday':'četvrtak',
-        'friday':'petak',
-        'saturday':'subota',
-        'sunday':'nedelja',
+        'monday': 'ponedeljak',
+        'tuesday': 'utorak',
+        'wednesday': 'sreda',
+        'thursday': 'četvrtak',
+        'friday': 'petak',
+        'saturday': 'subota',
+        'sunday': 'nedelja',
 
     }
     const textBoxPosition = {
@@ -487,19 +495,26 @@ const Index = ({ page }) => {
 
         pageValues.publish == 1
             ?
-            hero !== null && aboutUs !== null && menuSections !== null ?
+            hero !== null && aboutUs !== null && contactInfo !== null &&
+                menuSections !== null || noImgsMenuSections !== null ?
                 <div className={"flex-col justify-center " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
 
                     <HeaderMenu themes={themes} textBoxPosition={textBoxPosition} pageValues={pageValues} contactInfo={contactInfo} translate={translate} locale={locale} />
                     <Hero textBoxPosition={textBoxPosition} themes={themes} hero={hero} pageValues={pageValues} translate={translate} locale={locale} />
                     <AboutUs aboutUs={aboutUs} pageValues={pageValues} themes={themes} textAligment={textAligment} />
-                    <Menu themes={themes} menuSections={menuSections} pageValues={pageValues} translate={translate} locale={locale} />
                     {
-                    contactInfo.location ?
-                    <MapProvider pageValues={pageValues} themes={themes} translate={translate} locale={locale} location={contactInfo.location} />
+                        menuSections ?
+                            <Menu themes={themes} menuSections={menuSections} pageValues={pageValues} translate={translate} locale={locale} />
 
-                    :
-                    null
+                            :
+                            <NoImgsMenu themes={themes} menuSections={noImgsMenuSections} pageValues={pageValues} translate={translate} locale={locale} />
+                    }
+                    {
+                        contactInfo.location ?
+                            <MapProvider pageValues={pageValues} themes={themes} translate={translate} locale={locale} location={contactInfo.location} />
+
+                            :
+                            null
                     }
                     <Footer themes={themes} contactInfo={contactInfo} pageValues={pageValues} translate={translate} locale={locale} />
 
@@ -507,7 +522,7 @@ const Index = ({ page }) => {
                 :
                 <div className={"flex justify-center items-center  h-screen w-screen text-6xl text-center " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
                     {locale == 'en' ?
-                        'Finish editing your page' : "Završite uredjivanje svoje stranice"
+                        'Comming Soon' : "Stranica uskoro dostupna"
                     }
                 </div>
             :

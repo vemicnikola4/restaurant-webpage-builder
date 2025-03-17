@@ -12,7 +12,7 @@ const Hero = ({ textBoxPosition, themes, hero, pageValues, translate, locale }) 
                 </div>
 
             </a>
-            <div className="absolute top-16 pt-2 md:pt-0 md:top-12 left-5 font-bold flex text-xl md:text-4xl text-white z-10">
+            <div className="absolute top-16 pt-2 md:pt-0 md:top-12 left-5 font-bold flex text-xl md:text-4xl text-white bg-gray-500   z-10 px-2 py-2 text-white font-bold rounded-sm bg-gray-500 bg-opacity-60">
                 {pageValues.title}
             </div>
             <img src={hero.media} alt="" className="w-full h-full object-cover bg-center absolute bottom-0 opacity-90" />

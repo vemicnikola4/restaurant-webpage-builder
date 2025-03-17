@@ -14,8 +14,10 @@ import MenuNoImgs from "@/Components/MenuNoImgs";
 
 const Index = ({ page }) => {
     const [locale, setLocale] = useState();
-
     const bgErrors = usePage().props.errors;
+    const user = usePage().props.auth.user;
+    const [uploadPageErrors,setUploadPageErrors] = useState({});
+
     let message = usePage().props.message;
     if (message == 'Successfully deleted') {
         window.location.reload();
@@ -69,14 +71,14 @@ const Index = ({ page }) => {
         'Pizza': "Pica",
         'Deli': "Deli",
         'Fine Dining': "Luksizni",
-        'Buffet': "Švecki sto",
+        'Buffet': "Švedski sto",
         'Bar': "Bar",
         'Bar and Brewery': "Bar i proizvodjna",
         'Fast food': "Brza hrana",
         'Cafeteria': "Kafeterija",
         'BBQ': "Roštilj",
         'Giros': "Giros",
-        'BreakFast': "Doručak",
+        'Breakfast': "Doručak",
         'Lunch': "Ručak", 'Dinner': "Večera", 'Dine in': "Sedenje",
         'Drive through': "Auto-restoran", 'Drinks': "Piće", 'Kebab': "Kebab", 'Indian': "Indijski", 'Fish': "Riba", 'Pasta': "Pasta", 'Italian': "Intalijanski", 'International': "Internacionalni", 'Mexican': "Meksički", 'Tai': "Tajlandski", 'Chinese': "Kineski", 'Japanese': "Japanski", 'French': "Francuski", 'French Fries': "Pomfrit", 'Burgers': "Burgeri", 'Chicken': "Piletina", 'Traditional cousine': "Tradicionalni", 'Snack Bar': "Snek bar",
         'The contact phone field format is invalid.': "Kontakt telefon nije u validnom formatu",
@@ -105,8 +107,10 @@ const Index = ({ page }) => {
         'Add section button': "Klikom na ovo dugme dodaćete sekciju vašem meniju. Na primer: predjela, glavno jelo itd.",
         'Add item button': "Klikom na ovo dugme dodaćete proizvod vašoj sekciji.",
         "Paste embeded map": "Nalepite embeded mapu",
-        "SET PAGE OFFLINE": "POSTAVITE STRANICU OFFLINE"
-
+        "SET PAGE OFFLINE": "POSTAVITE STRANICU OFFLINE",
+        'Hero and About us section required, upload changes before seting the page online':'Hero i O nama sekcija su obavezne, sačuvajte izmene pre nego što postavite stranicu online',
+        'Menu section required, upload changes before seting the page online':'Meni sekcija je obavezna, sačuvajte izmene pre nego što postavite stranicu online',
+         'Phone and map link feald required , upload changes before seting the page online':'Polje telefon i link ka mapi su obavezni, sačuvajte izmene pre nego što postavite stranicu online ','Sandwiches':'Sendviči'
     }
     const textBoxPosition = {
         headerMenu: {
@@ -162,7 +166,7 @@ const Index = ({ page }) => {
         },
         heroSection: {
             light: {
-                menuDiv: 'bg-gray-100 bg-opacity-70 border-b-2 border-b-gray-100 text-gray-900  ',
+                menuDiv: ' bg-gray-100 bg-opacity-70 border-b border-b-gray-100 text-gray-900  ',
                 dropDownMenu: 'bg-gray-300 text-gray-700 z-20',
                 selectThemeInput: 'bg-gray-300  opacity-80 text-gray-900 ',
                 setBgDiv: {
@@ -179,7 +183,7 @@ const Index = ({ page }) => {
 
             },
             dark: {
-                menuDiv: 'bg-gray-900 bg-opacity-70 border-b-2 border-b-gray-100 text-white ',
+                menuDiv: 'bg-gray-900 bg-opacity-70 border-b border-b-gray-100 text-white ',
                 dropDownMenu: 'bg-gray-700 text-white z-40',
 
                 selectThemeInput: 'bg-gray-700 text-white ',
@@ -587,8 +591,8 @@ const Index = ({ page }) => {
         }
     } else {
         aboutUsInitial = {
-            title: "Set About Us Title",
-            description: "Set sectionn desription",
+            title: '',
+            description: '',
             textAligment: 'center',
             media: 'https://cdn.pixabay.com/photo/2021/11/01/15/52/spring-roll-6760871_1280.jpg',
             hasImage: true,
@@ -655,7 +659,7 @@ const Index = ({ page }) => {
                 }
             ],
             pageId: pageValues.id,
-            note: null,
+            note: '',
 
         });
     }
@@ -674,6 +678,7 @@ const Index = ({ page }) => {
 
     }
     const handlePageSetingsSubmit = (e) => {
+        
         router.post('/page', pageValues);
 
 
@@ -694,8 +699,28 @@ const Index = ({ page }) => {
     }
     const onPostPageClicked = (e) => {
         e.preventDefault();
-        router.post('/postPage', pageValues);
-        window.location.reload();
+        if( page.hero && page.aboutUs ){
+                setUploadPageErrors({});
+            if ( page.menuSections || page.noImgsMenuSections ){
+                setUploadPageErrors({});
+                
+                if (page.contactInfo.data.phone && page.contactInfo.data.mapLink ){
+                setUploadPageErrors({});
+
+                    router.post(route('page.post', pageValues.id));
+                    window.location.reload();
+                }else{
+                setUploadPageErrors({...uploadPageErrors, error: 'Phone and map link feald required , upload changes before seting the page online'})
+
+                }
+            }else{
+            setUploadPageErrors({...uploadPageErrors, error: 'Menu section required, upload changes before seting the page online'})
+
+            }
+        }else{
+            setUploadPageErrors({...uploadPageErrors, error: 'Hero and About us section required, upload changes before seting the page online'})
+        }
+        
     }
     const [pageSetingsShow, setPageSetingsShow] = useState('hidden');
 
@@ -734,11 +759,9 @@ const Index = ({ page }) => {
         }
     }, []);
 
-    
+   
 
 
-
-    console.log(pageValues);
 
     return (
         <AuthenticatedLayout
@@ -762,16 +785,15 @@ const Index = ({ page }) => {
                 <div className="z-30 absolute top-0 left-4 md:hidden pt-2 ">
                     {
                         pageValues.theme === 'dark' ?
-                            <div className="bg-gray-900">
+                            <div className="">
                                 <img src="https://cdn4.iconfinder.com/data/icons/interface-essential-vol-1/24/navigation-menu-1--button-parallel-vertical-lines-menu-navigation-three-hamburger-512.png" alt="" className={"w-10 h-10  bg-gray-100 opacity-100 rounded-md hover:bg-white hover:cursor-pointer"} onClick={e => togglePageSetingsShow()} />
 
 
                             </div>
 
                             :
-                            <div className="bg-gray-900">
-
-                                <img src="https://cdn4.iconfinder.com/data/icons/interface-essential-vol-1/24/navigation-menu-1--button-parallel-vertical-lines-menu-navigation-three-hamburger-512.png" alt="" className={"w-10 h-10 opacity-100   rounded-md hover:bg-white hover:cursor-pointer "} onClick={e => togglePageSetingsShow()} />
+                            <div className="">
+                                <img src="https://cdn4.iconfinder.com/data/icons/interface-essential-vol-1/24/navigation-menu-1--button-parallel-vertical-lines-menu-navigation-three-hamburger-512.png" alt="" className={"w-10 h-10  bg-gray-100 opacity-100 rounded-md hover:bg-white hover:cursor-pointer"} onClick={e => togglePageSetingsShow()} />
 
                             </div>
 
@@ -779,13 +801,13 @@ const Index = ({ page }) => {
                 </div>
 
                 <div className={"z-10 h-fit pb-5 absolute top-0 bottom-0 left-0 right-0 md:flex  basis-1/4 md:relative z-40 pt-10  " + themes.main[pageValues.theme] + " " + pageSetingsShow}>
-                    <PageSetings page={page} contactInitial={contactInitial} onPostPageClicked={onPostPageClicked} pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
+                    <PageSetings page={page} uploadPageErrors={uploadPageErrors} user={user} page={page} contactInitial={contactInitial} onPostPageClicked={onPostPageClicked} pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
                 </div>
                 <div className="md:flex md:flex-col w-full md:basis-3/4 relative ">
                     <HeaderMenu updateMenuPositionSubmit={updateMenuPositionSubmit}themes={themes} textBoxPosition={textBoxPosition} contactInfo={contactInfo} setContactInfo={setContactInfo} pageValues={pageValues} setPageValues={setPageValues} translate={translate} locale={locale} />
-                    <Hero textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
-                    <AboutUs themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit} />
-                    <div className={"flex w-full justify-center " + themes.main[pageValues.theme]}>
+                    <Hero  page ={page} textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
+                    <AboutUs page={page} locale={locale} translate={translate} bgErrors={bgErrors} themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit} />
+                    <div className={"flex w-full justify-center py-4 " + themes.main[pageValues.theme]}>
                         <div className="p-4 bg-blue-500 rounded-sm hover:cursor-pointer " onClick={e=>menuBuilderChange()}>
                             {
                                 locale == 'en' ?
@@ -798,9 +820,9 @@ const Index = ({ page }) => {
                         </div>
                     </div>
                     {menuBuilder == 'imgs' ?
-                        <Menu themes={themes} menuSections={menuSections} setMenuSections={setMenuSections} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
+                        <Menu page={page} themes={themes} menuSections={menuSections} setMenuSections={setMenuSections} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
                         :
-                        <MenuNoImgs handleNoImgsMenuSubmit={handleNoImgsMenuSubmit} themes={themes} menuSections={menuSectionsNoimgs} setMenuSections={setMenuSectionsNoImgs} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
+                        <MenuNoImgs page={page} handleNoImgsMenuSubmit={handleNoImgsMenuSubmit} themes={themes} menuSections={menuSectionsNoimgs} setMenuSections={setMenuSectionsNoImgs} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
                     }
 
 

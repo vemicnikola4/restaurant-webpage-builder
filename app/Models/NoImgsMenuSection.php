@@ -22,4 +22,8 @@ class NoImgsMenuSection extends Model
     {
         return $this->hasMany(NoImgsMenuSectionItem::class,'menu_section_id');
     }
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
 }

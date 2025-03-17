@@ -7,6 +7,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\NoImgsMenuSectionController;
 use App\Http\Controllers\MenuSectionController;
 use Illuminate\Foundation\Application;
@@ -23,9 +24,21 @@ Route::middleware(['auth',AdminMiddleware::class])->group(function () {
 
    
         Route::get('/dashboard',[AdminController::class,'index'])->name('dashboard');
+        Route::get('/page/dashboard/{userId}',[AdminController::class,'pageDashboard'])->name('page.dashboard');
+        Route::post('/page/store',[AdminController::class,'adminPageInitialStore'])->name('page.store');
+        Route::get('/page/show/{id}',[AdminController::class,'adminPageShow'])->name('pageShow.dashboard');
+        Route::get('/page/{id}',[AdminController::class,'adminPage'])->name('pageShow');
+        Route::get('/user/create',[AdminController::class,'userCreate'])->name('user.create');
+        Route::post('/user/store',[AdminController::class,'userStore'])->name('user.store');
 
+        Route::post('/hero',[AdminController::class,'adminStoreHero'])->name('hero.store');
+        Route::post('/aboutUs',[AdminController::class,'adminStoreAboutUs'])->name('aboutUs.store');
       
-
+        Route::post('/menu',[AdminController::class,'adminStoreMenu'])->name('menu.store');
+        Route::delete('/menu/{id}', [AdminController::class, 'adminDestroyMenu'])->name('menu.delete');
+        
+        Route::post('/menuNoImgs',[AdminController::class,'adminStoreMenuNoImgs'])->name('menuNoImgs.store');
+        Route::delete('/menuNoImgs/{id}', [AdminController::class, 'adminDestroyMenuNoImgs'])->name('menuNoImgs.delete');
         
     });
 });
@@ -52,7 +65,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/pageInitial',[PageController::class,'initialStore'])->name('page.initialStore');
     Route::post('/page',[PageController::class,'store'])->name('page.store');
     Route::get('/page/show/{id}',[PageController::class,'userShow'])->name('page.show');
-    Route::post('/postPage',[PageController::class,'postPage'])->name('page.post');
+    Route::post('/postPage/{id}',[PageController::class,'postPage'])->name('page.post');
     Route::post('/updateMenuPosition',[PageController::class,'updateMenuPosition'])->name('post.updateMenuPosition');
 
     Route::post('/hero',[HeroController::class,'store'])->name('hero.store');

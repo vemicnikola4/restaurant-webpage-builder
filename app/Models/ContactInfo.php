@@ -18,4 +18,9 @@ class ContactInfo extends Model
         'map_link',
         
     ];
+
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
 }

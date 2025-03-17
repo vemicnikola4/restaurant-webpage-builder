@@ -21,7 +21,7 @@ const Menu = ({themes,menuSections,pageValues,translate,locale}) => {
            
             
             <div className="flex flex-col items-center w-5/6">
-            <h1 className={"text-md sm:text-md md:text-4xl font-bold  text-center md:text-start py-4 " + themeInUse.title}>
+            <h1 className={"text-xl md:text-4xl font-bold  text-center md:text-start py-4 " + themeInUse.title}>
                     {
                         locale == 'en' ? "Our Menu" : 'Naš meni'
                     }
@@ -29,7 +29,7 @@ const Menu = ({themes,menuSections,pageValues,translate,locale}) => {
             {
                 menuSections ?
                     menuSections.map((section,ind) => (
-                        <MenuSection section={section} sectionIndex={ind}translate={translate}locale={locale} pageValues={pageValues}/>
+                        <MenuSection key={ind}section={section} sectionIndex={ind}translate={translate}locale={locale} pageValues={pageValues}/>
 
                     ))
                 

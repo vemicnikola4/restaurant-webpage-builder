@@ -19,4 +19,20 @@ class Page extends Model
     {
         return $this->hasOne(Hero::class);
     }
+    public function aboutUs()
+    {
+        return $this->hasOne(AboutUs::class);
+    }
+    public function contactInfo()
+    {
+        return $this->hasOne(ContactInfo::class);
+    }
+    public function menuSections()
+    {
+        return $this->hasMany(MenuSection::class);
+    }
+    public function noImgsMenuSections()
+    {
+        return $this->hasMany(NoImgsMenuSection::class);
+    }
 }

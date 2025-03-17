@@ -100,7 +100,13 @@ class PageRepository{
     {
         try {
             $page = Page::find($pageId);
+            // dd( $page->hero);
+            // dd( $page->aboutUs);
+            // dd( $page->menuSections);
+            // dd( $page->noImgsmenuSections);
             $page->update(['publish' => $value]);
+
+            
         }catch (\Exception $e) {
             // Handle any other exceptions
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
@@ -121,21 +127,60 @@ class PageRepository{
  
     {
         try{
-            return $pages = $query->paginate(3);
+            return $pages = $query->limit(5)->paginate(5);;
         }catch(\Exception $e){
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
         }
     }
-    public function getPages() : LengthAwarePaginator
+    public function getPages() : Collection
     {
         try {
-            return Page::where('publish',1)->orderBy('visited','desc')->paginate(3);
+            
+            return Page::where('publish',1)->orderBy('visited','desc')->limit(5)->get();
+            
         }catch (\Exception $e) {
             // Handle any other exceptions
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
         } 
 
     }
+    public function getPagesIncludingTag(string $tag) : Collection
+    {
+        try {
+            
+            return Page::where('publish',1)->where( "tags",'like','%'.$tag.'%')->orderBy('visited','desc')->limit(5)->get();
+            
+        }catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
+    // public function getPagesBbq() : Collection
+    // {
+    //     try {
+            
+    //         return Page::where('publish',1)->where( "tags",'like',"%BBQ%")->orderBy('visited','desc')->limit(5)->get();
+            
+    //     }catch (\Exception $e) {
+    //         // Handle any other exceptions
+    //         throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+    //     } 
+
+    // }
+    // public function getPagesGiros() : Collection
+    // {
+    //     try {
+            
+    //         return Page::where('publish',1)->where( "tags",'like',"%Giros%")->orderBy('visited','desc')->limit(5)->get();
+
+            
+    //     }catch (\Exception $e) {
+    //         // Handle any other exceptions
+    //         throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+    //     } 
+
+    // }
     public function incrementVisited(int $pageId) : void
     {
         try {
@@ -151,6 +196,16 @@ class PageRepository{
             $page->visited = $a;
             $page->save();
             // $page->update(['visited' => $a]);
+        }catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
+    public function adminGetPages() : LengthAwarePaginator
+    {
+        try {
+            return Page::paginate(10);
         }catch (\Exception $e) {
             // Handle any other exceptions
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());

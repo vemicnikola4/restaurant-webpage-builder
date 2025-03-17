@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Services\HeroService;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -44,7 +45,8 @@ class HeroController extends Controller
     public function store(Request $request,StoreHeroRequest $heroRequest)
     {
         $this->heroService->validateHero($request,$heroRequest);
-        return redirect()->route('dashboard')->with('message', 'Successfully created');   
+        return redirect()->route('dashboard')->with('message','Successfully created');   
+
 
         
         

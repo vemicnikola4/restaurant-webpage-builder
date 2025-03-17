@@ -25,7 +25,7 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
 
 
     return (
-        <div id="menuDiv" className={"w-full absolute top-0 right-0 left-0    flex text-black  " + textBoxPosition.headerMenu[contactInfo.menuPosition] + " " + themeInUse.menuDiv}>
+        <div id="menuDiv" className={"z-10 w-full absolute top-0 right-0 left-0  h-10  flex   " + themeInUse.menuDiv + " " +textBoxPosition.headerMenu[contactInfo.menuPosition]  }>
             <div className={"flex md:flex-col z-10  "}>
                 <div className="hidden md:flex gap-3 items-center font-bold">
                     <div className="flex gap-3 justify-center items-center py-2">
@@ -125,8 +125,8 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
             <div className={"md:hidden p-4 flex justify-start items-center w-full h-full z-20 "} >
                 {
                     pageValues.theme === 'dark' ?
-                        <div className="flex gap-4 w-full ps-12">
-                            <img src="https://img.icons8.com/?size=50&id=8113&format=png" alt="" className={"w-6 h-6  bg-white opacity-100  "} onClick={e => toggleDropDown()} />
+                        <div className="flex gap-4 w-full ps-12 items-center justify-center ">
+                            <img src="https://i.pinimg.com/736x/ee/c0/71/eec071442e9a1b8e017c5a7c1853b880.jpg" alt="" className={"w-6 h-6  bg-white opacity-100  "} onClick={e => toggleDropDown()} />
                             <div className="flex gap-2  w-full justify-end">
                                 <a href={`tel:${contactInfo.phone}`}>
                                     <img className="w-8 h-8 rounded-lg" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" />
@@ -153,9 +153,9 @@ const HeaderMenu = ({ themes, textBoxPosition, fontFamily, pageValues, contactIn
                         </div>
 
                         :
-                        <div className="flex gap-4 w-full">
+                        <div className="flex gap-4 w-full ps-12 items-center justify-center ">
 
-                            <img src="https://img.icons8.com/?size=50&id=8113&format=png" alt="" className={"w-6 h-6 opacity-100 "} onClick={e => toggleDropDown()} />
+                            <img src="https://i.pinimg.com/736x/ee/c0/71/eec071442e9a1b8e017c5a7c1853b880.jpg" alt="" className={"w-6 h-6  "} onClick={e => toggleDropDown()} />
                             <div className="flex gap-2  w-full justify-end">
                                 <img className="w-8 h-8 rounded-lg" src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612&w=0&k=20&c=W_b90qFRpj_FyLyI19xWqB6EoNSuJYwMSN9nnKkE9Hk=" alt="" />
                                 <img className="w-8 h-8 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWDSis8YTAJOlHswnE8KHbEoW5Q3lwZSSMrA&s" alt="" />

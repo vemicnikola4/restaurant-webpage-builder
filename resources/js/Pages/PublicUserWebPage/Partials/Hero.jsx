@@ -1,8 +1,10 @@
+import { usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import theme from "tailwindcss/defaultTheme";
 
 const Hero = ({ textBoxPosition, themes, hero, pageValues, translate, locale }) => {
     const [themeInUse, setThemeInUse] = useState(themes.heroSection[pageValues.theme]);
+    const user = usePage().props.auth.user;
 
     return (
         <div className={" flex flex-col h-screen relative w-full justify-center " + textBoxPosition.heroSection[hero.textBoxPosition].parent} >
@@ -23,7 +25,7 @@ const Hero = ({ textBoxPosition, themes, hero, pageValues, translate, locale }) 
 
                 </p>
 
-                <a href="/dashboard">
+                <a href={user.is_admin ? `/admin/page/dashboard/${pageValues.user_id}` :  "/dashboard"}>
                     <div className="bg-yellow-600 hover:bg-yellow-700 px-2 py-2 rounded-sm">
                         {locale == 'en' ? '<-Back to dashboard' : '<- Nazad na uredjivanje'}
                     </div>

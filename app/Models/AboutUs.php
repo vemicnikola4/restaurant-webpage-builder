@@ -18,5 +18,9 @@ class AboutUs extends Model
     {
         return $this->hasOne(AboutUsMedia::class);
     }
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
 
 }

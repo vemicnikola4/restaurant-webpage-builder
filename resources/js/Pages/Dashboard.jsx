@@ -35,7 +35,7 @@ export default function Dashboard() {
         'Giros':"Giros",
         'Breakfast':"Doručak",
         'Lunch':"Ručak",'Dinner':"Večera", 'Dine in':"Sedenje", 
-        'Drive through':"Auto-restoran",'Drinks':"Piće",'Kebab':"Kebab",'Indian':"Indijski",'Fish':"Riba",'Pasta':"Pasta",'Italian':"Intalijanski",'International':"Internacionalni",'Mexican':"Meksički",'Tai':"Tajlandski",'Chinese':"Kineski",'Japanese':"Japanski",'French':"Francuski",'French Fries':"Pomfrit",'Burgers':"Burgeri",'Chicken':"Piletina",'Traditional cousine':"Tradicionalni",'Snack Bar':"Snek bar","Burek":'Burek','Crepes':'Palačinke','Deserts':'Dezerti','Mediteranian':'Mediteranska','Salads':'Salate','Seafood':'Morski plodovi','Vegan':'Veganski','Vegetarian':'Vegetarijanski',
+        'Drive through':"Auto-restoran",'Drinks':"Piće",'Kebab':"Kebab",'Indian':"Indijski",'Fish':"Riba",'Pasta':"Pasta",'Italian':"Intalijanski",'International':"Internacionalni",'Mexican':"Meksički",'Tai':"Tajlandski",'Chinese':"Kineski",'Japanese':"Japanski",'French':"Francuski",'French Fries':"Pomfrit",'Burgers':"Burgeri",'Chicken':"Piletina",'Traditional cousine':"Tradicionalni",'Snack Bar':"Snek bar","Burek":'Burek','Crepes':'Palačinke','Deserts':'Dezerti','Mediteranian':'Mediteranska','Salads':'Salate','Seafood':'Morski plodovi','Vegan':'Veganski','Sandwiches':'Sendviči','Vegetarian':'Vegetarijanski',"The selected tags is invalid.":'Izabrani tagovi nisu dozvoljeni',
     }
     const cities= ["Ada", "Aleksandrovac", "Aleksinac", "Alibunar", "Apatin", "Aranđelovac", "Arilje", "Babušnica", "Bajina Bašta", "Barajevo", 
 "Batočina", "Bač", "Bačka Palanka", "Bačka Topola", "Bački Petrovac", "Bela Palanka", "Bela Crkva", "Beočin", "Bečej", 
@@ -61,10 +61,10 @@ export default function Dashboard() {
 "Šid", "Štimlje", "Štrpce"
     ];
     const tagsEn = [
-        'Food truck', 'Pub', 'Bakery', 'Pizza', 'Deli', 'Fine Dining', 'Buffet', 'Bar', 'Bar and Brewery', 'Fast food', 'Cafeteria', 'BBQ', 'Giros', 'Breakfast', 'Lunch', 'Dinner', 'Dine in', 'Drive through', 'Drinks', 'Kebab', 'Indian', 'Fish', 'Pasta', 'Italian', 'International', 'Mexican', 'Tai', 'Chinese', 'Japanese', 'French', 'French Fries', 'Burgers', 'Chicken', 'Traditional cousine', 'Snack Bar', 'Burek', 'Mediteranian', 'Seafood', 'Crepes', 'Salads', 'Deserts', 'Vegan', 'Vegetarian'
+        'Sandwiches','Food truck', 'Pub', 'Bakery', 'Pizza', 'Deli', 'Fine Dining', 'Buffet', 'Bar', 'Bar and Brewery', 'Fast food', 'Cafeteria', 'BBQ', 'Giros', 'Breakfast', 'Lunch', 'Dinner', 'Dine in', 'Drive through', 'Drinks', 'Kebab', 'Indian', 'Fish', 'Pasta', 'Italian', 'International', 'Mexican', 'Tai', 'Chinese', 'Japanese', 'French', 'French Fries', 'Burgers', 'Chicken', 'Traditional cousine', 'Snack Bar', 'Burek', 'Mediteranian', 'Seafood', 'Crepes', 'Salads', 'Deserts', 'Vegan', 'Vegetarian'
     ];
     const tagsSr = [
-        'Kombi restoran', 'Pab', 'Pekara', 'Pica', 'Fine Dining', 'Švedski sto', 'Bar', 'Bar  i proizvodnja pića', 'Brza hrana', 'Kafeterija', 'Roštilj', 'Giros', 'Doručak', 'Ručak', 'Večera', 'Sedenje', 'Auto-restoran', 'Piće', 'Kebab', 'Indijski', 'Riba', 'Pasta', 'Italijanski', 'Internacionalni', 'Meksički', 'Tajlandski', 'Kineski', 'Japanski', 'Francuski', 'Pomfrit', 'Burgeri', 'Piletina', 'Tradicionalna kuhinja', 'Burek', 'Mediteranska', 'Morski plodovi', 'Palačinke', 'Salate', 'Deserti', 'Veganska', 'Vegetarijanska',
+        'Sendviči','Kombi restoran', 'Pab', 'Pekara', 'Pica', 'Fine Dining', 'Švedski sto', 'Bar', 'Bar  i proizvodnja pića', 'Brza hrana', 'Kafeterija', 'Roštilj', 'Giros', 'Doručak', 'Ručak', 'Večera', 'Sedenje', 'Auto-restoran', 'Piće', 'Kebab', 'Indijski', 'Riba', 'Pasta', 'Italijanski', 'Internacionalni', 'Meksički', 'Tajlandski', 'Kineski', 'Japanski', 'Francuski', 'Pomfrit', 'Burgeri', 'Piletina', 'Tradicionalna kuhinja', 'Burek', 'Mediteranska', 'Morski plodovi', 'Palačinke', 'Salate', 'Deserti', 'Veganska', 'Vegetarijanska',
     ];
     const [values,setValues]=useState({
         title:'',
@@ -114,9 +114,7 @@ export default function Dashboard() {
         setValues({...values,tags:selectedTags});
     },[selectedTags]);
 
-    useEffect(()=>{
-        console.log(values);
-    },[values]);
+    
    
     return (
         
@@ -163,6 +161,12 @@ export default function Dashboard() {
                             <label htmlFor="vity" className='text-md md:text-xl'>{locale == 'en' ? 'Restaurant title' : translate['Restaurant title']}</label>
                             <input type="text" name="" id="" className="p-4 text-gray-700  text-center focus:outline-none text-lg md:text-4xl focus:border-gray-500 focus:ring-1 focus:ring-gray-700 rounded-md focus:rounded-md w-full" placeholder={locale == 'en' ? 'Type Restaurant Title' : translate['Type Restaurant Title']} onChange={e=>setValues({...values,title:e.target.value})}/>
                         </div>
+                        {
+                        errors['title'] &&
+                        <div className="text-red-500 ps-2 py-4">{
+                            locale == 'en' ? errors['title'] : translate[errors['title']]
+                        }</div>
+                        }
                         <div className=" w-full flex flex-col gap-4">
                             <label className='text-md md:text-xl' htmlFor="vity">{locale == 'en' ? 'Choose city' : translate['Choose city']}</label>
                             <select className="rounded-md w-full" name="city" id="" onChange={e=>setValues({...values,city:e.target.value})}>
@@ -171,7 +175,12 @@ export default function Dashboard() {
                                 ))}
                             </select>
                         </div>
-                        
+                        {
+                        errors['city'] &&
+                        <div className="text-red-500 ps-2 py-4">{
+                            locale == 'en' ? errors['city'] : translate[errors['city']]
+                        }</div>
+                        }
                         
                         <div className="py-4 grid grid-cols-3 md:grid-cols-6 gap-1 md:gap-2 w-full">
                         {locale == 'en' ? 
@@ -181,6 +190,12 @@ export default function Dashboard() {
                         }
                        
                         </div>
+                        {
+                        errors['tags'] &&
+                        <div className="text-red-500 ps-2 py-4">{
+                            locale == 'en' ? errors['tags'] : translate[errors['tags']]
+                        }</div>
+                    }
                         <div className="py-4 px-2 bg-blue-500 text-center bg-opacity-80 rounded-md hover:cursor-pointer hover:bg-opacity-100" onClick={e=>handleSubmit(e)}>
                             
                         {locale == 'en' ? 'CREATE' : translate['CREATE']}

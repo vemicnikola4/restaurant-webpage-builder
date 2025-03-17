@@ -53,7 +53,7 @@ const MenuSectionItem = ({ index, item, deleteSectionItem, updateSectionItemsMod
             <div>
                 <div className="p-2 text-ellipsis overflow-hidden ...  hover:text-clip">
                     <input
-                        className={"  "} type="file" name=""
+                        className={" z-40"} type="file" name=""
                         onChange={e => setModal({ ...modal, media: e.target.files[0] })}
 
                     />
