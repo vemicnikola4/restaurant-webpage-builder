@@ -42,7 +42,7 @@ const Index = ({ pages }) => {
         'Pizza': "Pica",
         'Deli': "Deli",
         'Fine Dining': "Luksizni",
-        'Buffet': "Švecki sto",
+        'Buffet': "Švedski sto",
         'Bar': "Bar",
         'Bar and Brewery': "Bar i proizvodjna",
         'Fast food': "Brza hrana",
@@ -92,12 +92,11 @@ const Index = ({ pages }) => {
 
     return (
         <div className="flex ">
-<AuthenticatedLayout
+        <AuthenticatedLayout
             header={
                 <div className='flex '>
                     <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                        {locale == 'en' ? 'Dashboard' : 'Komandna Tabla'}
-
+                        {locale == 'en' ? 'Admin Dashboard' : 'Admin Komandna Tabla'}
                     </h2>
 
                 </div>

@@ -5,6 +5,11 @@ use App\Models\Page;
 use App\Models\User;
 use App\Http\Requests\PageRequest;
 use App\Http\Requests\StoreContactInfoRequest;
+use App\Http\Requests\StoreHeroRequest;
+use App\Http\Requests\StoreAboutUsRequest;
+use App\Http\Requests\StoreMenuSectionRequest;
+use App\Http\Requests\StoreNoImgsMenuSectionRequest;
+
 use App\Services\PageService;
 use App\Services\HeroService;
 use App\Services\ContactService;
@@ -101,7 +106,7 @@ class AdminController extends Controller
                     $page['noImgsMenuSections'] = null;
     
                 } 
-                return Inertia::render('WebPage/Index',[
+                return Inertia::render('Admin/Page/Index',[
                     'page'=>$page,
                     'message'=>$message,
                 ]);
@@ -306,7 +311,49 @@ class AdminController extends Controller
         
         $this->pageService->initialCreate($validated);
 
-        return Redirect::route('admin.dashboard');
+        return Redirect::route('admin.page.dashboard', $request['user_id']);
     }
+    public function adminStoreHero(Request $request,StoreHeroRequest $heroRequest)
+    {
+        $this->heroService->validateHero($request,$heroRequest);
 
+        return redirect()->back()->with('message','Successfully created');   
+        
+    }
+    public function adminStoreAboutUs(Request $request,StoreAboutUsRequest $storeAboutUsRequest )
+    {
+        $this->aboutUsService->validateAboutUs($request,$storeAboutUsRequest);
+        
+        return redirect()->back()->with('message','Successfully created');     
+        
+        
+    }
+    public function adminStoreMenu(Request $request, StoreMenuSectionRequest $menuSectionRequest )
+    {
+        $msg = $this->menuSectionService->verifyMenuSections($request,  $menuSectionRequest);     
+        $this->menuNoImgsSectionService->deleteMenu($request['menu'][0]['pageId']);
+        return redirect()->back()->with('message', 'Successfully created');   
+        
+    }
+    public function adminDestroyMenu($pageId)
+    {
+        $this->menuSectionService->deleteMenu($pageId);    
+
+        return redirect()->back()->with('message','Successfully deleted');   
+        
+    }
+    public function adminStoreMenuNoImgs(Request $request, StoreNoImgsMenuSectionRequest $noImgsMenuSectionRequest )
+    {
+        $this->menuNoImgsSectionService->verifyMenuSections($request,  $noImgsMenuSectionRequest);  
+        $this->menuSectionService->deleteMenu($request['menu'][0]['pageId']);
+
+        return redirect()->back()->with('message', 'Successfully created');   
+        
+    }
+    public function adminDestroyMenuNoImgs($pageId)
+    {
+        $this->menuNoImgsSectionService->deleteMenu($pageId);    
+        return redirect()->back()->with('message','Successfully deleted');   
+        
+    }
 }

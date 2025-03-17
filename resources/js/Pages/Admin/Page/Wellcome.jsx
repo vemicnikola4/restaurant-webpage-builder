@@ -6,9 +6,7 @@ import { router,usePage } from '@inertiajs/react'
 import Tag from '@/Components/Tag';
 export default function Wellcome({user}) {
     const admin = usePage().props.auth.user;
-    console.log(user);
-    console.log(admin);
-
+   
     const errors = usePage().props.errors;
 
     const[locale,setLocale]=useState('sr');
@@ -113,9 +111,6 @@ export default function Wellcome({user}) {
         setValues({...values,tags:selectedTags});
     },[selectedTags]);
 
-    useEffect(()=>{
-        console.log(values);
-    },[values]);
    
     return (
         

@@ -127,21 +127,60 @@ class PageRepository{
  
     {
         try{
-            return $pages = $query->paginate(5);
+            return $pages = $query->limit(5)->paginate(5);;
         }catch(\Exception $e){
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
         }
     }
-    public function getPages() : LengthAwarePaginator
+    public function getPages() : Collection
     {
         try {
-            return Page::where('publish',1)->orderBy('visited','desc')->paginate(5);
+            
+            return Page::where('publish',1)->orderBy('visited','desc')->limit(5)->get();
+            
         }catch (\Exception $e) {
             // Handle any other exceptions
             throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
         } 
 
     }
+    public function getPagesIncludingTag(string $tag) : Collection
+    {
+        try {
+            
+            return Page::where('publish',1)->where( "tags",'like','%'.$tag.'%')->orderBy('visited','desc')->limit(5)->get();
+            
+        }catch (\Exception $e) {
+            // Handle any other exceptions
+            throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+        } 
+
+    }
+    // public function getPagesBbq() : Collection
+    // {
+    //     try {
+            
+    //         return Page::where('publish',1)->where( "tags",'like',"%BBQ%")->orderBy('visited','desc')->limit(5)->get();
+            
+    //     }catch (\Exception $e) {
+    //         // Handle any other exceptions
+    //         throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+    //     } 
+
+    // }
+    // public function getPagesGiros() : Collection
+    // {
+    //     try {
+            
+    //         return Page::where('publish',1)->where( "tags",'like',"%Giros%")->orderBy('visited','desc')->limit(5)->get();
+
+            
+    //     }catch (\Exception $e) {
+    //         // Handle any other exceptions
+    //         throw new \Exception('An unexpected error occurred: ' . $e->getMessage());
+    //     } 
+
+    // }
     public function incrementVisited(int $pageId) : void
     {
         try {

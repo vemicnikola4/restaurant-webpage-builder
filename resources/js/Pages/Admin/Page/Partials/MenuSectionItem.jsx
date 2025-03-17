@@ -48,12 +48,12 @@ const MenuSectionItem = ({ index, item, deleteSectionItem, updateSectionItemsMod
                 x
             </button>
             <div className="w-full">
-                <img src={modal.mediaPath} alt="" className="w-full object-cover  rounded-t-md h-48" />
+                <img src={modal.mediaPath || ''} alt="" className="w-full object-cover  rounded-t-md h-48" />
             </div>
             <div>
                 <div className="p-2 text-ellipsis overflow-hidden ...  hover:text-clip">
                     <input
-                        className={" z-40"} type="file" name=""
+                        className={"  "} type="file" name=""
                         onChange={e => setModal({ ...modal, media: e.target.files[0] })}
 
                     />
@@ -97,7 +97,7 @@ const MenuSectionItem = ({ index, item, deleteSectionItem, updateSectionItemsMod
 
 
                 <div className="mt-2 px-2">
-                    <textarea name="" placeholder={locale == 'en' ? "Enter item description" : 'Unesite opis proizvoda'} className="bg-transparent text-center border-b-2 w-full" id="" onChange={e => setModalDescription(e)} value={description}></textarea>
+                    <textarea name="" placeholder={locale == 'en' ? "Enter item description" : 'Unesite opis proizvoda'} className="bg-transparent text-center border-b-2 w-full" id="" onChange={e => setModalDescription(e)} value={description || ''}></textarea>
                 </div>
                 <div className="text-red-500 text-center">
                     {
@@ -115,7 +115,7 @@ const MenuSectionItem = ({ index, item, deleteSectionItem, updateSectionItemsMod
                     <div className="flex flex-col gap-1 items-center">
                         <div>
                             <p>
-                                <input type="number" className="bg-transparent text-center border-b-2 " placeholder={locale == 'en' ? "Enter item price" : 'Unesite cenu proizvoda'} value={price} onChange={e => setModalPrice(e)} />
+                                <input type="number" className="bg-transparent text-center border-b-2 " placeholder={locale == 'en' ? "Enter item price" : 'Unesite cenu proizvoda'} value={price } onChange={e => setModalPrice(e)} />
                             </p>
                         </div>
                         <div className="text-red-500 text-center">

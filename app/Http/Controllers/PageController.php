@@ -40,10 +40,7 @@ class PageController extends Controller
     public function dashboard()
     {
         $user =Auth::user();
-        if ( $user-> is_admin ){
-            return Redirect::route('dashboard');
-
-        }
+       
         $pageExists = $this->pageService->pageExists($user->id);
 
         if ( $pageExists ){
@@ -113,14 +110,12 @@ class PageController extends Controller
                 //         }
                 //     }
                 // }
-               if ( $user->is_admin ){
-                return redirect()->route('admin.pageShow.dashboard', $page->id);
-               }else{
+               
                 return Inertia::render('WebPage/Index',[
                     'page'=>$page,
                     'message'=>$message,
                 ]);
-               }
+               
                 
             
         }else{
@@ -282,6 +277,14 @@ class PageController extends Controller
                     $page['menuSections'] = null;
     
                 } 
+                $noImgsSectionsExists = $this->menuNoImgsSectionService->menuSectionsExists($page->id); 
+                if ( $noImgsSectionsExists ){
+                    $noImgsSectionsExists = $this->menuNoImgsSectionService->getMenuSectionsForPage($page->id);
+                    $page['noImgsMenuSections']=$noImgsSectionsExists;
+                }else{
+                    $page['noImgsMenuSections'] = null;
+    
+                } 
                     $this->pageService->incrementVisited($page->id);
                     return Inertia::render('PublicWebPage/WebPage/Index',[
                         'page'=>$page,
@@ -317,30 +320,10 @@ class PageController extends Controller
     }
     public function postPage(int $pageId)
     {
-        // $heroExists = $this->heroService->heroExists($page->id);
-        // $contatExists = $this->contactService->contactExists($page->id);
-        // $aboutUsExists = $this->aboutUsService->aboutUsExists($page->id);
-        // $noImgsSectionsExists = $this->menuNoImgsSectionService->menuSectionsExists($page->id); 
-        // $menusectionsExists = $this->menuSectionService->menuSectionsExists($page->id);    
-
-
-        //         if ( $heroExists && $contatExists &&  $aboutUsExists ){
-        //             if( $noImgsSectionsExists || $menusectionsExists ){
-                        
-
-        //             }else{
-        //                 // return redirect()->route('dashboard')->with('message','Finish page editing');   
- 
-
-        //             }
-        //         }else{
-        //             // return redirect()->route('dashboard')->with('message','Finish page editing');   
-
-
-        //         }
+       
     
                
-              $this->pageService->postPage($pageId);   
+        $this->pageService->postPage($pageId);
                     
                 
 

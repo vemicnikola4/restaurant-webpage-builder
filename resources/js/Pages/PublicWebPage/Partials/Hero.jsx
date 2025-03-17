@@ -34,10 +34,10 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
         "Šid", "Štimlje", "Štrpce"
     ];
     const tagsEn = [
-        'Food truck', 'Pub', 'Bakery', 'Pizza', 'Deli', 'Fine Dining', 'Buffet', 'Bar', 'Bar and Brewery', 'Fast food', 'Cafeteria', 'BBQ', 'Giros', 'Breakfast', 'Lunch', 'Dinner', 'Dine in', 'Drive through', 'Drinks', 'Kebab', 'Indian', 'Fish', 'Pasta', 'Italian', 'International', 'Mexican', 'Tai', 'Chinese', 'Japanese', 'French', 'French Fries', 'Burgers', 'Chicken', 'Traditional cousine', 'Snack Bar', 'Burek', 'Mediteranian', 'Seafood', 'Crepes', 'Salads', 'Deserts', 'Vegan', 'Vegetarian'
+        'Sendwiches','Food truck', 'Pub', 'Bakery', 'Pizza', 'Deli', 'Fine Dining', 'Buffet', 'Bar', 'Bar and Brewery', 'Fast food', 'Cafeteria', 'BBQ', 'Giros', 'Breakfast', 'Lunch', 'Dinner', 'Dine in', 'Drive through', 'Drinks', 'Kebab', 'Indian', 'Fish', 'Pasta', 'Italian', 'International', 'Mexican', 'Tai', 'Chinese', 'Japanese', 'French', 'French Fries', 'Burgers', 'Chicken', 'Traditional cousine', 'Snack Bar', 'Burek', 'Mediteranian', 'Seafood', 'Crepes', 'Salads', 'Deserts', 'Vegan', 'Vegetarian'
     ];
     const tagsSr = [
-        'Kombi restoran', 'Pab', 'Pekara', 'Pica','Deli', 'Fine Dining', 'Švedski sto', 'Bar', 'Bar  i proizvodnja pića', 'Brza hrana', 'Kafeterija', 'Roštilj', 'Giros', 'Doručak', 'Ručak', 'Večera', 'Sedenje', 'Auto-restoran', 'Piće', 'Kebab', 'Indijski', 'Riba', 'Pasta', 'Italijanski', 'Internacionalni', 'Meksički', 'Tajlandski', 'Kineski', 'Japanski', 'Francuski', 'Pomfrit', 'Burgeri', 'Piletina', 'Tradicionalna kuhinja','Zakuska', 'Burek', 'Mediteranska', 'Morski plodovi', 'Palačinke', 'Salate', 'Deserti', 'Veganska', 'Vegetarijanska',
+        'Sendviči','Kombi restoran', 'Pab', 'Pekara', 'Pica','Deli', 'Fine Dining', 'Švedski sto', 'Bar', 'Bar  i proizvodnja pića', 'Brza hrana', 'Kafeterija', 'Roštilj', 'Giros', 'Doručak', 'Ručak', 'Večera', 'Sedenje', 'Auto-restoran', 'Piće', 'Kebab', 'Indijski', 'Riba', 'Pasta', 'Italijanski', 'Internacionalni', 'Meksički', 'Tajlandski', 'Kineski', 'Japanski', 'Francuski', 'Pomfrit', 'Burgeri', 'Piletina', 'Tradicionalna kuhinja','Zakuska', 'Burek', 'Mediteranska', 'Morski plodovi', 'Palačinke', 'Salate', 'Deserti', 'Veganska', 'Vegetarijanska',
     ];
 
 
@@ -47,7 +47,7 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
     }
     const showFiltersMd = () => {
         if (mdFiltersDiv == 'hidden') {
-            setMdFiltersDiv('absolute right-0 bottom-0 ')
+            setMdFiltersDiv(' absolute right-0 bottom-0 h-fit ')
         } else {
             setMdFiltersDiv('hidden');
         }
@@ -66,6 +66,7 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
     }
     const addFilter = (value) => {
         setFilters([...filters, value]);
+        console.log(filters);
     }
     const onFilterClicked = (value) => {
         let s = filters;
@@ -105,6 +106,7 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
         })
     }
 
+
     useEffect(() => {
         queryParams['title'] = title;
     }, [title]);
@@ -115,7 +117,6 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
         queryParams['cities'] = filtersMunicipalities;
     }, [filtersMunicipalities]);
     
-    console.log(queryParams);
     return (
         <div className={" flex flex-col h-screen relative w-full justify-center "} >
             <img src='https://cdn.pixabay.com/photo/2017/02/15/10/39/salad-2068220_1280.jpg' alt="" className="w-full h-full object-cover bg-center absolute bottom-0" />
@@ -123,7 +124,8 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
             <div className="flex z-10 gap-2 bg-gray-900 items-center bg-opacity-50 absolute right-0 top-0 h-12 w-full ">
                 <div className="basis-2/3 flex gap-10 text-md md:text-xl text-white font-bold justify-start ps-2">
                     <h1>
-                        Mojrestoran.rs
+                        <a href="/">Vidirestoran.rs</a>
+                        
                     </h1>
                     <div className="flex">
                         <div className={"hover:underline hover:text-blue-500 hover:cursor-pointer " + (locale == 'sr' ? ' text-red-500 ' : null)} onClick={e => setLanguage('sr')}>
@@ -154,7 +156,7 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
                 }
             </div> */}
             {/* md screen */}
-            <div className="z-10 mx-2 px-2 py-3 md:relative bg-gray-700 bg-opacity-50 text-white  hidden md:flex flex-col">
+            <div className="z-10 mx-2 px-2 py-3 hidden md:relative  text-white   md:flex flex-col">
                 <div className="flex ">
                     <div className="flex flex-col py-2 ">
                         <p className="text-md md:text-xl font-bold ">
@@ -170,7 +172,7 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
                                     locale == 'en' ?
                                 
                                     filtersMunicipalities.length > 0 ?
-                                        'Municipalities chossen'
+                                        'Municipalities chosen'
                                         :
                                         'All municipalities'
 
@@ -191,8 +193,8 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
                             <div >
                                 <img src="https://t3.ftcdn.net/jpg/03/20/78/84/360_F_320788475_nEiLVViOBewea7taZWqNUR0lJAMTAaSo.jpg" alt="" className="w-10 h-10 md:w-10 md:h-10 rounded-sm hover:cursor-pointer" onClick={e => showFiltersMd()} />
                             </div>
-                            <div className={'bg-white h-fit rounded-sm z-10 py-4 ' + mdMunicipalitiesDiv}>
-                                <div className="z-10 text-gray-500 text-2xl h-fit hover:cursor-pointer flex w-full justify-start ps-6 py-2  " onClick={e => showMdMunicipalities()}>
+                            <div className={'bg-white bg-opacity-100 h-fit rounded-sm z-90 py-4 ' + mdMunicipalitiesDiv}>
+                                <div className="z-90 text-gray-500 text-2xl h-fit hover:cursor-pointer flex w-full justify-start ps-6 py-2  " onClick={e => showMdMunicipalities()}>
                                     X
                                 </div>
                                 <div className="grid grid-cols-3 gap-2 text-gray-900 p-2 max-h-[1000px] overflow-y-auto" >
@@ -209,8 +211,8 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
 
                                 </div>
                             </div>
-                            <div className={'bg-white h-fit rounded-sm z-10 ' + mdFiltersDiv}>
-                                <div className="z-10 text-gray-500 text-2xl h-fit hover:cursor-pointer flex w-full justify-center " onClick={e => showFiltersMd()}>
+                            <div className={'bg-white h-fit rounded-sm z-90 ' + mdFiltersDiv}>
+                                <div className="z-50 text-gray-500 text-2xl h-fit hover:cursor-pointer flex w-full justify-center " onClick={e => showFiltersMd()}>
                                     X
                                 </div>
                                 <div className="grid grid-cols-10 gap-2 text-gray-900 p-2 " >
@@ -238,12 +240,12 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
 
 
                         </div>
-                        <div className="flex basis-2/3 py-4">
+                        <div className={"flex basis-2/3 py-4 " + (mdFiltersDiv !== 'hidden' || mdMunicipalitiesDiv !== 'hidden' ? 'hidden' : null)}>
                             {
                                 filters.length > 0 ?
                                     <div className="basis-1/2 grid grid-cols-3 gap-2 overflow-y-auto  max-h[100px]" >
-                                        {filters.map((filter) => (
-                                            <div className=" bg-red-200 border border-red-300 bg-opacity-50 text-center flex items-center justify-center rounded-sm text-ellipsis overflow-hidden ... text-clip relative " >
+                                        {filters.map((filter,ind) => (
+                                            <div key={ind} className=" bg-red-200 border border-red-300 bg-opacity-50 text-center flex items-center justify-center rounded-sm text-ellipsis overflow-hidden ... text-clip relative " >
                                                 {locale == 'en' ? filter : translate[filter]}
                                                 <div className=" absolute flex items-center justify-center rounded-sm text-center right-0 top-0 w-4 p-1 h-4 bg-red-500 hover:cursor-pointer hover:bg-red-600" onClick={e => removeFilter(filter)}>
                                                     x
@@ -257,8 +259,8 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
                             }
                             {filtersMunicipalities.length > 0 ?
                                 <div className="grid grid-cols-3 gap-2 max-h[100px] overflow-y-auto w-full px-2">
-                                    {filtersMunicipalities.map((municipality) => (
-                                        <div className=" bg-red-200 border border-red-300 bg-opacity-50 text-center flex items-center justify-center rounded-sm relative  " >
+                                    {filtersMunicipalities.map((municipality,ind) => (
+                                        <div key={ind} className=" bg-red-200 border border-red-300 bg-opacity-50 text-center flex items-center justify-center rounded-sm relative  " >
                                             {municipality}
                                             <div className=" absolute flex items-center justify-center rounded-sm text-center right-0 top-0 w-4 p-1 h-4 bg-red-500 hover:cursor-pointer hover:bg-red-600" onClick={e => removeMunicipality(municipality)}>
                                                     x
@@ -315,8 +317,8 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
                     <div className="flex justify-end ">
                         <img src="https://t3.ftcdn.net/jpg/03/20/78/84/360_F_320788475_nEiLVViOBewea7taZWqNUR0lJAMTAaSo.jpg" alt="" className="w-14 h-14 rounded-sm hover:cursor-pointer" onClick={e => showFiltersSm()} />
                     </div>
-                    <div className={'bg-white h-fit rounded-sm z-10 py-4 ' + smFiltersDiv}>
-                        <div className="z-10 text-gray-500 text-2xl h-fit hover:cursor-pointer flex w-full justify-start ps-6 py-2  " onClick={e => showFiltersSm()}>
+                    <div className={'bg-white h-fit rounded-sm z-90 py-4 ' + smFiltersDiv}>
+                        <div className="z-50 text-gray-500 text-2xl h-fit hover:cursor-pointer flex w-full justify-start ps-6 py-2  " onClick={e => showFiltersSm()}>
                             X
                         </div>
                         <div className="grid grid-cols-3 gap-2 text-gray-900 p-2 " >
@@ -330,7 +332,7 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
                                 ))
                                 :
                                 tagsSr.map((element,ind )=> (
-                                    <div key={ind} className={" hover:cursor-pointer hover:bg-opacity-70 p-2 flex justify-center items-center text-center 1 rounded-md text-gray-900 bg-blue-100 bg-opacity-50 " + (filters.includes(element) ? 'bg-red-200' : null)} onClick={e => onFilterClicked(element)}>
+                                    <div key={ind} className={" hover:cursor-pointer hover:bg-opacity-70 p-2 flex justify-center items-center text-center 1 rounded-md text-gray-900 bg-blue-100 bg-opacity-50 " + (filters.includes(tagsEn[ind]) ? 'bg-red-200' : null)} onClick={e => onFilterClicked(tagsEn[ind])}>
                                         {element}
                                     </div>
 
@@ -341,7 +343,7 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
 
                         </div>
                     </div>
-                    <div className={'bg-white h-fit rounded-sm z-10 py-4 ' + smMunicipalitiesDiv}>
+                    <div className={'bg-white h-fit rounded-sm z-90 py-4 ' + smMunicipalitiesDiv}>
                         <div className="z-10 text-gray-500 text-2xl h-fit hover:cursor-pointer flex w-full justify-start ps-6 py-2  " onClick={e => showMunicipalities()}>
                             X
                         </div>
@@ -362,8 +364,8 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
                 </div>
                 {filtersMunicipalities.length > 0 ?
                     <div className="grid grid-cols-3 gap-2 max-h[100px] overflow-y-auto w-full px-2">
-                        {filtersMunicipalities.map((municipality) => (
-                            <div className=" bg-red-200 border border-red-300 bg-opacity-50 text-center flex items-center justify-center ruonded-sm  " onClick={e => removeMunicipality(municipality)}>
+                        {filtersMunicipalities.map((municipality,ind) => (
+                            <div key={ind} className=" bg-red-200 border border-red-300 bg-opacity-50 text-center flex items-center justify-center ruonded-sm  " onClick={e => removeMunicipality(municipality)}>
                                 {municipality}
                             </div>
                         ))}
@@ -377,9 +379,9 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
                         <p className="ps-4 py-2 font-bold ">{locale == 'en' ? 'Filters Choosen' : 'Izabrani filteri'}</p>
                         <div className="grid grid-cols-3 gap-2 max-h[100px] overflow-y-auto w-full px-2">
 
-                            {filters.map((filter) => (
-                                <div className=" bg-red-200 border border-red-300 bg-opacity-50 text-center flex items-center justify-center ruonded-sm  " onClick={e => removeFilter(filter)}>
-                                    {filter}
+                            {filters.map((filter,ind) => (
+                                <div key={ind} className=" bg-red-200 border border-red-300 bg-opacity-50 text-center flex items-center justify-center rounded-sm  " onClick={e => removeFilter(filter)}>
+                                    {locale == 'en' ? filter : translate[filter]}
                                 </div>
                             ))}
                         </div>

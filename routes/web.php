@@ -31,8 +31,14 @@ Route::middleware(['auth',AdminMiddleware::class])->group(function () {
         Route::get('/user/create',[AdminController::class,'userCreate'])->name('user.create');
         Route::post('/user/store',[AdminController::class,'userStore'])->name('user.store');
 
+        Route::post('/hero',[AdminController::class,'adminStoreHero'])->name('hero.store');
+        Route::post('/aboutUs',[AdminController::class,'adminStoreAboutUs'])->name('aboutUs.store');
       
+        Route::post('/menu',[AdminController::class,'adminStoreMenu'])->name('menu.store');
+        Route::delete('/menu/{id}', [AdminController::class, 'adminDestroyMenu'])->name('menu.delete');
         
+        Route::post('/menuNoImgs',[AdminController::class,'adminStoreMenuNoImgs'])->name('menuNoImgs.store');
+        Route::delete('/menuNoImgs/{id}', [AdminController::class, 'adminDestroyMenuNoImgs'])->name('menuNoImgs.delete');
         
     });
 });

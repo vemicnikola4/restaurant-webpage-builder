@@ -9,33 +9,36 @@ const RestaurantCard = ({ page, translate, locale }) => {
     let m = date.getMinutes();
    
     let isOpen = false;
-    page.workingHours.forEach(element => {
-        if (element.value == day) {
-            if (h > element.openHours && h < element.closingHours) {
-
-                isOpen = true;
-            } else if (h == element.openHours) {
-                if (m >= element.openMinutes) {
+    if ( page.workingHours ){
+        page.workingHours.forEach(element => {
+            if (element.value == day) {
+                if (h > element.openHours && h < element.closingHours) {
+    
                     isOpen = true;
-                } else {
-                    isOpen = false;
+                } else if (h == element.openHours) {
+                    if (m >= element.openMinutes) {
+                        isOpen = true;
+                    } else {
+                        isOpen = false;
+                    }
+                } else if (h == element.closingHours) {
+                    if (m < element.closingHours) {
+                        isOpen = true;
+                    } else {
+                        isOpen = false;
+                    }
                 }
-            } else if (h == element.closingHours) {
-                if (m < element.closingHours) {
-                    isOpen = true;
-                } else {
-                    isOpen = false;
-                }
+    
             }
-
-        }
-    })
+        })
+    }
+   
     let tags = page.tags.split(',');
     return (
         <div className="min-w-[300px] max-w-[300px] flex flex-col bg-white shadow-md    rounded-md  pb-6 relative">
             <div className="w-full h-48 relative">
                 <img src={page.media} alt="" className="w-full object-cover  rounded-t-md h-full " />
-                <div className={"absolute top-0 left-0 p-2 font-black z-10  " }>
+                <div className={"absolute top-0 left-0 p-2 font-black   " }>
                 <span className={isOpen ? "text-green-600 font-black underline " : "text-red-600 font-black underline "}>
                
                     {
@@ -67,7 +70,7 @@ const RestaurantCard = ({ page, translate, locale }) => {
                     </h1></a>
 
                 </div>
-                <div className="flex justify-center items-center py-2 font-bold text-md ">
+                <div className="flex justify-center items-center text-center p-2 font-bold text-md ">
                     {page.hero.subtitle}
                 </div>
                 <div className="grid grid-cols-3 gap-2 p-4 max-h-[150px] overflow-y-auto ">

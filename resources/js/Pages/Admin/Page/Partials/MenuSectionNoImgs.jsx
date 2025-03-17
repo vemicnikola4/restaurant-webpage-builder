@@ -77,7 +77,7 @@ const MenuSectionsNoImgs = ({ section, deliteMenuSection, updateSection, section
             </div>
             <div className="w-64  self-center md:self-start mb-3">
                 <h1>
-                    <input className="p-2 rounded-sm bg-gray-200" type="text" placeholder={locale =='en' ? "Set section Title" : "Unesite naslov sekcije"} value={menuSectionModal.title !==null ? menuSectionModal.title : ''} onChange={e => (setTitle(e))} />
+                    <input className="p-2 rounded-sm bg-gray-200" type="text" placeholder={locale =='en' ? "Set section Title" : "Unesite naslov sekcije"} value={menuSectionModal.title || ''} onChange={e => (setTitle(e))} />
                 </h1>
                 <div className="text-red-500">
                     {
@@ -104,7 +104,7 @@ const MenuSectionsNoImgs = ({ section, deliteMenuSection, updateSection, section
                     }
                 </div>
             </div>
-            <input type="text" name="sectionNote" id="" className="flex  w-full py-8 bg-gray-300 rounded-sm ps-4" placeholder={locale == 'en' ? 'Enter note concerning this section. Optional.' : 'Unesite napomenu vezanu za ovu sekciju. Opciono.'} value={menuSectionModal.note !== null ?menuSectionModal.note : ''} onChange={e => setMenuSectionModal({ ...menuSectionModal, note: e.target.value })} />
+            <input type="text" name="sectionNote" id="" className="flex  w-full py-8 bg-gray-300 rounded-sm ps-4" placeholder={locale == 'en' ? 'Enter note concerning this section. Optional.' : 'Unesite napomenu vezanu za ovu sekciju. Opciono.'} value={menuSectionModal.note || ''} onChange={e => setMenuSectionModal({ ...menuSectionModal, note: e.target.value })} />
             <div className="text-red-500">
                 {
                     bgErrors[`menu.${sectionIndex}.note`] ?
@@ -137,7 +137,27 @@ const MenuSectionsNoImgs = ({ section, deliteMenuSection, updateSection, section
 
                 </div>
             </div>
-           
+            {/* <div className="flex overflow-x-auto space-x-4 p-4 ">
+
+                <div className="h-full w-50px bg-blue-500 px-3  min-h-[350px] flex items-center font-extrabold text-2xl rounded-sm hover:cursor-pointer group relative" onClick={addItem}>
+                    +
+                    <div className="z-10 absolute left-0 ms-12 mt-2 opacity-0 scale-95 md:group-hover:opacity-100 group-hover:scale-100 transition-opacity transition-transform duration-300 bg-gray-200 p-4 rounded-md font-normal text-base " >
+                    {locale == 'en' ? 'By clicking this button you will add new product to this section.' : translate['Add item button']}
+                        
+                    </div>
+
+                </div>
+
+                <div className="flex justify-start gap-2 ">
+                    {
+                        menuSectionModal.items.map((item, ind) => (
+                            <MenuSectionNoImgsItem bgErrors={bgErrors} key={ind} index={ind} item={item} deleteSectionItem={deleteSectionItem} updateSectionItemsModal={updateSectionItemsModal} sectionIndex={sectionIndex} translate={translate} locale={locale}/> 
+                        ))
+                    }
+
+                </div>
+            </div> */}
+
 
 
         </div>

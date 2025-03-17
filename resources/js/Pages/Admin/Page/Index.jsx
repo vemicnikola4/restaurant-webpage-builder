@@ -1,15 +1,15 @@
 import HeaderMenu from "@/Components/HeaderMenu";
-import Hero from "@/Components/Hero";
+import Hero from "./Partials/Hero";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useEffect, useState } from "react";
 import { router, usePage } from '@inertiajs/react';
 import PageSetings from "@/Components/PageSetings";
-import AboutUs from "@/Components/AboutUs";
+import AboutUs from "./Partials/AboutUs";
 import { v4 as uuidv4 } from "uuid";
-import Menu from "@/Components/Menu";
+import Menu from "./Partials//Menu";
 import Footer from "@/Components/Footer";
 import MapProvider from "@/Components/MapProvider";
-import MenuNoImgs from "@/Components/MenuNoImgs";
+import MenuNoImgs from "./Partials//MenuNoImgs";
 
 
 const Index = ({ page }) => {
@@ -71,14 +71,14 @@ const Index = ({ page }) => {
         'Pizza': "Pica",
         'Deli': "Deli",
         'Fine Dining': "Luksizni",
-        'Buffet': "Švedski sto",
+        'Buffet': "Švecki sto",
         'Bar': "Bar",
         'Bar and Brewery': "Bar i proizvodjna",
         'Fast food': "Brza hrana",
         'Cafeteria': "Kafeterija",
         'BBQ': "Roštilj",
         'Giros': "Giros",
-        'Breakfast': "Doručak",
+        'BreakFast': "Doručak",
         'Lunch': "Ručak", 'Dinner': "Večera", 'Dine in': "Sedenje",
         'Drive through': "Auto-restoran", 'Drinks': "Piće", 'Kebab': "Kebab", 'Indian': "Indijski", 'Fish': "Riba", 'Pasta': "Pasta", 'Italian': "Intalijanski", 'International': "Internacionalni", 'Mexican': "Meksički", 'Tai': "Tajlandski", 'Chinese': "Kineski", 'Japanese': "Japanski", 'French': "Francuski", 'French Fries': "Pomfrit", 'Burgers': "Burgeri", 'Chicken': "Piletina", 'Traditional cousine': "Tradicionalni", 'Snack Bar': "Snek bar",
         'The contact phone field format is invalid.': "Kontakt telefon nije u validnom formatu",
@@ -110,7 +110,8 @@ const Index = ({ page }) => {
         "SET PAGE OFFLINE": "POSTAVITE STRANICU OFFLINE",
         'Hero and About us section required, upload changes before seting the page online':'Hero i O nama sekcija su obavezne, sačuvajte izmene pre nego što postavite stranicu online',
         'Menu section required, upload changes before seting the page online':'Meni sekcija je obavezna, sačuvajte izmene pre nego što postavite stranicu online',
-         'Phone and map link feald required , upload changes before seting the page online':'Polje telefon i link ka mapi su obavezni, sačuvajte izmene pre nego što postavite stranicu online ','Sandwiches':'Sendviči'
+         'Phone and map link feald required , upload changes before seting the page online':'Polje telefon i link ka mapi su obavezni, sačuvajte izmene pre nego što postavite stranicu online '
+
     }
     const textBoxPosition = {
         headerMenu: {
@@ -157,7 +158,7 @@ const Index = ({ page }) => {
 
             light: 'bg-gray-100 text-gray-700',
             dark: 'bg-gray-700 text-white ',
-            blue: 'bg-blue-200 text-black',
+            blue: 'bg-cyan-100 text-black',
             red: 'bg-red-200 text-black ',
             purple: 'bg-purple-300 text-black ',
             yellow: 'bg-yellow-200  text-black ',
@@ -172,7 +173,7 @@ const Index = ({ page }) => {
                 setBgDiv: {
                     main: "bg-gray-300 border-2 border-gray-300 bg-opacity-70 shadow-sm hover:shadow-lg",
                     input: 'bg-gray-100 bg-opacity-50 border-b-1 text-gray-700',
-                    button: "bg-blue-200 bg-opacity-50 hover:bg-opacity-80 text-gray-700"
+                    button: "bg-cyan-100 bg-opacity-50 hover:bg-opacity-80 text-gray-700"
                 },
                 titleSubTitleDiv: {
                     main: ' bg-gray-300 border-2 border-gray-300 bg-opacity-70 shadow-sm hover:shadow-lg',
@@ -190,7 +191,7 @@ const Index = ({ page }) => {
                 setBgDiv: {
                     main: "bg-gray-900 border-2 border-gray-700  bg-opacity-70 shadow-sm hover:shadow-lg ",
                     input: 'bg-gray-400 bg-opacity-50 border-b-1 text-white ',
-                    button: "bg-blue-200 bg-opacity-50 hover:bg-opacity-80 text-white"
+                    button: "bg-cyan-100 bg-opacity-50 hover:bg-opacity-80 text-white"
                 },
                 titleSubTitleDiv: {
                     main: 'bg-gray-900 border-2 border-gray-700 bg-opacity-70 shadow-sm hover:shadow-lg',
@@ -200,18 +201,18 @@ const Index = ({ page }) => {
                 }
             },
             blue: {
-                menuDiv: 'bg-blue-200  bg-opacity-70 border-b-2 border-b-gray-100 text-black ',
-                dropDownMenu: 'bg-blue-200 text-black',
-                selectThemeInput: 'bg-blue-200  bg-opacity-70 text-black ',
+                menuDiv: 'bg-cyan-100  bg-opacity-70 border-b-2 border-b-gray-100 text-black ',
+                dropDownMenu: 'bg-cyan-100 text-black',
+                selectThemeInput: 'bg-cyan-100  bg-opacity-70 text-black ',
                 setBgDiv: {
-                    main: "bg-blue-200 border-2 border-gray-100  bg-opacity-70 shadow-sm hover:shadow-lg ",
-                    input: 'bg-blue-100 bg-opacity-50 border-b-1 text-black ',
-                    button: "bg-blue-200 bg-opacity-50 hover:bg-opacity-80 text-black"
+                    main: "bg-cyan-100 border-2 border-gray-100  bg-opacity-70 shadow-sm hover:shadow-lg ",
+                    input: 'bg-cyan-100 bg-opacity-50 border-b-1 text-black ',
+                    button: "bg-cyan-100 bg-opacity-50 hover:bg-opacity-80 text-black"
                 },
                 titleSubTitleDiv: {
-                    main: 'bg-blue-200 border-2 border-gray-100  bg-opacity-70 shadow-sm hover:shadow-lg',
-                    input: 'bg-blue-100 bg-opacity-50 border-b-1 text-black',
-                    textArea: 'bg-blue-100 bg-opacity-50 border-b-1 text-black',
+                    main: 'bg-cyan-100 border-2 border-gray-100  bg-opacity-70 shadow-sm hover:shadow-lg',
+                    input: 'bg-cyan-100 bg-opacity-50 border-b-1 text-black',
+                    textArea: 'bg-cyan-100 bg-opacity-50 border-b-1 text-black',
 
                 }
             },
@@ -298,8 +299,8 @@ const Index = ({ page }) => {
 
             },
             blue: {
-                main: 'bg-blue-200 text-black',
-                textBox: 'bg-blue-200 text-black ',
+                main: 'bg-cyan-100 text-black',
+                textBox: 'bg-cyan-100 text-black ',
 
 
             },
@@ -338,9 +339,9 @@ const Index = ({ page }) => {
 
             },
             blue: {
-                main: 'bg-blue-200 text-black',
+                main: 'bg-cyan-100 text-black',
                 title: 'text-black',
-                input: 'bg-blue-100 bg-opacity-50 border-b-1 text-black ',
+                input: 'bg-cyan-100 bg-opacity-50 border-b-1 text-black ',
 
 
             },
@@ -389,7 +390,7 @@ const Index = ({ page }) => {
             blue: {
                 main: 'bg-blue-300 text-black',
                 title: 'text-black',
-                input: 'bg-blue-100 bg-opacity-50 border-b-1 text-black ',
+                input: 'bg-cyan-100 bg-opacity-50 border-b-1 text-black ',
 
 
             },
@@ -436,9 +437,9 @@ const Index = ({ page }) => {
 
             },
             blue: {
-                main: 'bg-blue-200 text-black',
+                main: 'bg-cyan-100 text-black',
                 title: 'text-black',
-                input: 'bg-blue-100 bg-opacity-50 border-b-1 text-black ',
+                input: 'bg-cyan-100 bg-opacity-50 border-b-1 text-black ',
 
 
             },
@@ -483,7 +484,7 @@ const Index = ({ page }) => {
 
             },
             blue: {
-                input: 'bg-blue-100 bg-opacity-50 border-b-1 text-black',
+                input: 'bg-cyan-100 bg-opacity-50 border-b-1 text-black',
 
 
             },
@@ -591,8 +592,8 @@ const Index = ({ page }) => {
         }
     } else {
         aboutUsInitial = {
-            title: '',
-            description: '',
+            title: "Set About Us Title",
+            description: "Set sectionn desription",
             textAligment: 'center',
             media: 'https://cdn.pixabay.com/photo/2021/11/01/15/52/spring-roll-6760871_1280.jpg',
             hasImage: true,
@@ -659,7 +660,7 @@ const Index = ({ page }) => {
                 }
             ],
             pageId: pageValues.id,
-            note: '',
+            note: null,
 
         });
     }
@@ -674,11 +675,10 @@ const Index = ({ page }) => {
 
     const handleSubmitHero = (e) => {
         e.preventDefault();
-        router.post('/hero', hero);
+        router.post('/admin/hero', hero);
 
     }
     const handlePageSetingsSubmit = (e) => {
-        
         router.post('/page', pageValues);
 
 
@@ -687,34 +687,35 @@ const Index = ({ page }) => {
     const handleAboutUsSubmit = (e) => {
 
         console.log(aboutUs);
-        router.post('/aboutUs', aboutUs);
+        router.post('/admin/aboutUs', aboutUs);
 
 
 
     }
     const handleMenuSubmit = (e) => {
         e.preventDefault();
-        router.post('/menu', { menu: menuSections });
+        router.post('/admin/menu', { menu: menuSections });
 
     }
     const onPostPageClicked = (e) => {
         e.preventDefault();
         if( page.hero && page.aboutUs ){
-                setUploadPageErrors({});
-            if ( page.menuSections || page.noImgsMenuSections ){
-                setUploadPageErrors({});
-                
-                if (page.contactInfo.data.phone && page.contactInfo.data.mapLink ){
-                setUploadPageErrors({});
-
-                    router.post(route('page.post', pageValues.id));
-                    window.location.reload();
+            if ( page.menuSections || page.noImgsMenuSections){
+                if ( page.contactInfo ){
+                    if ( page.contactInfo.data.phone && page.contactInfo.data.mapLink ){
+                        router.post(route('page.post', pageValues.id));
+                        window.location.reload();
+                    }else{
+                    setUploadPageErrors({...uploadPageErrors, error: 'Phone and map link feald required , upload changes before seting the page online'})
+    
+                    }
                 }else{
-                setUploadPageErrors({...uploadPageErrors, error: 'Phone and map link feald required , upload changes before seting the page online'})
+                    setUploadPageErrors({...uploadPageErrors, error: 'Phone and map link feald required , upload changes before seting the page online'});
 
                 }
+               
             }else{
-            setUploadPageErrors({...uploadPageErrors, error: 'Menu section required, upload changes before seting the page online'})
+            setUploadPageErrors({...uploadPageErrors, error: 'Menu section required, upload changes before seting the page online'});
 
             }
         }else{
@@ -747,7 +748,7 @@ const Index = ({ page }) => {
     }
     const handleNoImgsMenuSubmit = (e) => {
         e.preventDefault();
-        router.post('/menuNoImgs', { menu: menuSectionsNoimgs });
+        router.post('/admin/menuNoImgs', { menu: menuSectionsNoimgs });
 
     }
     useEffect(() => {
@@ -758,7 +759,6 @@ const Index = ({ page }) => {
 
         }
     }, []);
-
    
 
 
@@ -768,8 +768,11 @@ const Index = ({ page }) => {
             header={
                 <div className='flex '>
                     <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                        {locale == 'en' ? 'Dashboard' : translate['Dashboard']}
+                        {locale == 'en' ? 'Admin Page Dashboard ' : 'Admin podešavanje stranice '}
+                        <span className=" text-red-900 text-bold">
+                        {pageValues.title}
 
+                        </span>
                     </h2>
 
                 </div>
@@ -785,7 +788,7 @@ const Index = ({ page }) => {
                 <div className="z-30 absolute top-0 left-4 md:hidden pt-2 ">
                     {
                         pageValues.theme === 'dark' ?
-                            <div className="">
+                            <div className="bg-red-900">
                                 <img src="https://cdn4.iconfinder.com/data/icons/interface-essential-vol-1/24/navigation-menu-1--button-parallel-vertical-lines-menu-navigation-three-hamburger-512.png" alt="" className={"w-10 h-10  bg-gray-100 opacity-100 rounded-md hover:bg-white hover:cursor-pointer"} onClick={e => togglePageSetingsShow()} />
 
 
@@ -793,7 +796,8 @@ const Index = ({ page }) => {
 
                             :
                             <div className="">
-                                <img src="https://cdn4.iconfinder.com/data/icons/interface-essential-vol-1/24/navigation-menu-1--button-parallel-vertical-lines-menu-navigation-three-hamburger-512.png" alt="" className={"w-10 h-10  bg-gray-100 opacity-100 rounded-md hover:bg-white hover:cursor-pointer"} onClick={e => togglePageSetingsShow()} />
+
+                                <img src="https://previews.123rf.com/images/fokaspokas/fokaspokas1809/fokaspokas180900164/108564673-hamburger-menu-web-icon-white-icon-with-shadow-on-transparent-background.jpg" alt="" className={"w-10 h-10 opacity-100   rounded-md hover:bg-white hover:cursor-pointer "} onClick={e => togglePageSetingsShow()} />
 
                             </div>
 
@@ -801,13 +805,13 @@ const Index = ({ page }) => {
                 </div>
 
                 <div className={"z-10 h-fit pb-5 absolute top-0 bottom-0 left-0 right-0 md:flex  basis-1/4 md:relative z-40 pt-10  " + themes.main[pageValues.theme] + " " + pageSetingsShow}>
-                    <PageSetings page={page} uploadPageErrors={uploadPageErrors} user={user} page={page} contactInitial={contactInitial} onPostPageClicked={onPostPageClicked} pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
+                    <PageSetings uploadPageErrors= {uploadPageErrors} user={user} page={page} contactInitial={contactInitial} onPostPageClicked={onPostPageClicked} pageValues={pageValues} themes={themes} setPageValues={setPageValues} locale={locale} translate={translate} handlePageSetingsSubmit={handlePageSetingsSubmit} togglePageSetingsShow={togglePageSetingsShow} contactInfo={contactInfo} setContactInfo={setContactInfo} bgErrors={bgErrors} />
                 </div>
                 <div className="md:flex md:flex-col w-full md:basis-3/4 relative ">
                     <HeaderMenu updateMenuPositionSubmit={updateMenuPositionSubmit}themes={themes} textBoxPosition={textBoxPosition} contactInfo={contactInfo} setContactInfo={setContactInfo} pageValues={pageValues} setPageValues={setPageValues} translate={translate} locale={locale} />
-                    <Hero  page ={page} textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
-                    <AboutUs page={page} locale={locale} translate={translate} bgErrors={bgErrors} themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit} />
-                    <div className={"flex w-full justify-center py-4 " + themes.main[pageValues.theme]}>
+                    <Hero textAligment={textAligment} textBoxPosition={textBoxPosition} themes={themes} hero={hero} setHero={setHero} setHeroTitle={setHeroTitle} pageValues={pageValues} setPageValues={setPageValues} locale={locale} translate={translate} handleSubmitHero={handleSubmitHero} bgErrors={bgErrors} />
+                    <AboutUs locale={locale} translate={translate} bgErrors={bgErrors} themes={themes} aboutUs={aboutUs} setAboutUs={setAboutUs} pageValues={pageValues} textAligment={textAligment} handleAboutUsSubmit={handleAboutUsSubmit} />
+                    <div className={"flex w-full justify-center " + themes.main[pageValues.theme]}>
                         <div className="p-4 bg-blue-500 rounded-sm hover:cursor-pointer " onClick={e=>menuBuilderChange()}>
                             {
                                 locale == 'en' ?
@@ -820,9 +824,9 @@ const Index = ({ page }) => {
                         </div>
                     </div>
                     {menuBuilder == 'imgs' ?
-                        <Menu page={page} themes={themes} menuSections={menuSections} setMenuSections={setMenuSections} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
+                        <Menu themes={themes} menuSections={menuSections} setMenuSections={setMenuSections} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
                         :
-                        <MenuNoImgs page={page} handleNoImgsMenuSubmit={handleNoImgsMenuSubmit} themes={themes} menuSections={menuSectionsNoimgs} setMenuSections={setMenuSectionsNoImgs} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
+                        <MenuNoImgs handleNoImgsMenuSubmit={handleNoImgsMenuSubmit} themes={themes} menuSections={menuSectionsNoimgs} setMenuSections={setMenuSectionsNoImgs} pageValues={pageValues} handleMenuSubmit={handleMenuSubmit} bgErrors={bgErrors} translate={translate} locale={locale} />
                     }
 
 

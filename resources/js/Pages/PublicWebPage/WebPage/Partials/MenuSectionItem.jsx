@@ -16,7 +16,7 @@ const MenuSectionItem = ({ item,pageValues }) => {
                 <div className="flex justify-center  w-full">
                     <div className="flex flex-col gap-1 items-center border-b-2 ">
                         <div>
-                            <h2 className="font-bold text-2xl">
+                            <h2 className="font-bold text-2xl text-center ">
                                 {modal.itemTitle}
 
                             </h2>
@@ -28,7 +28,7 @@ const MenuSectionItem = ({ item,pageValues }) => {
                 </div>
 
 
-                <div className="my-4 px-4 text-center  w-full">
+                <div className="my-4 px-4 flex justify-center items-center text-center  w-full ">
                     {modal.itemDescription}
                 </div>
 

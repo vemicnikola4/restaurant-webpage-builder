@@ -41,12 +41,18 @@ export default function AuthenticatedLayout({ header, children, locale, setLocal
                                         </NavLink>
                                         : null
                                 }
-                                <NavLink
-                                    href={route('dashboard')}
-                                    active={route().current('dashboard')}
-                                >
-                                    {locale == 'en' ? 'Dashboard' : translate["Dashboard"]}
-                                </NavLink>
+                                {
+                                    !user.is_admin ?
+                                        <NavLink
+                                            href={route('dashboard')}
+                                            active={route().current('dashboard')}
+                                        >
+                                            {locale == 'en' ? 'Dashboard' : translate["Dashboard"]}
+                                        </NavLink>
+
+                                        :
+                                        null
+                                }
                                 <div className="flex gap-2 justify-end items-center">
                                     <div className={"w-8 h-8 hover:cursor-pointer p-5 rounded-md shadow-md flex justify-center items-center  hover:bg-gray-100 hover:text-blue-500 hover:underline " + (locale == 'en' ? "bg-gray-300 text-white  " : null)} onClick={e => setLanguage('en')}>en</div>
                                     <div className={"w-8 h-8 hover:cursor-pointer p-5 rounded-md shadow-md flex justify-center items-center  hover:bg-gray-100 hover:text-blue-500 hover:underline " + (locale == 'sr' ? "bg-gray-300 text-white " : null)} onClick={e => setLanguage('sr')}>sr</div>
@@ -151,12 +157,16 @@ export default function AuthenticatedLayout({ header, children, locale, setLocal
                     }
                 >
                     <div className="space-y-1 pb-3 pt-2">
-                        <ResponsiveNavLink
-                            href={route('dashboard')}
-                            active={route().current('dashboard')}
-                        >
-                            {locale == 'en' ? 'Dashboard' : translate["Dashboard"]}
-                        </ResponsiveNavLink>
+                        {!user.is_admin ?
+                            <ResponsiveNavLink
+                                href={route('dashboard')}
+                                active={route().current('dashboard')}
+                            >
+                                {locale == 'en' ? 'Dashboard' : translate["Dashboard"]}
+                            </ResponsiveNavLink>
+                            :
+                            null
+                        }
                         {
                             user.is_admin ?
                                 <ResponsiveNavLink

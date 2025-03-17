@@ -9,7 +9,6 @@ import NoImgsMenu from "./Partials/NoImgsMenu";
 
 const Index = ({ page }) => {
     const [locale, setLocale] = useState();
-    console.log(page);
     const [pageValues, setPageValues] = useState(page);
     let heroInitial;
     if (page.hero) {
@@ -93,7 +92,7 @@ const Index = ({ page }) => {
         'Pizza': "Pica",
         'Deli': "Deli",
         'Fine Dining': "Luksizni",
-        'Buffet': "Švecki sto",
+        'Buffet': "Švedski sto",
         'Bar': "Bar",
         'Bar and Brewery': "Bar i proizvodjna",
         'Fast food': "Brza hrana",
@@ -493,12 +492,11 @@ const Index = ({ page }) => {
         }
 
     }, []);
-
     return (
 
         pageValues.publish == 1
             ?
-            hero !== null && aboutUs !== null ?
+            hero !== null && aboutUs !== null && contactInfo !== null  ?
                 noImgsMenuSections !== null || menuSections !== null ?
                     <div className={"flex-col justify-center " + pageValues.font_family + " " + themes.main[pageValues.theme]}>
 

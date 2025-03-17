@@ -182,80 +182,10 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
             </div>
             <div className={"md:hidden p-4 flex justify-start items-center w-full h-full z-20 "} >
                 {
-                    pageValues.theme === 'dark' ?
-                        <div className="flex gap-4 w-full ps-12">
-                            <img src="https://img.icons8.com/?size=50&id=8113&format=png" alt="" className={"w-8 h-8  bg-white opacity-100  "} onClick={e => toggleDropDown()} />
-                            <div className="flex gap-2  w-full justify-end items-center ">
-                            <div onClick={e => setShowHours(!showHours)} className="px-2 font-bold ">{locale == 'en' ? 'Hours' : 'Radno vreme'}</div>
-                                <div className={showHours ? ' z-40 flex flex-col absolute mt-14 top-14 left-8 p-4 bg-opacity-100 rounded-sm ' + themeInUse.dropDownMenu : 'hidden'}>
-                                    <span className={isOpen ? 'text-green-500' : 'text-red-500'}>{isOpen ? locale == 'en' ? 'Open' : 'Otvoreno' : locale == 'en' ? 'Closed' : 'Zatvoreno'}</span>
+                    
+                        <div className="flex gap-4 w-full ps-12 ">
 
-                                    {pageValues.workingHours.map((day, ind) =>
-
-                                        day.open ?
-                                            <div key={ind}>
-                                                <span>{day.day} - </span>
-                                                <span>{day.openHours < 10 ? '0' : null}{day.openHours} : </span>
-                                                <span>{day.openMinutes < 10 ? '0' : null}{day.openMinutes} - </span>
-                                                <span>{day.closingHours < 10 ? '0' : null}{day.closingHours} : </span>
-                                                <span>{day.closingMinutes < 10 ? '0' : null}{day.closingMinutes}</span>
-
-
-                                            </div>
-                                            :
-                                            <div key={ind}>
-                                                <span>{day.day} - </span>
-                                                <span className="text-red-500">{locale == 'en' ? 'Closed' : 'Zatvoreno'}</span>
-
-
-
-                                            </div>
-
-
-                                    )}
-                                </div>
-                                <a href={`tel:${contactInfo.phone}`}>
-                                    <img className="w-8 h-8 rounded-lg" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" />
-                                </a>
-
-                                <a href={contactInfo.mapLink}>
-                                    <img className="w-8 h-8 rounded-lg" src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" />
-                                </a>
-                                {
-                                    contactInfo.onlineOrder &&
-                                    <a href={contactInfo.onlineOrder}>
-                                        <img className="w-8 h-8 rounded-lg" src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612&w=0&k=20&c=W_b90qFRpj_FyLyI19xWqB6EoNSuJYwMSN9nnKkE9Hk=" alt="" />
-                                    </a>
-                                }
-                                {
-                                    contactInfo.website &&
-                                    <a href={contactInfo.website}>
-                                        <img className="w-8 h-8 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWDSis8YTAJOlHswnE8KHbEoW5Q3lwZSSMrA&s" alt="" />
-                                    </a>
-                                }
-
-                                {
-                                    contactInfo.instagram &&
-                                    <a href={contactInfo.instagram}>
-                                        <img className="w-8 h-8 rounded-lg" src="https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-instagram-icon-png-image_6315974.png" alt="" />
-                                    </a>
-                                }
-                                {
-                                    contactInfo.facebook &&
-                                    <a href={contactInfo.facebook}>
-                                        <img className="w-8 h-8 rounded-lg" src="https://store-images.s-microsoft.com/image/apps.30645.9007199266245907.cb06f1f9-9154-408e-b4ef-d19f2325893b.ac3b465e-4384-42a8-9142-901c0405e1bc" alt="" />
-                                    </a>
-                                }
-
-
-                            </div>
-
-                        </div>
-
-                        :
-                        <div className="flex gap-4 w-full  ">
-
-                            <img src="https://img.icons8.com/?size=50&id=8113&format=png" alt="" className={"w-8 h-8 opacity-100 "} onClick={e => toggleDropDown()} />
+                            <img src="https://cdn4.iconfinder.com/data/icons/interface-essential-vol-1/24/navigation-menu-1--button-parallel-vertical-lines-menu-navigation-three-hamburger-512.png" alt="" className={"w-8 h-8  opacity-100 "} onClick={e => toggleDropDown()} />
                             <div className="flex gap-2  w-full items-center justify-end">
                                 <div onClick={e => setShowHours(!showHours)} className="px-2 font-bold ">{locale == 'en' ? 'Hours' : 'Radno vreme'}</div>
                                 <div className={showHours ? ' z-40 flex flex-col absolute mt-14 top-14 left-8 p-4 bg-opacity-100 rounded-sm ' + themeInUse.dropDownMenu : 'hidden'}>
@@ -290,9 +220,12 @@ const HeaderMenu = ({ themes, textBoxPosition, pageValues, contactInfo, translat
                                     <img className="w-8 h-8 rounded-lg" src="https://static-00.iconduck.com/assets.00/phone-icon-256x256-2b7suaar.png" alt="" />
                                 </a>
 
-                                <a href={contactInfo.mapLink}>
+                                {
+                                    !contactInfo.location &&
+                                    <a href={contactInfo.mapLink}>
                                     <img className="w-8 h-8 rounded-lg" src="https://media.istockphoto.com/id/1272693590/vector/red-pinpoint-symbol.jpg?s=612x612&w=0&k=20&c=xE3xh5Xd4vmMj5v4t_LMs6K4l7bDZhmjhMYoniR8sKM=" alt="" />
                                 </a>
+                                }
                                 {
                                     contactInfo.onlineOrder &&
                                     <a href={contactInfo.onlineOrder}>

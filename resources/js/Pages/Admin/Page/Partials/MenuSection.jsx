@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import MenuSectionNoImgsItem from "./MenuSectionNoImgsItem";
+import MenuSectionItem from "./MenuSectionItem";
 import { v4 as uuidv4 } from "uuid";
 
-const MenuSectionsNoImgs = ({ section, deliteMenuSection, updateSection, sectionIndex, bgErrors, translate, locale }) => {
+const MenuSection = ({ section, deliteMenuSection, updateSection, sectionIndex, bgErrors, translate, locale }) => {
 
 
     const [menuSectionModal, setMenuSectionModal] = useState(section);
@@ -77,7 +77,7 @@ const MenuSectionsNoImgs = ({ section, deliteMenuSection, updateSection, section
             </div>
             <div className="w-64  self-center md:self-start mb-3">
                 <h1>
-                    <input className="p-2 rounded-sm bg-gray-200" type="text" placeholder={locale =='en' ? "Set section Title" : "Unesite naslov sekcije"} value={menuSectionModal.title !==null ? menuSectionModal.title : ''} onChange={e => (setTitle(e))} />
+                    <input className="p-2 rounded-sm bg-gray-200" type="text" placeholder={locale == 'en' ? "Set section Title" : "Unesite naslov sekcije"} value={menuSectionModal.title || ''} onChange={e => (setTitle(e))} />
                 </h1>
                 <div className="text-red-500">
                     {
@@ -104,7 +104,7 @@ const MenuSectionsNoImgs = ({ section, deliteMenuSection, updateSection, section
                     }
                 </div>
             </div>
-            <input type="text" name="sectionNote" id="" className="flex  w-full py-8 bg-gray-300 rounded-sm ps-4" placeholder={locale == 'en' ? 'Enter note concerning this section. Optional.' : 'Unesite napomenu vezanu za ovu sekciju. Opciono.'} value={menuSectionModal.note !== null ?menuSectionModal.note : ''} onChange={e => setMenuSectionModal({ ...menuSectionModal, note: e.target.value })} />
+            <input type="text" name="sectionNote" id="" className="flex w-full py-8 bg-gray-300 rounded-sm ps-4" placeholder={locale == 'en' ? 'Enter note concerning this section. Optional.' : 'Unesite napomenu vezanu za ovu sekciju. Opciono.'} value={menuSectionModal.note || ''} onChange={e => setMenuSectionModal({ ...menuSectionModal, note: e.target.value })} />
             <div className="text-red-500">
                 {
                     bgErrors[`menu.${sectionIndex}.note`] ?
@@ -117,27 +117,29 @@ const MenuSectionsNoImgs = ({ section, deliteMenuSection, updateSection, section
                         null
                 }
             </div>
-            <div className="flex flex-col w-full ">
-                
-                <div className="flex my-2 rounded-sm  relative group md:max-w-[250px] justify-center items-center text-center bg-blue-500 hover:cursor-pointer font-bold py-2 " onClick={addItem}>
-                    + 
-                    <div className="z-10 absolute left-0  ms-12 mt-2 opacity-0 scale-95 md:group-hover:opacity-100 group-hover:scale-100 transition-opacity transition-transform duration-300 bg-gray-200 p-4 rounded-md font-normal text-base " >
+            <div className="flex overflow-x-auto space-x-4 p-4 relative items-center ">
+
+                <div className="h-full sticky z-10 left-0 w-px bg-blue-500 px-3  min-h-[400px] flex items-center font-extrabold text-2xl rounded-sm hover:cursor-pointer  relative group">
+                    <div className="flex justify-center items-center w-full h-full " onClick={addItem}>
+                        +
+
+                    </div>
+                    <div className="z-10 absolute left-0 bottom-0 ms-12 mt-2 opacity-0 scale-95 md:group-hover:opacity-100 group-hover:scale-100 transition-opacity transition-transform duration-300 bg-gray-200 p-4 rounded-md font-normal text-base " >
                         {locale == 'en' ? 'By clicking this button you will add new product to this section.' : translate['Add item button']}
 
                     </div>
 
                 </div>
-
-                <div className="flex flex-wrap justify-start gap-2 ">
+                <div className="flex justify-start gap-2 ">
                     {
                         menuSectionModal.items.map((item, ind) => (
-                            <MenuSectionNoImgsItem bgErrors={bgErrors} key={ind} index={ind} item={item} deleteSectionItem={deleteSectionItem} updateSectionItemsModal={updateSectionItemsModal} sectionIndex={sectionIndex} translate={translate} locale={locale} />
+                            <MenuSectionItem bgErrors={bgErrors} key={ind} index={ind} item={item} deleteSectionItem={deleteSectionItem} updateSectionItemsModal={updateSectionItemsModal} sectionIndex={sectionIndex} translate={translate} locale={locale} />
                         ))
                     }
 
                 </div>
             </div>
-           
+
 
 
         </div>
@@ -148,4 +150,4 @@ const MenuSectionsNoImgs = ({ section, deliteMenuSection, updateSection, section
     )
 }
 
-export default MenuSectionsNoImgs;
+export default MenuSection;

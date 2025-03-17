@@ -29,7 +29,7 @@ const Menu = ({themes,menuSections,pageValues,translate,locale}) => {
             {
                 menuSections ?
                     menuSections.map((section,ind) => (
-                        <MenuSection section={section} sectionIndex={ind}translate={translate}locale={locale} pageValues={pageValues}/>
+                        <MenuSection key={ind}section={section} sectionIndex={ind}translate={translate}locale={locale} pageValues={pageValues}/>
 
                     ))
                 
