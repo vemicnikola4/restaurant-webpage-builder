@@ -31,9 +31,9 @@ const WorkingHoursItem = ({ item, themeInUse, locale, setOpenHours, setOpenMinut
                     <select name="" value={item.openHours !== null ? item.openHours : ''} id="" className={"p-2 rounded-md w-full " + themeInUse.input} onChange={e => setOpenHours(e.target.value, ind)} disabled={!item.open}>
                         <option value="">h</option>
 
-                        <option value="1">00</option>
-                        <option value="2">01</option>
-                        <option value="3">02</option>
+                        <option value="0">00</option>
+                        <option value="1">01</option>
+                        <option value="2">02</option>
                         <option value="3">03</option>
                         <option value="4">04</option>
                         <option value="5">05</option>
@@ -76,9 +76,9 @@ const WorkingHoursItem = ({ item, themeInUse, locale, setOpenHours, setOpenMinut
                     <label htmlFor="">{locale == 'en' ? 'Closing ' : 'Zatvaranje'}</label>
                     <select name="" value={item.closingHours !== null ? item.closingHours : ''} id="" className={"p-2 rounded-md w-full " + themeInUse.input} onChange={e => setClosingHours(e.target.value, ind)} disabled={!item.open}>
                         <option value="">h</option>
-                        <option value="1">00</option>
-                        <option value="2">01</option>
-                        <option value="3">02</option>
+                        <option value="0">00</option>
+                        <option value="1">01</option>
+                        <option value="2">02</option>
                         <option value="3">03</option>
                         <option value="4">04</option>
                         <option value="5">05</option>

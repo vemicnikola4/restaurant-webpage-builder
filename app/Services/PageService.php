@@ -38,6 +38,7 @@ class PageService
                 $data['workingHours'][$i]['closingMinutes'] = null;
             }
         }else{
+
             foreach($data['workingHours'] as $key => $val ){
                 if ( $data['workingHours'][$key]['open'] == true ){
                     $validator = Validator::make($data['workingHours'][$key],[

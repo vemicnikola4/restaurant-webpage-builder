@@ -51,7 +51,6 @@ const PageSetings = ({ page, user, uploadPageErrors, themes, pageValues, setPage
     }
     const addTag = (value) => {
         let newTags = pageValues.tags;
-        console.log(newTags);
 
         newTags.push(value);
         setPageValues({ ...pageValues, tags: newTags });
@@ -100,7 +99,6 @@ const PageSetings = ({ page, user, uploadPageErrors, themes, pageValues, setPage
         let mError = '';
         if (!fealdDisabled.onlineOrders) {
             if (!isUrl(contactInfo.onlineOrders) || contactInfo.onlineOrders == '') {
-                console.log(isUrl(contactInfo.onlineOrders));
                 orError = 'The contact online order link field format is invalid.';
                 setFrontErrors({ ...frontErrors, onlineOrders: 'The contact online order link field format is invalid.' });
             } else {
@@ -110,7 +108,6 @@ const PageSetings = ({ page, user, uploadPageErrors, themes, pageValues, setPage
         }
         if (!fealdDisabled.website) {
             if (!isUrl(contactInfo.website || contactInfo.website == '')) {
-                console.log(isUrl(contactInfo.website));
                 wError = 'The contact website link field format is invalid';
 
 
@@ -121,7 +118,6 @@ const PageSetings = ({ page, user, uploadPageErrors, themes, pageValues, setPage
         }
         if (!fealdDisabled.facebook) {
             if (!isUrl(contactInfo.facebook) || contactInfo.onlineOrders == '') {
-                console.log(isUrl(contactInfo.facebook));
                 fError = 'The contact facebook link field format is invalid.';
 
             } else {
@@ -182,8 +178,6 @@ const PageSetings = ({ page, user, uploadPageErrors, themes, pageValues, setPage
         if (iError == '' && orError == '' && wError == '' && fError == '' && pError == '' && lError == '' && mError == '') {
 
             handlePageSetingsSubmit(e);
-        } else {
-            console.log(frontErrors);
         }
     }
     const isUrl = (string) => {
@@ -528,7 +522,7 @@ const PageSetings = ({ page, user, uploadPageErrors, themes, pageValues, setPage
 
                         </div>
 
-                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, location: e.target.value })} className={"w-full   rounded-md block  " + themeInUse.input + (frontErrors.location ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste embeded map" : translate["Paste embeded map"]} disabled={fealdDisabled.location} value={contactInfo.location} />
+                        <input type="text" onChange={e => setContactInfo({ ...contactInfo, location: e.target.value })} className={"w-full   rounded-md block  " + themeInUse.input + (frontErrors.location ? 'border-red-500 ' : null)} placeholder={locale == 'en' ? "Paste embeded map" : translate["Paste embeded map"]} disabled={fealdDisabled.location} value={contactInfo.location ||''} />
 
 
                         {

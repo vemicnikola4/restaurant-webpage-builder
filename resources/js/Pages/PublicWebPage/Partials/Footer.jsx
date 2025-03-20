@@ -13,7 +13,7 @@ const Footer = ({locale,translate}) => {
             <div className="w-5/6 flex justify-center items-center">
                 <div className="flex flex-col items-center gap-4  py-16">
                         <h1 className={"text-md md:text-4xl text-center "}>
-                            Mojrestoran.rs
+                            vidirestoran.rs
                         </h1>
                         {
                             locale == 'en' ?

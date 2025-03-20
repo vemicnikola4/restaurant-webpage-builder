@@ -30,4 +30,21 @@ class StoreAboutUsRequest extends FormRequest
 
         ];
     }
+    public function messages(){
+        return   [
+            'title.required' => 'The title field is required.',
+            'title.string'=> 'The title field must be a string.',
+            'title.min'=> 'The title field must be at least 2 characters.',
+            'description.required' => 'The description field is required.',
+            'description.string'=> 'The description field must be a string.',
+            'description.min'=> 'The description field must be at least 2 characters.',
+            'textAligment.string'=>'Field required. Values allowed:center,left,right.',
+            'textAligment.required'=>'Field required. Values allowed:center,left,right.',
+            'textAligment.in'=>'Field required. Values allowed:center,left,right.',
+            'page_id|required'=>'Ups something went wrong. Try again.',
+            'page_id|exists'=>'Ups something went wrong. Try again.',
+
+           
+        ];
+    }
 }

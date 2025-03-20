@@ -124,7 +124,7 @@ const Hero = ({ translate, locale, setLocale, queryParams, onSearchRestaurantCli
             <div className="flex z-10 gap-2 bg-gray-900 items-center bg-opacity-50 absolute right-0 top-0 h-12 w-full ">
                 <div className="basis-2/3 flex gap-10 text-md md:text-xl text-white font-bold justify-start ps-2">
                     <h1>
-                        <a href="/">Vidirestoran.rs</a>
+                        <a href="/">vidirestoran.rs</a>
                         
                     </h1>
                     <div className="flex">

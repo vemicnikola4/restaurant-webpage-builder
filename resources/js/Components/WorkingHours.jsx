@@ -82,7 +82,9 @@ const WorkingHours = ({ pageValues, locale, themeInUse, setPageValues, page, bgE
                     // Update the object at the specific index
                     return { ...element, openHours: Number(hours) };
                 }
+                console.log(element);
                 return element; // Return the original object for other indices
+
             });
             setWorkingHours(updatedWorkingHours);
         }

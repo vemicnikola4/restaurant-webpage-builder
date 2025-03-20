@@ -22,8 +22,8 @@ const AboutUs = ({aboutUs,pageValues,themes,textAligment }) => {
         hasImage ?
             <div id="aboutUsSection"className={"flex flex-col items-center py-4 md:py-12 h-fit " + themeInUse.main}>
 
-                <div className={"h-fit py-12 w-5/6  px-4 flex flex-col gap-4   md:flex-row gap-2 justify-center items-center relative " + themeInUse.main}>
-                    <div className=" md:h-5/6 md:basis-1/2 w-full  md:flex flex-col ">
+                <div className={"h-fit py-12 w-5/6  px-4 flex flex-col gap-4   md:flex-row gap-2 justify-center  items-start relative " + themeInUse.main}>
+                    <div className=" md:h-5/6 md:basis-1/2 w-full  md:flex flex-col  ">
                         <div className="w-full flex justify-center md:justify-start py-4 md:ps-2 text-center md:text-start ">
                             <h1 className={"w-full md:pe-6 text-xl  md:text-4xl md:text-md font-bold "}>
                                {aboutUs.title}
