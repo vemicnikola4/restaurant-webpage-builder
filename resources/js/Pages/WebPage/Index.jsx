@@ -58,9 +58,12 @@ const Index = ({ page }) => {
         "The subtitle field is required.": "Podnaslov je obavezan!",
         "The subtitle field must be a string.": "Podnaslov mora biti sastavljen od slova!",
         "The subtitle field must be at least 2 characters.": "Podnaslov mora imati najmanje 2 slova!",
+        "The description field is required.": "Polje opis je obavezan!",
+        "The description field must be a string.": "Polje opis mora biti sastavljen od slova!",
+        "The description field must be at least 2 characters.": "Polje opis mora imati najmanje 2 slova!",
         "The media field is required.": "Molim učitajte sliku!",
-        "The title field must be an image.": "Fajl mora biti slika!",
-        "Extentions allowed:jpg,jpeg,png,gif.": "Dozvoljene ektenzije:jpg,jpeg,png,gif",
+        "The media field must be an image.": "Fajl mora biti slika!",
+        "Extentions allowed:jpg,jpeg,png,gif,webp.": "Dozvoljene ektenzije:jpg,jpeg,png,gif,webp",
         "Field required. Values allowed:center,left,right.": "Obavezno polje. Dozvoljene vrednosti:centralno,levo,desno.",
         "Ups something went wrong. Try again.": "Ups greška, probajte ponovo!",
         "Choose city": "Izaberite grad",
@@ -520,7 +523,7 @@ const Index = ({ page }) => {
     }
 
     const [pageValues, setPageValues] = useState(page);
-
+    // hero
     let heroInitial;
     if (page.hero) {
         // heroInitial = {
@@ -573,12 +576,8 @@ const Index = ({ page }) => {
     }
     let location = contactInitial.location || `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
     const [contactInfo, setContactInfo] = useState(contactInitial);
-    // if (  contactInitial.location !== null ){
-    //     location=  contactInitial.location;
-    // }else{
-    //     location = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2929771.0984429284!2d18.270405976483328!3d44.18431185116965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47571ddff2898095%3A0x55e50ea3723865d!2sSerbia!5e0!3m2!1sen!2srs!4v1736416153743!5m2!1sen!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
-    // }
-
+    
+    // aboutUs
     let aboutUsInitial;
     if (page.aboutUs) {
         aboutUsInitial = {
@@ -601,6 +600,7 @@ const Index = ({ page }) => {
     }
     const [aboutUs, setAboutUs] = useState(aboutUsInitial);
 
+    // menuSections
     let menuSectionsInitial = [];
     if (page.menuSections) {
         page.menuSections.map((section) => (
@@ -634,6 +634,7 @@ const Index = ({ page }) => {
 
     const [menuSections, setMenuSections] = useState(menuSectionsInitial);
 
+    // menuSectionsNoImgs
     let menuSectionsNoImgsInitial = [];
     if (page.noImgsMenuSections) {
         page.noImgsMenuSections.map((section) => (

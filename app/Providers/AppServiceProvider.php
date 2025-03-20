@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
                 ->subject('Verify Email Address/Verifikulte vaš email')
                 ->line('Click the button below to verify your email address/Kliknite na dugme da verifikujete svoj email')
                 ->action('Verify/Verifikuj', $url)
-                ->salutation('Regards/Srdačan pozdrav myrestaurant.rs');
+                ->salutation('Regards/Srdačan pozdrav vidirestoran.rs');
         });
         ResetPassword::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
                 ->subject('Reset Password Notification/Resetujte vašu lozinku')
                 ->line('Click the button below to reset your password/Kliknite na dugme da resetujete vašu lozinku.')
                 ->action('Reset/Restetuj', $url)
-                ->salutation('Regards/Srdačan pozdrav myrestaurant.rs');
+                ->salutation('Regards/Srdačan pozdrav vidirestoran.rs');
         });
         
     }

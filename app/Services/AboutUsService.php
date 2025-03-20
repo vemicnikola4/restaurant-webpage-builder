@@ -26,7 +26,7 @@ class AboutUsService
         ],[
             'media.required' => 'The media field is required.',
             'media.image'=> 'The title field must be an image.',
-            'media.mimes'=> 'Extentions allowed:jpg,jpeg,png,gif.',
+            'media.mimes'=> 'Extentions allowed:jpg,jpeg,png,gif,webp.',
             
             // 'email.required' => 'The email address is required.',
          

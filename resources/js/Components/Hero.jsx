@@ -4,6 +4,67 @@ import theme from "tailwindcss/defaultTheme";
 
 const Hero = ({ page, textBoxPosition, themes, hero, setHero, setHeroTitle, pageValues, setPageValues, translate, locale, handleSubmitHero, bgErrors }) => {
     const [themeInUse, setThemeInUse] = useState(themes.heroSection[pageValues.theme]);
+    const [frontErrors, setFrontErrors] = useState({
+        title: '',
+        subtitle: '',
+        media:'',
+    })
+
+    const submitHero = (e)=>{
+        let tError='';
+        let sError='';
+        let mError='';
+        if ( !isString( hero.title ) ){
+            tError='The title field must be a string.';
+
+        }else if( hero.title.length < 2   ){
+            tError='The title field must be at least 2 characters.';
+        }else {
+            tError='';
+            
+        }
+        if ( !isString( hero.subtitle ) ){
+            sError='The subtitle field must be a string.';
+
+        }else if( hero.subtitle.length < 2   ){
+            sError='The subtitle field must be at least 2 characters.';
+        }else {
+            sError='';
+            
+        }
+        const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif','image/webp'];
+        if( page.hero.data.media !== hero.media ){
+            if (hero.media instanceof File) { // Check if it is an instance of File
+                if ( !allowedImageTypes.includes(hero.media.type)){
+                    mError ='Extentions allowed:jpg,jpeg,png,gif,webp.';
+                }
+              } else{
+                mError = 'The media field must be an image.';
+
+              }
+        }else{
+            mError = '';
+        }
+        setFrontErrors({
+            title: tError,
+            subtitle: sError,
+            media:mError
+
+        })
+        if ( tError == '' && sError == '' && mError == ''){
+            handleSubmitHero(e);
+        }else{
+            console.log(frontErrors);
+        }
+
+    }
+    function isString( value ){
+        if ( typeof value === 'string' ){
+            return true;
+        }else{
+            return false;
+        }
+    }
     useEffect(() => {
         setThemeInUse(themes.heroSection[pageValues.theme]);
     }, [pageValues]);
@@ -30,6 +91,15 @@ const Hero = ({ page, textBoxPosition, themes, hero, setHero, setHeroTitle, page
                             }</span>
                         }
                     </p>
+                    <p className="text-red-500">
+                        {
+                            frontErrors.media &&
+
+                            <span>{
+                                locale == 'en' ? frontErrors.media : translate[`${frontErrors.media}`]
+                            }</span>
+                        }
+                    </p>
 
                 </div>
 
@@ -46,14 +116,30 @@ const Hero = ({ page, textBoxPosition, themes, hero, setHero, setHeroTitle, page
                         }</span>
                     }
                 </p>
+                <p className="text-red-500">
+                    {
+                        frontErrors.title &&
+                        <span>{
+                            locale == 'en' ? frontErrors.title : translate[frontErrors.title]
+                        }</span>
+                    }
+                </p>
                 <p className={" w-full " + textBoxPosition.heroSection[hero.textBoxPosition].titleInput}  >
                     <textarea className={"text-lg md:text-2xl font-light rounded-lg p-2  " + themeInUse.titleSubTitleDiv.textArea + " " + textBoxPosition.heroSection[hero.textBoxPosition].textArea} type="text" placeholder={locale == 'en' ? "Enter Subtitle" : "Unesite Podaslov"} onChange={e => setHero({ ...hero, subtitle: e.target.value })} value={hero.subtitle} />
                 </p>
                 <p className="text-red-500">
                     {
-                        bgErrors.subTitle &&
+                        bgErrors.subtitle &&
                         <span>{
-                            locale == 'en' ? bgErrors.subTitle : translate[bgErrors.subTitle]
+                            locale == 'en' ? bgErrors.subtitle : translate[bgErrors.subtitle]
+                        }</span>
+                    }
+                </p>
+                <p className="text-red-500">
+                    {
+                        frontErrors.subtitle &&
+                        <span>{
+                            locale == 'en' ? frontErrors.subtitle : translate[frontErrors.subtitle]
                         }</span>
                     }
                 </p>
@@ -88,11 +174,11 @@ const Hero = ({ page, textBoxPosition, themes, hero, setHero, setHeroTitle, page
             {
                 page.hero ?
                     <div className="w-full flex justify-center md:justify-end absolute bottom-10 pe-3">
-                        <div className="w-32 py-3 p-6 rounded-sm bg-green-500 bg-opacity-90 hover:bg-opacity-100 hover:cursor-pointer text-center " onClick={e => handleSubmitHero(e)}>{locale == 'en' ? "UPDATE HERO SECTION" : 'IZMENITE HERO SEKCIJU'}</div>
+                        <div className="w-32 py-3 p-6 rounded-sm bg-green-500 bg-opacity-90 hover:bg-opacity-100 hover:cursor-pointer text-center " onClick={e => submitHero(e)}>{locale == 'en' ? "UPDATE HERO SECTION" : 'IZMENITE HERO SEKCIJU'}</div>
                     </div>
                     :
                     <div className="w-full flex justify-center md:justify-end absolute bottom-10 pe-3">
-                        <div className="w-32 py-3 p-6 rounded-sm bg-blue-500 bg-opacity-90 hover:bg-opacity-100 hover:cursor-pointer text-center " onClick={e => handleSubmitHero(e)}>{locale == 'en' ? "CREATE HERO SECTION" : 'KREIRAJTE HERO SEKCIJU'}
+                        <div className="w-32 py-3 p-6 rounded-sm bg-blue-500 bg-opacity-90 hover:bg-opacity-100 hover:cursor-pointer text-center " onClick={e => submitHero(e)}>{locale == 'en' ? "CREATE HERO SECTION" : 'KREIRAJTE HERO SEKCIJU'}
                         </div>
                     </div>
 
